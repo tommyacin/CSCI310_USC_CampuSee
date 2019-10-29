@@ -23,5 +23,15 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.startActivity(studentIntent);
             }
         });
+
+        Button publisherButton = (Button) findViewById(R.id.publisher_button);
+        publisherButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // add code here for what will happen when the user selects the student button
+                Intent publisherIntent = new Intent(getApplicationContext(), PublisherSignup.class);
+                MainActivity.this.startActivity(publisherIntent);
+            }
+        });
     }
 }
