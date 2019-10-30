@@ -12,6 +12,12 @@
         <activity android:name=".activity_map"></activity>
         <activity android:name=".NotificationPage" />
         <activity android:name=".StudentHome" />
+        <activity android:name=".IconPage"></activity>
+        <activity android:name=".PublishEvent" />
+        <activity android:name=".EditEvent" />
+        <activity android:name=".CreateEvent" />
+        <activity android:name=".PublisherMain" />
+        <activity android:name=".PublisherSignup" />
         <activity android:name=".SecondActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
