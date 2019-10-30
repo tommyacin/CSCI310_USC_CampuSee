@@ -1,0 +1,39 @@
+package com.example.campusee;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
+public class StudentHome extends AppCompatActivity{
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        Intent intent = getIntent();
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_student_home);
+
+
+        Button studentButton = (Button) findViewById(R.id.notificationToolbarButton);
+            studentButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // add code here for what will happen when the user selects the student button
+                    Intent notificationPageIntent = new Intent(getApplicationContext(), NotificationPage.class);
+                    StudentHome.this.startActivity(notificationPageIntent);
+                }
+            });
+
+        Button mapButton = (Button) findViewById(R.id.mapToolbarButton);
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // add code here for what will happen when the user selects the student button
+                Intent mapPageIntent = new Intent(getApplicationContext(), activity_map.class);
+                StudentHome.this.startActivity(mapPageIntent);
+            }
+        });
+
+    }
+
+}
