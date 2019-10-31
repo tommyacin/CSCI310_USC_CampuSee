@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
         mDatabase.child("users").child(key).setValue(user);
     }
 
-    private void writeNewPublisher(String email, String password) {
-        Publisher publisher = new Publisher(email, password);
+    private void writeNewPublisher(String email, String password, String building) {
+        Publisher publisher = new Publisher(email, password, building);
 
         String key = mDatabase.child("publishers").push().getKey();
         mDatabase.child("publishers").child(key).setValue(publisher);
