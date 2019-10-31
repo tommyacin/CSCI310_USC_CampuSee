@@ -39,16 +39,17 @@ public class PublisherMain extends AppCompatActivity {
 
 
     public void grabAllPublisherEvents(String publisherId) {
-        Query publisherEvents = mPublisherEventReference.child(publisherId);
+        Query publisherEvents = mPublisherEventReference.child("publisher-events").child(publisherId);
 
+        Log.d("grabevents", "here");
         publisherEvents.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                for (DataSnapshot eventChild: dataSnapshot.getChildren()) {
-                    Event event = eventChild.getValue(Event.class);
+                // dataSnapshot = a single child under the particular publisher
+                Event event = dataSnapshot.getValue(Event.class);
 
-                    // TODO: Update UI
-                }
+                // TODO: Update UI
+                // Can grab parts of the data by doing event.<insert member variable>
             }
 
             @Override
