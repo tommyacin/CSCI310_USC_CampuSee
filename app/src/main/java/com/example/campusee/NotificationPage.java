@@ -81,7 +81,7 @@ public class NotificationPage extends AppCompatActivity implements PublisherRecy
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
-        /*Button studentButton = (Button) findViewById(R.id.publishersToolbarButton);
+        Button studentButton = (Button) findViewById(R.id.publishersToolbarButton);
         studentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,7 +99,7 @@ public class NotificationPage extends AppCompatActivity implements PublisherRecy
                 Intent mapPageIntent = new Intent(getApplicationContext(), activity_map.class);
                 NotificationPage.this.startActivity(mapPageIntent);
             }
-        });*/
+        });
 
     }
 
