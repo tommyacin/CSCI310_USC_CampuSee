@@ -1,6 +1,7 @@
 package com.example.campusee;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -58,5 +59,4 @@ public class MainActivity extends AppCompatActivity {
         String key = mDatabase.child("publishers").push().getKey();
         mDatabase.child("publishers").child(key).setValue(publisher);
     }
-
 }
