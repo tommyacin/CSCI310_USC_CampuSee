@@ -6,12 +6,35 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+
 public class StudentHome extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_home);
+
+        HomepageRecyclerAdapter adapter;
+        // data to populate the RecyclerView with
+        RecyclerView recyclerView = findViewById(R.id.rvPublishers);
+        ArrayList<String> publisherNames = new ArrayList<>();
+        //adapter = new PublisherRecyclerviewAdapter(this, animalNames);
+
+        publisherNames.add("Viterbi");
+        publisherNames.add("Dornsife");
+        publisherNames.add("Marshall");
+        publisherNames.add("Roski");
+        publisherNames.add("Leventhal");
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new HomepageRecyclerAdapter(this, publisherNames);
+        //adapter.setClickListener(this);
+        recyclerView.setAdapter(adapter);
+        //something something to get list of publishers from database
 
 
         Button studentButton = (Button) findViewById(R.id.notificationToolbarButton);
