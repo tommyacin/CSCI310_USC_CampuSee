@@ -7,11 +7,13 @@ import java.util.Map;
 public class Notification {
     String sendTime;
     Event eventId;
+    int notifId;
+    Long tsLong;
 
-    Notification(Event eventId) {
-        Long tsLong = System.currentTimeMillis()/1000;
+    Notification(Event eventId, int notifId) {
+        tsLong = System.currentTimeMillis()/1000;
+        this.notifId = notifId;
         this.sendTime = tsLong.toString();
-
         this.eventId = eventId;
     }
 
@@ -22,5 +24,21 @@ public class Notification {
         result.put("eventId", eventId);
 
         return result;
+    }
+
+    public Long getTimestamp(){
+        return tsLong;
+    }
+
+    public void setTimestamp(Long newTime){
+        tsLong = newTime;
+    }
+
+    public void setEvent(Event event){
+        eventId = event;
+    }
+
+    public Event getEvent(){
+        return eventId;
     }
 }

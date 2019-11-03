@@ -17,6 +17,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+
 public class StudentHome extends AppCompatActivity{
     private DatabaseReference mDatabase;
     @Override
@@ -26,6 +31,31 @@ public class StudentHome extends AppCompatActivity{
         setContentView(R.layout.activity_student_home);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        HomepageRecyclerAdapter adapter;
+        // data to populate the RecyclerView with
+        RecyclerView recyclerView = findViewById(R.id.rvPublishers);
+        ArrayList<String> publisherNames = new ArrayList<>();
+        //adapter = new PublisherRecyclerviewAdapter(this, animalNames);
+
+        publisherNames.add("Viterbi");
+        publisherNames.add("Dornsife");
+        publisherNames.add("Marshall");
+        publisherNames.add("Roski");
+        publisherNames.add("Leventhal");
+
+        //this is all here for notif testing
+        User user = new User("foo", "foo", getApplicationContext());
+        double[] loc = {123.32, 123.32};
+        Event notifTester = new Event("Viterbi", "Career Fair", "Come get a job", "5:30", 1, loc, 100);
+        user.sendNotification(notifTester);
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new HomepageRecyclerAdapter(this, publisherNames);
+        //adapter.setClickListener(this);
+        recyclerView.setAdapter(adapter);
+        //something something to get list of publishers from database
 
         Button studentButton = (Button) findViewById(R.id.notificationToolbarButton);
             studentButton.setOnClickListener(new View.OnClickListener() {
