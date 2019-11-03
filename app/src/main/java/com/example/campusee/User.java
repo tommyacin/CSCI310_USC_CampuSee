@@ -47,7 +47,10 @@ public class User {
                 .setPriority(NotificationCompat.PRIORITY_MAX);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(myContext);
-        notificationManager.notify(1, builder.build());
+        notificationManager.notify(eventId.notifId, builder.build());
+
+        Notification newNotif = new Notification(eventId, eventId.notifId);
+        addNotification(newNotif);
 
     }
 

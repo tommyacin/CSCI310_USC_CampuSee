@@ -23,9 +23,11 @@ public class CreateEvent extends AppCompatActivity {
         setContentView(R.layout.activity_create_event);
     }
 
-    private void writeNewEvent(String publisherId, String title, String description, String time, int ID) {
+    private void writeNewEvent(String publisherId, String title, String description, String time, int ID, double[] loc, int radius) {
         String eventKey = mDatabase.child("events").push().getKey();
-        Event newEvent = new Event(publisherId, title, description, time, ID);
+
+
+        Event newEvent = new Event(publisherId, title, description, time, ID, loc, radius);
 
         Map<String, Object> eventValues = newEvent.toMap();
 

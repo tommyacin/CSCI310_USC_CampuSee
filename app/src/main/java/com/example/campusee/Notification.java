@@ -7,11 +7,12 @@ import java.util.Map;
 public class Notification {
     String sendTime;
     Event eventId;
+    int notifId;
     Long tsLong;
 
-    Notification(Event eventId) {
+    Notification(Event eventId, int notifId) {
         tsLong = System.currentTimeMillis()/1000;
-
+        this.notifId = notifId;
         this.sendTime = tsLong.toString();
         this.eventId = eventId;
     }
