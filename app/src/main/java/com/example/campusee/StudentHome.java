@@ -44,6 +44,14 @@ public class StudentHome extends AppCompatActivity{
         publisherNames.add("Roski");
         publisherNames.add("Leventhal");
 
+        /*ArrayList<String> publisherBuildings = new ArrayList<>();
+
+        publisherNames.add("RTH");
+        publisherNames.add("RTC");
+        publisherNames.add("Fertitta");
+        publisherNames.add("Nektr");
+        publisherNames.add("ACC");*/
+
         //this is all here for notif testing
         User user = new User("foo", "foo", getApplicationContext());
         double[] loc = {123.32, 123.32};

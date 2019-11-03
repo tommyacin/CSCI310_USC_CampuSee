@@ -13,6 +13,7 @@ import java.util.List;
 
 public class PublisherRecyclerviewAdapter extends RecyclerView.Adapter<PublisherRecyclerviewAdapter.ViewHolder> {
     private List<String> mData;
+    private List<String> mBuilding;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
@@ -20,6 +21,7 @@ public class PublisherRecyclerviewAdapter extends RecyclerView.Adapter<Publisher
     public PublisherRecyclerviewAdapter(Context context, List<String> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
+        //this.mBuilding = buildings;
     }
 
     // inflates the row layout from xml when needed

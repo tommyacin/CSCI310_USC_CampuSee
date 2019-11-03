@@ -9,10 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity_map"></activity>
+        <activity android:name=".publisher_page_of_events"></activity>
+        <activity android:name=".activity_map" />
         <activity android:name=".NotificationPage" />
         <activity android:name=".StudentHome" />
-        <activity android:name=".IconPage"></activity>
+        <activity android:name=".IconPage" />
         <activity android:name=".PublishEvent" />
         <activity android:name=".EditEvent" />
         <activity android:name=".CreateEvent" />
@@ -26,10 +27,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="API KEY GOES HERE"/>
-
+            android:value="" />
     </application>
 
 </manifest>
