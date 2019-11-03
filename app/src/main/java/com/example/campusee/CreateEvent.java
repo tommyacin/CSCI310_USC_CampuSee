@@ -1,6 +1,9 @@
 package com.example.campusee;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,6 +24,16 @@ public class CreateEvent extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         setContentView(R.layout.activity_create_event);
+
+        Button nextButton = (Button) findViewById(R.id.next_button);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // add code here for what will happen when the user selects the student button
+                Intent iconIntent = new Intent(getApplicationContext(), IconPage.class);
+                CreateEvent.this.startActivity(iconIntent);
+            }
+        });
     }
 
     private void writeNewEvent(String publisherId, String title, String description, String time, int ID, double[] loc, int radius) {
