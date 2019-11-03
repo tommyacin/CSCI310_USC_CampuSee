@@ -65,6 +65,14 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
     @Override
     public void onItemClick(View view, int position) {
 //        Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+        // go to the next page to edit / delete item
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("KEY", adapter.getItem(position));
+        Intent intent = new Intent(this, EditEvent.class);
+//        intent.putExtras(bundle);
+        intent.putExtra("EVENT_NAME", adapter.getItem(position));
+        startActivity(intent);
+
     }
 
     @Override
