@@ -10,16 +10,18 @@ public class Event {
     public String description;
     public String title;
     public String time;
+    public int notifId;
     //public Bitmap icon;
     public Boolean status; // true = published, false = unpublished
 
     Event() { }
 
-    Event(String publisherId, String title, String description, String time) {
+    Event(String publisherId, String title, String description, String time, int notifId) {
         this.publisherId = publisherId;
         this.title = title;
         this.description = description;
         this.time = time;
+        this.notifId = notifId;
         //this.icon = icon;
         this.status = false;
     }
