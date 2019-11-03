@@ -2,5 +2,6 @@
     <string name="app_name">CampuSee</string>
     <string name="notif_channel_name">allNotifs</string>
     <string name="notif_channel_description">All notifications to be sent to User</string>
+    <color name="background_yellow">#FFFFE0</color>
 
 </resources>
