@@ -30,6 +30,11 @@ public class StudentHome extends AppCompatActivity{
         publisherNames.add("Roski");
         publisherNames.add("Leventhal");
 
+        User user = new User("foo", "foo", getApplicationContext());
+        Event notifTester = new Event("Viterbi", "Career Fair", "Come get a job", "5:30", 1);
+        user.sendNotification(notifTester);
+
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new HomepageRecyclerAdapter(this, publisherNames);
         //adapter.setClickListener(this);
