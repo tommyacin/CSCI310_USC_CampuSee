@@ -6,4 +6,112 @@
     android:layout_height="match_parent"
     tools:context=".IconPage">
 
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="234dp"
+        android:layout_height="197dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/big_icon" />
+
+    <ImageView
+        android:id="@+id/icon1"
+        android:layout_width="113dp"
+        android:layout_height="108dp"
+        android:layout_marginTop="240dp"
+        app:layout_constraintEnd_toStartOf="@+id/icon2"
+        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView6"
+        app:srcCompat="@android:drawable/star_big_on" />
+
+    <ImageView
+        android:id="@+id/icon2"
+        android:layout_width="112dp"
+        android:layout_height="111dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintEnd_toStartOf="@+id/icon3"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        app:srcCompat="@android:drawable/star_big_off" />
+
+    <ImageView
+        android:id="@+id/icon5"
+        android:layout_width="115dp"
+        android:layout_height="106dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/icon6"
+        app:layout_constraintTop_toBottomOf="@+id/icon2"
+        app:srcCompat="@android:drawable/star_big_on" />
+
+    <ImageView
+        android:id="@+id/icon7"
+        android:layout_width="115dp"
+        android:layout_height="106dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toStartOf="@+id/icon8"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/icon4"
+        app:srcCompat="@android:drawable/star_big_on" />
+
+    <ImageView
+        android:id="@+id/icon9"
+        android:layout_width="115dp"
+        android:layout_height="106dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/icon6"
+        app:srcCompat="@android:drawable/star_big_on" />
+
+    <ImageView
+        android:id="@+id/icon3"
+        android:layout_width="115dp"
+        android:layout_height="106dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        app:srcCompat="@android:drawable/star_big_on" />
+
+    <ImageView
+        android:id="@+id/icon4"
+        android:layout_width="114dp"
+        android:layout_height="98dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toStartOf="@+id/icon5"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/icon1"
+        app:srcCompat="@android:drawable/star_big_off" />
+
+    <ImageView
+        android:id="@+id/icon8"
+        android:layout_width="114dp"
+        android:layout_height="104dp"
+        app:layout_constraintEnd_toStartOf="@+id/icon9"
+        app:layout_constraintTop_toBottomOf="@+id/icon5"
+        app:srcCompat="@android:drawable/star_big_off" />
+
+    <ImageView
+        android:id="@+id/icon6"
+        android:layout_width="114dp"
+        android:layout_height="98dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/icon3"
+        app:srcCompat="@android:drawable/star_big_off" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Select an icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 </androidx.constraintlayout.widget.ConstraintLayout>
