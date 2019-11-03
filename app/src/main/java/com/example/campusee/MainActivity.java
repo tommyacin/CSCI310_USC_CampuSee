@@ -56,18 +56,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        if(true)
-//        {
-//            writeNewPerson("test1@gmail.com", "password");
-//
-//        }
     }
 
     // Write user to database
     private void writeNewPerson(String email, String password) {
         user = new User(email, password, getApplicationContext());
-        //Event notifTester = new Event("Viterbi", "Career Fair", "Come get a job", "5:30", 1);
-        //user.sendNotification(notifTester);
 
         String key = mDatabase.child("users").push().getKey();
         mDatabase.child("users").child(key).setValue(user);

@@ -30,8 +30,10 @@ public class StudentHome extends AppCompatActivity{
         publisherNames.add("Roski");
         publisherNames.add("Leventhal");
 
+        //this is all here for notif testing
         User user = new User("foo", "foo", getApplicationContext());
-        Event notifTester = new Event("Viterbi", "Career Fair", "Come get a job", "5:30", 1);
+        double[] loc = {123.32, 123.32};
+        Event notifTester = new Event("Viterbi", "Career Fair", "Come get a job", "5:30", 1, loc, 100);
         user.sendNotification(notifTester);
 
 
