@@ -23,5 +23,15 @@ public class PublishEvent extends AppCompatActivity {
                 PublishEvent.this.startActivity(publishIntent);
             }
         });
+
+        Button editButton = (Button) findViewById(R.id.edit_button);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // add code here for what will happen when the user selects the student button
+                Intent intent = new Intent(getApplicationContext(), CreateEvent.class);
+                PublishEvent.this.startActivity(intent);
+            }
+        });
     }
 }
