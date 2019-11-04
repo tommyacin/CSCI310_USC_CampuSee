@@ -10,7 +10,7 @@
         android:id="@+id/view"
         android:layout_width="343dp"
         android:layout_height="212dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="180dp"
         android:background="@color/background_yellow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,43 +76,51 @@
 
     <Button
         android:id="@+id/edit_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
+        android:layout_width="144dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="140dp"
+        android:background="@drawable/btn_rounded"
         android:text="Edit"
+        android:textColor="#ffffff"
         app:layout_constraintEnd_toStartOf="@+id/delete_button"
-        app:layout_constraintHorizontal_bias="0.716"
+        app:layout_constraintHorizontal_bias="0.768"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <Button
         android:id="@+id/unpublish_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_width="153dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/btn_rounded"
         android:text="Unpublish"
+        android:textColor="#ffffff"
         app:layout_constraintEnd_toStartOf="@+id/republish_button"
-        app:layout_constraintHorizontal_bias="0.705"
+        app:layout_constraintHorizontal_bias="0.688"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_button" />
 
     <Button
         android:id="@+id/republish_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="72dp"
+        android:layout_width="155dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/btn_rounded"
         android:text="Republish"
+        android:textColor="#ffffff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/delete_button" />
 
     <Button
         android:id="@+id/delete_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
-        android:layout_marginEnd="84dp"
+        android:layout_width="153dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/btn_rounded"
         android:text="Delete"
+        android:textColor="#ffffff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
