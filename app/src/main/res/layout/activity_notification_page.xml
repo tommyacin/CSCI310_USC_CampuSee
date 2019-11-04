@@ -25,6 +25,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
+        android:background="@color/common_google_signin_btn_text_dark_default"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText3" />
 
@@ -32,7 +33,7 @@
         android:id="@+id/studentToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#A80F0F"
+        android:background="@color/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -43,9 +44,15 @@
         android:layout_width="128dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimary"
+        android:bottomLeftRadius="10dp"
+        android:bottomRightRadius="10dp"
+        android:clickable="false"
+        android:shadowColor="#002E0606"
         android:text="Notifications"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:topRightRadius="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -54,7 +61,10 @@
         android:layout_width="128dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimary"
+        android:radius="50dp"
         android:text="Publishers"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/notificationToolbarButton" />
 
@@ -65,7 +75,10 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimary"
+        android:radius="50dp"
         android:text="Map"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/publishersToolbarButton" />

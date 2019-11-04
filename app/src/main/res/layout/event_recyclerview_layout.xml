@@ -1,15 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:background="#ffffff"
+    android:orientation="vertical"
     android:padding="10dp">
-
-    <TextView
-        android:id="@+id/EventName"
-        android:layout_width="wrap_content"
+    <!--this is the recycler view of notification objects on the notification page-->
+    <LinearLayout
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:textSize="20sp"/>
+        android:orientation="horizontal">
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/publisherIcon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="profileImage"
+            app:srcCompat="@drawable/app_icon" />
+
+        <LinearLayout
+            android:layout_width="277dp"
+            android:layout_height="100dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/EventName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/publisherBuildingName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ronald Tutor Hall"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/summaryOfNotfication"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This is the summary of the event that will describe what is going on hheheheheh"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
