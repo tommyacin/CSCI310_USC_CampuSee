@@ -26,7 +26,7 @@
         app:layout_constraintHorizontal_bias="0.945"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView6"
-        app:srcCompat="@android:drawable/star_big_on" />
+        app:srcCompat="@drawable/cs_icon" />
 
     <ImageView
         android:id="@+id/icon2"
@@ -35,7 +35,7 @@
         android:layout_marginTop="44dp"
         app:layout_constraintEnd_toStartOf="@+id/icon3"
         app:layout_constraintTop_toBottomOf="@+id/imageView6"
-        app:srcCompat="@android:drawable/star_big_off" />
+        app:srcCompat="@drawable/science_icon" />
 
     <ImageView
         android:id="@+id/icon5"
@@ -44,7 +44,7 @@
         android:layout_marginEnd="1dp"
         app:layout_constraintEnd_toStartOf="@+id/icon6"
         app:layout_constraintTop_toBottomOf="@+id/icon2"
-        app:srcCompat="@android:drawable/star_big_on" />
+        app:srcCompat="@drawable/book_icon" />
 
     <ImageView
         android:id="@+id/icon7"
@@ -55,7 +55,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/icon4"
-        app:srcCompat="@android:drawable/star_big_on" />
+        app:srcCompat="@drawable/suitcase_icon" />
 
     <ImageView
         android:id="@+id/icon9"
@@ -64,7 +64,7 @@
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/icon6"
-        app:srcCompat="@android:drawable/star_big_on" />
+        app:srcCompat="@drawable/food_icon" />
 
     <ImageView
         android:id="@+id/icon3"
@@ -74,7 +74,7 @@
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView6"
-        app:srcCompat="@android:drawable/star_big_on" />
+        app:srcCompat="@drawable/team_icon" />
 
     <ImageView
         android:id="@+id/icon4"
@@ -85,7 +85,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/icon1"
-        app:srcCompat="@android:drawable/star_big_off" />
+        app:srcCompat="@drawable/presentation_icon" />
 
     <ImageView
         android:id="@+id/icon8"
@@ -93,7 +93,7 @@
         android:layout_height="104dp"
         app:layout_constraintEnd_toStartOf="@+id/icon9"
         app:layout_constraintTop_toBottomOf="@+id/icon5"
-        app:srcCompat="@android:drawable/star_big_off" />
+        app:srcCompat="@drawable/job_icon" />
 
     <ImageView
         android:id="@+id/icon6"
@@ -103,15 +103,18 @@
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/icon3"
-        app:srcCompat="@android:drawable/star_big_off" />
+        app:srcCompat="@drawable/news_icon" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/select_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="Select an icon"
+        android:textColor="#990000"
+        android:textSize="24dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 </androidx.constraintlayout.widget.ConstraintLayout>
