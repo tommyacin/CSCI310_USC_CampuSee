@@ -2,8 +2,10 @@ package com.example.campusee;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,6 +28,18 @@ public class PublisherSignup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // add code here for what will happen when the user selects the student button
+                EditText name_input = (EditText) findViewById(R.id.publisher_signup_name);
+                EditText username_input = (EditText) findViewById(R.id.publisher_signup_username);
+                EditText email_input = (EditText) findViewById(R.id.publisher_signup_email);
+                EditText building_input = (EditText) findViewById(R.id.publisher_signup_building);
+
+                String name = name_input.getText().toString();
+                String username = username_input.getText().toString();
+                String email = email_input.getText().toString();
+                String building = building_input.getText().toString();
+
+                writeNewPublisher(email, "hello", building);
+
                 Intent publisherIntent = new Intent(getApplicationContext(), PublisherMain.class);
                 PublisherSignup.this.startActivity(publisherIntent);
             }
@@ -37,5 +51,7 @@ public class PublisherSignup extends AppCompatActivity {
 
         String key = mDatabase.child("publishers").push().getKey();
         mDatabase.child("publishers").child(key).setValue(publisher);
+
+        Log.d("write_new_publisher", "building: " + building);
     }
 }
