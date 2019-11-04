@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +25,12 @@ import java.util.ArrayList;
 
 public class StudentHome extends AppCompatActivity{
     private DatabaseReference mDatabase;
+    private ArrayList<Publisher> mAllPublishers;
+
+    HomepageRecyclerAdapter adapter;
+    RecyclerView recyclerView;
+    ArrayList<String> publisherNames = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
@@ -31,49 +38,32 @@ public class StudentHome extends AppCompatActivity{
         setContentView(R.layout.activity_student_home);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAllPublishers = new ArrayList<>();
+        grabAllPublishers();
 
-        HomepageRecyclerAdapter adapter;
-        // data to populate the RecyclerView with
-        RecyclerView recyclerView = findViewById(R.id.rvPublishers);
-        ArrayList<String> publisherNames = new ArrayList<>();
-        //adapter = new PublisherRecyclerviewAdapter(this, animalNames);
+        recyclerView = findViewById(R.id.rvPublishers);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new HomepageRecyclerAdapter(this, publisherNames);
+        //adapter.setClickListener(this);
+        recyclerView.setAdapter(adapter);
 
-        publisherNames.add("Viterbi");
-        publisherNames.add("Dornsife");
-        publisherNames.add("Marshall");
-        publisherNames.add("Roski");
-        publisherNames.add("Leventhal");
-
-        /*ArrayList<String> publisherBuildings = new ArrayList<>();
-
-        publisherNames.add("RTH");
-        publisherNames.add("RTC");
-        publisherNames.add("Fertitta");
-        publisherNames.add("Nektr");
-        publisherNames.add("ACC");*/
-
+        /*
         //this is all here for notif testing
         User user = new User("foo", "foo", getApplicationContext());
         double[] loc = {123.32, 123.32};
         Event notifTester = new Event("Viterbi", "Career Fair", "Come get a job", "5:30", 1, loc, 100);
         user.sendNotification(notifTester);
-
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new HomepageRecyclerAdapter(this, publisherNames);
-        //adapter.setClickListener(this);
-        recyclerView.setAdapter(adapter);
-        //something something to get list of publishers from database
+         */
 
         Button studentButton = (Button) findViewById(R.id.notificationToolbarButton);
-            studentButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // add code here for what will happen when the user selects the student button
-                    Intent notificationPageIntent = new Intent(getApplicationContext(), NotificationPage.class);
-                    StudentHome.this.startActivity(notificationPageIntent);
-                }
-            });
+        studentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // add code here for what will happen when the user selects the student button
+                Intent notificationPageIntent = new Intent(getApplicationContext(), NotificationPage.class);
+                StudentHome.this.startActivity(notificationPageIntent);
+            }
+        });
 
         Button mapButton = (Button) findViewById(R.id.mapToolbarButton);
         mapButton.setOnClickListener(new View.OnClickListener() {
@@ -87,21 +77,33 @@ public class StudentHome extends AppCompatActivity{
 
     }
 
-    public void grabAllPublishers() {
+    public void grabAllPublishers(/*android.content.Context context*/) {
         Query publishers = mDatabase.child("publishers");
 
-        publishers.addChildEventListener(new ChildEventListener() {
+        publishers.addValueEventListener(new ValueEventListener() {
 
             // This will get called as many times as there are publishers in the database
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // grab a single publisher
-                Publisher publisher = dataSnapshot.getValue(Publisher.class);
-                Log.d("grabpublishers", "publisher: " + publisher);
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Publisher publisher = ds.getValue(Publisher.class);
+                    Log.d("grabpublishers", "publisher: " + publisher);
+                    mAllPublishers.add(publisher);
+                    publisherNames.add(publisher.building);
+                }
+                adapter = new HomepageRecyclerAdapter(StudentHome.this, publisherNames);
+                recyclerView.setAdapter(adapter);
 
                 // TODO: Update UI
             }
 
+            @Override
+            public void onCancelled(DatabaseError dbe) {
+
+            }
+
+            /*
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
 
@@ -115,6 +117,7 @@ public class StudentHome extends AppCompatActivity{
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.e("LoadPublishers error", "publishers:onCancelled:" + databaseError.getMessage());
             }
+             */
         });
     }
 
