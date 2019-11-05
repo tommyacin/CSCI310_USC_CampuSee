@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -43,6 +45,13 @@ public class PublishEvent extends AppCompatActivity {
                 PublishEvent.this.startActivity(intent);
             }
         });
+
+        TextView name_tv = findViewById(R.id.event_nametv);
+        TextView date_tv = findViewById(R.id.date_tv);
+        TextView time_tv = findViewById(R.id.time_tv);
+        TextView radius_tv = findViewById(R.id.radius_tv);
+        TextView description_tv = findViewById(R.id.description_tv);
+        ImageView icon_image = findViewById(R.id.icon_image);
     }
 
     private void writeNewEvent(String publisherId, String title, String description, String time, int ID, double[] loc, int radius) {
