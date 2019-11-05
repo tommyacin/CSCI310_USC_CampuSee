@@ -79,6 +79,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 
 import java.util.ArrayList;
@@ -87,7 +88,10 @@ import android.widget.Button;
 public class NotificationPage extends AppCompatActivity implements PublisherRecyclerviewAdapter.ItemClickListener {
 
     private DatabaseReference mDatabase;
-    private DatabaseReference mUserNotificationsReference;
+    ArrayList<Notification> mAllNotifs;
+    ArrayList<String> notifNames = new ArrayList<>();
+    RecyclerView recyclerView;
+    PublisherRecyclerviewAdapter adapter;
 
 
     @Override
@@ -96,27 +100,14 @@ public class NotificationPage extends AppCompatActivity implements PublisherRecy
         Intent homePage = getIntent();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_page);
-        PublisherRecyclerviewAdapter adapter;
-        // data to populate the RecyclerView with
-        RecyclerView recyclerView = findViewById(R.id.rvAnimals);
-        ArrayList<String> animalNames = new ArrayList<>();
-        //adapter = new PublisherRecyclerviewAdapter(this, animalNames);
-        animalNames.add("Horse");
-        animalNames.add("Cow");
-        animalNames.add("Camel");
-        animalNames.add("Sheep");
-        animalNames.add("Goat");
-        //adapter.notifyDataStateChanged();
-        // set up the RecyclerView
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new PublisherRecyclerviewAdapter(this, animalNames);
-        adapter.setClickListener(this);
-        recyclerView.setAdapter(adapter);
 
         // Initialize Database
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mUserNotificationsReference = mDatabase.child("user-notifications");
+
+        String currentUserID = ((Global) this.getApplication()).getCurrentUserID();
+
+        // Grabs all user notifications and displays them in recycler view
+        grabAllUserNotifications(currentUserID);
 
         Button studentButton = (Button) findViewById(R.id.publishersToolbarButton);
         studentButton.setOnClickListener(new View.OnClickListener() {
@@ -152,39 +143,35 @@ public class NotificationPage extends AppCompatActivity implements PublisherRecy
     public void onStart(){
         super.onStart();
 
-        // Call grabAllUserNotifications(userId);
     }
 
+    public void grabAllUserNotifications(String userId) {
+        Query userNotifs = mDatabase.child("user-notifications").child(userId);
 
-//    public void grabAllUserNotifications(String userId) {
-//        Query userNotifications = mUserNotificationsReference.child(userId);
-//
-//        userNotifications.addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//                Notification notif = dataSnapshot.getValue(Notification.class);
-//
-//                // TODO: Update UI
-//            }
-//
-//            @Override
-//            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//            }
-//
-//            @Override
-//            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-//            }
-//
-//            @Override
-//            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                Log.e("LoadEvents error", "events:onCancelled:" + databaseError.getMessage());
-//            }
-//        });
-//    }
+        userNotifs.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Notification notif = ds.getValue(Notification.class);
+                    Log.d("USER_NOTIF", notif.eventId.title);
+                    mAllNotifs.add(notif);
+                    notifNames.add(notif.eventId.title);
+                }
+
+                // set up the RecyclerView
+                recyclerView = findViewById(R.id.rvAnimals);
+                recyclerView.setLayoutManager(new LinearLayoutManager(NotificationPage.this));
+                adapter = new PublisherRecyclerviewAdapter(NotificationPage.this, notifNames);
+                adapter.setClickListener(NotificationPage.this);
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError dbe) {
+
+            }
+        });
+    }
 
 }
 
