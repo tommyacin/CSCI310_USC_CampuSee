@@ -1,19 +1,21 @@
 package com.example.campusee;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.util.*;
-
-import android.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class publisher_page_of_events extends AppCompatActivity {
 
@@ -27,7 +29,22 @@ public class publisher_page_of_events extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         Intent intent = getIntent();
-        String publisher_name = intent.getStringExtra("PUBLISHER_NAME");
+        final String publisher_name = intent.getStringExtra("PUBLISHER_NAME");
+        final Button subscribeButton = (Button) findViewById(R.id.subscribe_btn);
+        final String currentUserId = ((Global) this.getApplication()).getCurrentPublisherID();
+        subscribeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // add code here for what will happen when the user selects the student button
+                if (subscribeButton.getText().equals("Subscribe")){
+//                    subscribeToPublisher(currentUserId, publisher_name);
+                    subscribeButton.setText("Unsubscribe");
+                } else{
+//                    unsubscribeUser(currentUserId, publisher_name);
+                    subscribeButton.setText("Subscribe");
+                }
+            }
+        });
     }
 
     private void subscribeToPublisher(final String userId, final String publisherId) {
