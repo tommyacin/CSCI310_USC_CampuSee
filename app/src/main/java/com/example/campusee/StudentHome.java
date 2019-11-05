@@ -23,12 +23,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class StudentHome extends AppCompatActivity{
+public class StudentHome extends AppCompatActivity implements HomepageRecyclerAdapter.ItemClickListener{
     private DatabaseReference mDatabase;
     private ArrayList<Publisher> mAllPublishers;
+    private RecyclerView recyclerView;
+    public HomepageRecyclerAdapter adapter;
 
-    HomepageRecyclerAdapter adapter;
-    RecyclerView recyclerView;
     ArrayList<String> publisherNames = new ArrayList<>();
 
     @Override
@@ -41,11 +41,17 @@ public class StudentHome extends AppCompatActivity{
         mAllPublishers = new ArrayList<>();
         grabAllPublishers();
 
-        recyclerView = findViewById(R.id.rvPublishers);
+        recyclerView= findViewById(R.id.rvPublishers);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new HomepageRecyclerAdapter(this, publisherNames);
-        //adapter.setClickListener(this);
+        adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
+
+        /*RecyclerView recyclerView = findViewById(R.id.rvEvents);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new EventRecyclerAdapter(this, eventNames);
+        adapter.setClickListener(this);
+        recyclerView.setAdapter(adapter);*/
 
         /*
         //this is all here for notif testing
@@ -75,6 +81,22 @@ public class StudentHome extends AppCompatActivity{
             }
         });
 
+
+
+    }
+    public void onItemClick(View view, int position) {
+
+        Intent intent = new Intent(this, publisher_page_of_events.class);
+//        intent.putExtras(bundle);
+        intent.putExtra("PUBLISHER_NAME", adapter.getItem(position));
+        startActivity(intent);
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        // Call grabAllPublisherEvents(publisherId);
     }
 
     public void grabAllPublishers(/*android.content.Context context*/) {

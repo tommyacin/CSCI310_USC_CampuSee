@@ -72,7 +72,6 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
 //        intent.putExtras(bundle);
         intent.putExtra("EVENT_NAME", adapter.getItem(position));
         startActivity(intent);
-
     }
 
     @Override
