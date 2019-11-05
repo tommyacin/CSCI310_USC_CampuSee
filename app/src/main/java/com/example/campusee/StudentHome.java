@@ -64,6 +64,7 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
     private GeofencingClient geofencingClient;
 
     ArrayList<String> publisherNames = new ArrayList<>();
+    private String clickedOnPublisherId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,11 +128,8 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
     }
 
     public void onItemClick(View view, int position) {
+        grabPublisherClickedOn(adapter.getItem(position), position);
 
-        Intent intent = new Intent(this, publisher_page_of_events.class);
-//        intent.putExtras(bundle);
-        intent.putExtra("PUBLISHER_NAME", adapter.getItem(position));
-        startActivity(intent);
     }
 
     @Override
@@ -139,7 +137,33 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
         super.onStart();
         googleApiClient.connect();
 
-        // Call grabAllPublisherEvents(publisherId);
+    }
+
+    public void grabPublisherClickedOn(String publisherName, final int position) {
+        Query publishers = mDatabase.child("publishers").orderByChild("name").equalTo(publisherName);
+        publishers.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Publisher publisher = ds.getValue(Publisher.class);
+
+                    clickedOnPublisherId = ds.getKey();
+                    Log.d("grabpublisherClickedOn", "publisherID: " + clickedOnPublisherId);
+                }
+
+                Intent intent = new Intent(StudentHome.this, publisher_page_of_events.class);
+                intent.putExtra("PUBLISHER_NAME", adapter.getItem(position));
+                intent.putExtra("currentPublisherID", clickedOnPublisherId);
+                startActivity(intent);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError dbe) {
+
+            }
+        });
     }
 
     public void grabAllPublishers(/*android.content.Context context*/) {
@@ -155,7 +179,7 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
                     Publisher publisher = ds.getValue(Publisher.class);
                     Log.d("grabpublishers", "publisher: " + publisher);
                     mAllPublishers.add(publisher);
-                    publisherNames.add(publisher.building);
+                    publisherNames.add(publisher.name);
                 }
                 recyclerView = findViewById(R.id.rvPublishers);
                 recyclerView.setLayoutManager(new LinearLayoutManager(StudentHome.this));
