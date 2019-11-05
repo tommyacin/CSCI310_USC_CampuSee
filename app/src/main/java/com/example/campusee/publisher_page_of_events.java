@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,6 +31,8 @@ public class publisher_page_of_events extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String publisher_name = intent.getStringExtra("PUBLISHER_NAME");
+        TextView nameTV = findViewById(R.id.nameOfPublisher);
+        nameTV.setText(publisher_name);
         final Button subscribeButton = (Button) findViewById(R.id.subscribe_btn);
         final String currentUserId = ((Global) this.getApplication()).getCurrentPublisherID();
         subscribeButton.setOnClickListener(new View.OnClickListener() {
