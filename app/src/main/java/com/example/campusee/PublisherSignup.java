@@ -73,17 +73,20 @@ public class PublisherSignup extends AppCompatActivity {
         String email = email_input.getText().toString();
         String building = building_input.getText().toString();
 
-        return publisherSignupOrLogin(email, password, building);
+        Publisher current_publisher = new Publisher(name, email, password, building);
+        ((Global) this.getApplication()).setCurrentPublisher(current_publisher);
+
+        return publisherSignupOrLogin(name, email, password, building);
     }
 
-    private String publisherSignupOrLogin(String email, String password, String building) {
+    private String publisherSignupOrLogin(String name, String email, String password, String building) {
         //check publisher exists
         DatabaseReference publishersRef = mDatabase.child("publishers");
         Query emailQuery = publishersRef.orderByChild("email").equalTo(email);
         emailQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot  publisher: dataSnapshot.getChildren() ){
+                for(DataSnapshot publisher: dataSnapshot.getChildren() ){
                     // Iterate through all the publishers with the same email
                     publisher.getKey();
                     mPublisherID = publisher.getKey();
@@ -106,10 +109,11 @@ public class PublisherSignup extends AppCompatActivity {
         }
 
         //else, create new publisher
-        Publisher publisher = new Publisher(email, password, building);
+        Publisher publisher = new Publisher(name, email, password, building);
         String key = mDatabase.child("publishers").push().getKey();
         Log.d("write_new_publisher", key);
         mDatabase.child("publishers").child(key).setValue(publisher);
+        ((Global) this.getApplication()).setCurrentPublisher(publisher);
         return key;
     }
 }
