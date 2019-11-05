@@ -7,7 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,13 +19,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class publisher_page_of_events extends AppCompatActivity {
+public class publisher_page_of_events extends AppCompatActivity implements EventRecyclerAdapter.ItemClickListener {
 
     DatabaseReference mDatabase;
     Button subscribeButton;
+    private EventRecyclerAdapter adapter;
+    private ArrayList<Event> mAllEvents;
+    RecyclerView recyclerView;
+    ArrayList<String> eventNames = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,4 +128,66 @@ public class publisher_page_of_events extends AppCompatActivity {
         subscriptionRef.child(publisherId).removeValue();
     }
 
+    public void updatePublisherMainPage(String pub_ID) {
+        Query pubQuery = mDatabase.child("publishers").orderByKey().equalTo(pub_ID);
+        pubQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        Publisher curr_pub = ds.getValue(Publisher.class);
+
+                        TextView name = (TextView) findViewById(R.id.publisher_main_page_name);
+                        TextView building = (TextView) findViewById(R.id.publisher_main_page_building);
+                        name.setText(curr_pub.name);
+                        building.setText(curr_pub.building);
+
+                        Log.d("update_publisher_page", curr_pub.name);
+                        Log.d("update_publisher_page", curr_pub.building);
+
+                        return;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void grabAllPublisherEvents(String publisherId) {
+        Query publisherEvents = mDatabase.child("publisher-events").child(publisherId);
+
+        publisherEvents.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // grab a single publisher
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Event event = ds.getValue(Event.class);
+                    Log.d("PUBLISHER_EVENT", event.title);
+                    mAllEvents.add(event);
+                    eventNames.add(event.title);
+                }
+
+                // set up the RecyclerView
+                recyclerView = findViewById(R.id.rvEvents);
+                recyclerView.setLayoutManager(new LinearLayoutManager(publisher_page_of_events.this));
+                adapter = new EventRecyclerAdapter(publisher_page_of_events.this, eventNames);
+                adapter.setClickListener(publisher_page_of_events.this);
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError dbe) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+
+    }
 }
