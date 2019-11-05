@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,6 +35,8 @@ public class CreateEvent extends AppCompatActivity {
                 CreateEvent.this.startActivity(iconIntent);
             }
         });
+        TimePicker picker=(TimePicker)findViewById(R.id.timePicker1);
+        picker.setIs24HourView(false);
     }
 
     private void writeNewEvent(String publisherId, String title, String description, String time, int ID, double[] loc, int radius) {
