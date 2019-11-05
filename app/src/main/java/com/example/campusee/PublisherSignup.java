@@ -21,7 +21,6 @@ import com.google.firebase.database.ValueEventListener;
 public class PublisherSignup extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private String publisherID;
-    private boolean mPublisherExists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +29,12 @@ public class PublisherSignup extends AppCompatActivity {
 
         // Getting the database
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mPublisherExists = false;
 
         //sign up
         Button publisherSignUpButton = (Button) findViewById(R.id.publisher_signup_button);
         publisherSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // add code here for what will happen when the user selects the student button
                 buttonClick();
             }
         });
@@ -47,9 +44,7 @@ public class PublisherSignup extends AppCompatActivity {
         publisherLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // add code here for what will happen when the user selects the student button
                 buttonClick();
-
             }
         });
     }
@@ -95,9 +90,7 @@ public class PublisherSignup extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
     }
 
@@ -106,7 +99,6 @@ public class PublisherSignup extends AppCompatActivity {
         String key = mDatabase.child("publishers").push().getKey();
         Log.d("write_new_publisher", key);
         mDatabase.child("publishers").child(key).setValue(publisher);
-        ((Global) this.getApplication()).setCurrentPublisher(publisher);
         return key;
     }
 }

@@ -32,20 +32,20 @@ public class SecondActivity extends AppCompatActivity {
         // Getting the database
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        //sign up
         Button userSignupButton = (Button) findViewById(R.id.user_signup_button);
         userSignupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // add code here for what will happen when the user selects the student button
                 buttonClick();
             }
         });
 
+        //login
         Button userLoginButton = (Button) findViewById(R.id.user_login_button);
         userLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // add code here for what will happen when the user selects the student button
                 buttonClick();
             }
         });
@@ -66,8 +66,9 @@ public class SecondActivity extends AppCompatActivity {
 
     // Write user to database; returns unique userID
     private void userSignupOrLogin(final String name, final String email, final String password) {
-        mUserID = null;
 
+        //check user exists
+        mUserID = null;
         DatabaseReference usersRef = mDatabase.child("users");
         Query emailQuery = usersRef.orderByChild("email").equalTo(email);
         emailQuery.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -91,9 +92,7 @@ public class SecondActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
     }
 

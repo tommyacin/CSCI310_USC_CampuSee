@@ -41,10 +41,6 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
         String currentPublisherID = intent.getExtras().getString("currentPublisherID");
         ((Global) this.getApplication()).setCurrentPublisherID(currentPublisherID);
 
-        //get current publisher and update publisher main page
-        Publisher currentPublisher = ((Global) this.getApplication()).getCurrentPublisher();
-        updatePublisherMainPage(currentPublisher);
-
         Log.d("publisher_main", currentPublisherID);
 
         // Initialize Database - grabbing just the publisher-events
@@ -54,6 +50,7 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
         mAllEvents = new ArrayList<>();
 
         grabAllPublisherEvents(currentPublisherID);
+        updatePublisherMainPage(currentPublisherID);
 
         Button createButton = (Button) findViewById(R.id.create_button);
         createButton.setOnClickListener(new View.OnClickListener() {
@@ -84,12 +81,33 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
         super.onStart();
     }
 
-    public void updatePublisherMainPage(Publisher curr_pub) {
-        TextView name = (TextView) findViewById(R.id.publisher_main_page_name);
-        TextView building = (TextView) findViewById(R.id.publisher_main_page_building);
+    public void updatePublisherMainPage(String pub_ID) {
+        Query pubQuery = mDatabase.child("publishers").orderByKey().equalTo(pub_ID);
+        pubQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        Publisher curr_pub = ds.getValue(Publisher.class);
 
-        name.setText(curr_pub.name);
-        building.setText(curr_pub.building);
+                        TextView name = (TextView) findViewById(R.id.publisher_main_page_name);
+                        TextView building = (TextView) findViewById(R.id.publisher_main_page_building);
+                        name.setText(curr_pub.name);
+                        building.setText(curr_pub.building);
+
+                        Log.d("update_publisher_page", curr_pub.name);
+                        Log.d("update_publisher_page", curr_pub.building);
+
+                        return;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void grabAllPublisherEvents(String publisherId) {
@@ -112,7 +130,6 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
                 adapter = new EventRecyclerAdapter(PublisherMain.this, eventNames);
                 adapter.setClickListener(PublisherMain.this);
                 recyclerView.setAdapter(adapter);
-
             }
 
             @Override
