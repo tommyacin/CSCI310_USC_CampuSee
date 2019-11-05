@@ -31,19 +31,27 @@ public class publisher_page_of_events extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String publisher_name = intent.getStringExtra("PUBLISHER_NAME");
+        final String publisher_id = intent.getStringExtra("currentPublisherID");
+        ((Global) this.getApplication()).setCurrentPublisherID(publisher_id);
+
+        Log.d("inPublisherPageOfEvents", "publisher_id_global: " + ((Global) this.getApplication()).getCurrentPublisherID());
+        Log.d("inPublisherPageOfEvents", "user_id_global: " + ((Global) this.getApplication()).getCurrentUserID());
+
+
         TextView nameTV = findViewById(R.id.nameOfPublisher);
         nameTV.setText(publisher_name);
         final Button subscribeButton = (Button) findViewById(R.id.subscribe_btn);
-        final String currentUserId = ((Global) this.getApplication()).getCurrentPublisherID();
+        final String currentUserId = ((Global) this.getApplication()).getCurrentUserID();
+        final String currentPublisherId = ((Global) this.getApplication()).getCurrentPublisherID();
         subscribeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // add code here for what will happen when the user selects the student button
                 if (subscribeButton.getText().equals("Subscribe")){
-//                    subscribeToPublisher(currentUserId, publisher_name);
+                    subscribeToPublisher(currentUserId, currentPublisherId);
                     subscribeButton.setText("Unsubscribe");
                 } else{
-//                    unsubscribeUser(currentUserId, publisher_name);
+                    unsubscribeUser(currentUserId, currentPublisherId);
                     subscribeButton.setText("Subscribe");
                 }
             }

@@ -45,7 +45,7 @@ public class Global extends Application {
     public List<Geofence> getGeofenceForNotifications() {return geofenceForNotifications;}
 
     public void setCurrentUserID(String currentUserID) {
-        this.currentUserID = currentPublisherID;
+        this.currentUserID = currentUserID;
     }
 
     public void setCurrentPublisherID(String currentPublisherID) {
