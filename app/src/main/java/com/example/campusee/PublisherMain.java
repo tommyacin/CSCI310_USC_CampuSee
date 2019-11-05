@@ -112,7 +112,6 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
                 adapter = new EventRecyclerAdapter(PublisherMain.this, eventNames);
                 adapter.setClickListener(PublisherMain.this);
                 recyclerView.setAdapter(adapter);
-                recyclerView.setAdapter(adapter);
 
             }
 
