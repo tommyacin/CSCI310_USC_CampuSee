@@ -13,7 +13,7 @@ public class Event {
     public String title;
     public String time;
     public int notifId;
-    public LatLng location;
+    public double[] location;
     public int radius;
     //public Bitmap icon;
     public Boolean status; // true = published, false = unpublished
@@ -30,7 +30,7 @@ public class Event {
         this.status = false;
         this.radius = radius;
 
-        location = new LatLng(loc[0], loc[1]);
+        location = loc;
     }
 
     public Map<String, Object> toMap() {
@@ -45,7 +45,7 @@ public class Event {
         return result;
     }
 
-    public LatLng getLoc(){
+    public double[] getLoc(){
         return location;
     }
 

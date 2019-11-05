@@ -42,7 +42,6 @@ public class CreateEvent extends AppCompatActivity {
     private void writeNewEvent(String publisherId, String title, String description, String time, int ID, double[] loc, int radius) {
         String eventKey = mDatabase.child("events").push().getKey();
 
-
         Event newEvent = new Event(publisherId, title, description, time, ID, loc, radius);
 
         Map<String, Object> eventValues = newEvent.toMap();
@@ -53,4 +52,13 @@ public class CreateEvent extends AppCompatActivity {
 
         mDatabase.updateChildren(childUpdates);
     }
+
+    private void writeNewGeofence(double longitude, double latitude, long radius, String eventId, long duration){
+        String geoKey = mDatabase.child("geofences").push().getKey();
+
+        GeofenceHolder geofence = new GeofenceHolder(eventId, latitude, longitude, radius, duration);
+
+        mDatabase.child("geofences").child(geoKey).setValue(geofence);
+    }
+
 }
