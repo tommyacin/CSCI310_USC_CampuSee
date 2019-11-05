@@ -11,6 +11,7 @@ import android.content.Context;
 import java.util.Vector;
 
 public class User {
+    public String name;
     public String email;
     public String password;
 
@@ -18,22 +19,22 @@ public class User {
 
     private List<Publisher> subscriptions;
     private List<Notification> notifications;
-    private double[] location;
 
-    //private Vector<pair<Double, Double>> currLocation;
-
+    private double latitude, longitude;
 
     User() { }
 
-    User(String email, String password, Context context) {
+    User(String name, String email, String password, Context context) {
+        this.name = name;
         this.email = email;
         this.password = password;
         this.myContext = context;
 
-        location = new double[2];
-
         subscriptions = new ArrayList<Publisher>();
         notifications = new ArrayList<Notification>();
+
+        latitude = 0;
+        longitude = 0;
     }
 
     //need to implement this
@@ -75,14 +76,7 @@ public class User {
     }
 
     public void setCurrentLocation(double latitude, double longitude){
-        location[0] = latitude;
-        location[1] = longitude;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
-
-    public double[] getCurrentLocation(){
-        return location;
-    }
-
-
-
 }

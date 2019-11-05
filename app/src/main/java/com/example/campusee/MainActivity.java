@@ -18,7 +18,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
-
     private DatabaseReference mDatabase;
     public User user;
 
@@ -56,14 +55,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    // Write user to database
-    private void writeNewPerson(String email, String password) {
-        user = new User(email, password, getApplicationContext());
-
-        String key = mDatabase.child("users").push().getKey();
-        mDatabase.child("users").child(key).setValue(user);
     }
 
     //create channel on which to send notifications, this is called in User class
