@@ -18,13 +18,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class PublisherMain extends AppCompatActivity implements EventRecyclerAdapter.ItemClickListener {
 
-    private DatabaseReference mPublisherEventReference;
+    private DatabaseReference mDatabase;
     private EventRecyclerAdapter adapter;
+    private ArrayList<Event> mAllEvents;
+    RecyclerView recyclerView;
+    ArrayList<String> eventNames = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,23 +42,12 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
         Log.d("publisher_main", currentPublisherID);
 
         // Initialize Database - grabbing just the publisher-events
-        mPublisherEventReference = FirebaseDatabase.getInstance().getReference()
-                .child("publisher-events");
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         // data to populate the RecyclerView with
-        ArrayList<String> eventNames = new ArrayList<>();
-        eventNames.add("Viterbi Expo");
-        eventNames.add("Career fair");
-        eventNames.add("Robotics fair");
-        eventNames.add("Industry Q & A");
-        eventNames.add("Ice cream and pizza!");
+        mAllEvents = new ArrayList<>();
 
-        // set up the RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.rvEvents);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new EventRecyclerAdapter(this, eventNames);
-        adapter.setClickListener(this);
-        recyclerView.setAdapter(adapter);
+        grabAllPublisherEvents(currentPublisherID);
 
         Button createButton = (Button) findViewById(R.id.create_button);
         createButton.setOnClickListener(new View.OnClickListener() {
@@ -83,38 +76,37 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
     @Override
     public void onStart(){
         super.onStart();
-
-        // Call grabAllPublisherEvents(publisherId);
     }
 
 
 
     public void grabAllPublisherEvents(String publisherId) {
-        Query publisherEvents = mPublisherEventReference.child("publisher-events").child(publisherId);
+        Query publisherEvents = mDatabase.child("publisher-events").child(publisherId);
 
-        Log.d("grabevents", "here");
-        publisherEvents.addChildEventListener(new ChildEventListener() {
+        publisherEvents.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                // dataSnapshot = a single child under the particular publisher
-                Event event = dataSnapshot.getValue(Event.class);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // grab a single publisher
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Event event = ds.getValue(Event.class);
+                    Log.d("PUBLISHER_EVENT", event.title);
+                    mAllEvents.add(event);
+                    eventNames.add(event.title);
+                }
 
-                // TODO: Update UI
-                // Can grab parts of the data by doing event.<insert member variable>
+                // set up the RecyclerView
+                recyclerView = findViewById(R.id.rvEvents);
+                recyclerView.setLayoutManager(new LinearLayoutManager(PublisherMain.this));
+                adapter = new EventRecyclerAdapter(PublisherMain.this, eventNames);
+                adapter.setClickListener(PublisherMain.this);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setAdapter(adapter);
+
             }
 
             @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
+            public void onCancelled(DatabaseError dbe) {
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) { }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e("LoadEvents error", "events:onCancelled:" + databaseError.getMessage());
             }
         });
     }
