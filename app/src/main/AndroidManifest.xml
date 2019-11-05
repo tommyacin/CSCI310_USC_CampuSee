@@ -28,10 +28,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service android:name=".BackgroundNotifications" />
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="ADD API KEY HERE"/>
     </application>
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <!-- Required if your app targets Android 10 (API level 29) or higher -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+
 
 </manifest>
