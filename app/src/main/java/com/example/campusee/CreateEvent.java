@@ -52,4 +52,13 @@ public class CreateEvent extends AppCompatActivity {
 
         mDatabase.updateChildren(childUpdates);
     }
+
+    private void writeNewGeofence(double longitude, double latitude, long radius, String eventId, long duration){
+        String geoKey = mDatabase.child("geofences").push().getKey();
+
+        GeofenceHolder geofence = new GeofenceHolder(eventId, latitude, longitude, radius, duration);
+
+        mDatabase.child("geofences").child(geoKey).setValue(geofence);
+    }
+
 }

@@ -58,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
         //probably need to move this to student sign up activity
         //currently here for testing purposes
 
-        Intent serviceIntent = new Intent(this, BackgroundNotifications.class);
-        startService(serviceIntent);
 
         Button studentButton = (Button) findViewById(R.id.student_button);
 
