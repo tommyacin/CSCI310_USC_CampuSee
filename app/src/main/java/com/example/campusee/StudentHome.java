@@ -37,10 +37,12 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_home);
 
-        String currentUserID = intent.getExtras().getString("currentUserID");
-        ((Global) this.getApplication()).setCurrentUserID(currentUserID);
-
-        Log.d("student_home", currentUserID);
+        boolean fromUserLogin = intent.getExtras().getBoolean("fromUserLogin");
+        if (fromUserLogin) {
+            String currentUserID = intent.getExtras().getString("currentUserID");
+            ((Global) this.getApplication()).setCurrentUserID(currentUserID);
+            Log.d("student_home", currentUserID);
+        }
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAllPublishers = new ArrayList<>();

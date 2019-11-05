@@ -123,8 +123,9 @@ public class NotificationPage extends AppCompatActivity implements PublisherRecy
             @Override
             public void onClick(View v) {
                 // add code here for what will happen when the user selects the student button
-                Intent publisherPageIntent = new Intent(getApplicationContext(), StudentHome.class);
-                NotificationPage.this.startActivity(publisherPageIntent);
+                Intent studentHomeIntent = new Intent(getApplicationContext(), StudentHome.class);
+                studentHomeIntent.putExtra("fromUserLogin", false);
+                NotificationPage.this.startActivity(studentHomeIntent);
             }
         });
 
@@ -134,6 +135,7 @@ public class NotificationPage extends AppCompatActivity implements PublisherRecy
             public void onClick(View v) {
                 // add code here for what will happen when the user selects the student button
                 Intent mapPageIntent = new Intent(getApplicationContext(), activity_map.class);
+                mapPageIntent.putExtra("fromUserLogin", false);
                 NotificationPage.this.startActivity(mapPageIntent);
             }
         });
