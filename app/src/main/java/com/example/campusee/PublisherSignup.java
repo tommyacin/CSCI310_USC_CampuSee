@@ -77,7 +77,7 @@ public class PublisherSignup extends AppCompatActivity {
     }
 
     private String publisherSignupOrLogin(String email, String password, String building) {
-        //check user exists
+        //check publisher exists
         DatabaseReference publishersRef = mDatabase.child("publishers");
         Query emailQuery = publishersRef.orderByChild("email").equalTo(email);
         emailQuery.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -88,7 +88,7 @@ public class PublisherSignup extends AppCompatActivity {
                     publisher.getKey();
                     mPublisherID = publisher.getKey();
                     mPublisherExists = true;
-                    Log.d("isExistingpublisher", mPublisherID);
+                    Log.d("isExistingPublisher", mPublisherID);
                     return;
                 }
             }
@@ -101,14 +101,14 @@ public class PublisherSignup extends AppCompatActivity {
 
         //if exists, return that publisherID
         if (mPublisherExists) {
-            Log.d("isExisting", "here: " + mPublisherID);
+            Log.d("isExistingPublisher", "here: " + mPublisherID);
             return mPublisherID;
         }
 
         //else, create new publisher
         Publisher publisher = new Publisher(email, password, building);
-        Log.d("write_new_publisher", "email + building: " + email + " " + building);
         String key = mDatabase.child("publishers").push().getKey();
+        Log.d("write_new_publisher", key);
         mDatabase.child("publishers").child(key).setValue(publisher);
         return key;
     }
