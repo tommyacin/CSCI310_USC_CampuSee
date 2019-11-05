@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class PublisherSignup extends AppCompatActivity {
     private DatabaseReference mDatabase;
-    private String mPublisherID;
+    private String publisherID;
     private boolean mPublisherExists;
 
     @Override
@@ -30,7 +30,6 @@ public class PublisherSignup extends AppCompatActivity {
 
         // Getting the database
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mPublisherID = null;
         mPublisherExists = false;
 
         //sign up
@@ -39,11 +38,7 @@ public class PublisherSignup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // add code here for what will happen when the user selects the student button
-                String publisherID = buttonClick();
-
-                Intent publisherIntent = new Intent(getApplicationContext(), PublisherMain.class);
-                publisherIntent.putExtra("currentPublisherID", publisherID);
-                PublisherSignup.this.startActivity(publisherIntent);
+                buttonClick();
             }
         });
 
@@ -53,16 +48,13 @@ public class PublisherSignup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // add code here for what will happen when the user selects the student button
-                String publisherID = buttonClick();
+                buttonClick();
 
-                Intent publisherIntent = new Intent(getApplicationContext(), PublisherMain.class);
-                publisherIntent.putExtra("currentPublisherID", publisherID);
-                PublisherSignup.this.startActivity(publisherIntent);
             }
         });
     }
 
-    private String buttonClick() {
+    private void buttonClick() {
         EditText name_input = (EditText) findViewById(R.id.publisher_signup_name);
         EditText email_input = (EditText) findViewById(R.id.publisher_signup_email);
         EditText password_input = (EditText) findViewById(R.id.publisher_signup_password);
@@ -73,23 +65,32 @@ public class PublisherSignup extends AppCompatActivity {
         String email = email_input.getText().toString();
         String building = building_input.getText().toString();
 
-        return publisherSignupOrLogin(email, password, building);
+        //writeNewPublisher(email, password, building);
+        publisherSignupOrLogin(email, password, building);
     }
 
-    private String publisherSignupOrLogin(String email, String password, String building) {
+    private void publisherSignupOrLogin(final String email, final String password, final String building) {
         //check publisher exists
-        DatabaseReference publishersRef = mDatabase.child("publishers");
-        Query emailQuery = publishersRef.orderByChild("email").equalTo(email);
-        emailQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+        publisherID = null;
+        Query emailQuery = mDatabase.child("publishers").orderByChild("email").equalTo(email);
+        emailQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot  publisher: dataSnapshot.getChildren() ){
-                    // Iterate through all the publishers with the same email
-                    publisher.getKey();
-                    mPublisherID = publisher.getKey();
-                    mPublisherExists = true;
-                    Log.d("isExistingPublisher", mPublisherID);
-                    return;
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        Log.d("isExistingPublisher", String.valueOf(dataSnapshot.getChildrenCount()));
+                        Publisher publisher = ds.getValue(Publisher.class);
+                        publisherID = ds.getKey();
+                        Log.d("isExistingPublisher", publisherID);
+                    }
+                }
+
+                if (publisherID == null) {
+                    publisherID = writeNewPublisher(email, password, building);
+                } else {
+                    Intent publisherIntent = new Intent(getApplicationContext(), PublisherMain.class);
+                    publisherIntent.putExtra("currentPublisherID", publisherID);
+                    PublisherSignup.this.startActivity(publisherIntent);
                 }
             }
 
@@ -98,14 +99,9 @@ public class PublisherSignup extends AppCompatActivity {
 
             }
         });
+    }
 
-        //if exists, return that publisherID
-        if (mPublisherExists) {
-            Log.d("isExistingPublisher", "here: " + mPublisherID);
-            return mPublisherID;
-        }
-
-        //else, create new publisher
+    private String writeNewPublisher(String email, String password, String building) {
         Publisher publisher = new Publisher(email, password, building);
         String key = mDatabase.child("publishers").push().getKey();
         Log.d("write_new_publisher", key);
