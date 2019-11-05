@@ -13,6 +13,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
@@ -21,6 +22,7 @@ import java.util.Map;
 public class publisher_page_of_events extends AppCompatActivity {
 
     DatabaseReference mDatabase;
+    Button subscribeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +42,14 @@ public class publisher_page_of_events extends AppCompatActivity {
 
         TextView nameTV = findViewById(R.id.nameOfPublisher);
         nameTV.setText(publisher_name);
-        final Button subscribeButton = (Button) findViewById(R.id.subscribe_btn);
+        subscribeButton = (Button) findViewById(R.id.subscribe_btn);
         final String currentUserId = ((Global) this.getApplication()).getCurrentUserID();
         final String currentPublisherId = ((Global) this.getApplication()).getCurrentPublisherID();
+
+        // check if subscription exists
+        checkSubscription(currentUserId, currentPublisherId);
+
+
         subscribeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +63,28 @@ public class publisher_page_of_events extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void checkSubscription(final String userId, final String publisherId) {
+        Query subscriptionQuery = mDatabase.child("user-publishers").child(userId).child(publisherId);
+
+        subscriptionQuery.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // Get user value
+                        if (!dataSnapshot.exists()) {
+                            subscribeButton.setText("Subscribe");
+                        } else {
+                            subscribeButton.setText("Unsubscribe");
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
     }
 
     private void subscribeToPublisher(final String userId, final String publisherId) {
