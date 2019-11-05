@@ -27,6 +27,7 @@ public class Global extends Application {
 
     private List<GeofenceHolder> allEventsForUser;
     private List<Geofence> geofenceForNotifications;
+    private List<String> existingPublishers;
 
     private List<GeofenceHolder> userEvents;
 
@@ -35,6 +36,8 @@ public class Global extends Application {
     public String getCurrentPublisherID() {return currentPublisherID;}
 
     public List<GeofenceHolder> getAllEventsForUser() {return allEventsForUser;}
+
+    public List<String> getExistingPublishers() {return existingPublishers;}
 
     public List<Geofence> getGeofenceForNotifications() {return geofenceForNotifications;}
 
@@ -46,6 +49,45 @@ public class Global extends Application {
         this.currentPublisherID = currentPublisherID;
     }
 
+    public void grabAllPublishers() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        Query geos = mDatabase.child("publishers");
+
+        allEventsForUser = new ArrayList<GeofenceHolder>();
+
+        geos.addChildEventListener(new ChildEventListener() {
+
+            // This will get called as many times as there are publishers in the database
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                // grab a single publisher
+                // GeofenceHolder geofence = dataSnapshot.getValue(GeofenceHolder.class);
+                Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+
+
+                String building = (String)map.get("building");
+
+                existingPublishers.add(building);
+
+                //Log.d("grabgeofences", "geofence: " + duration + eventId + latitude + longitude + radius);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) { }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("LoadPublishers error", "publishers:onCancelled:" + databaseError.getMessage());
+            }
+        });
+    }
 
     public void grabAllGeofenceHolders() {
         mDatabase = FirebaseDatabase.getInstance().getReference();

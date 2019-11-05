@@ -1,8 +1,10 @@
 package com.example.campusee;
 
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,12 +15,24 @@ import android.content.Context;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.Geofence;
+import com.google.android.gms.location.LocationServices;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
+
+    //for notification testing
+    private GoogleApiClient mGoogleApiClient;
+    private IntentFilter filter;
+    private List<Geofence> geofences;
+
     public User user;
 
     @Override
@@ -27,10 +41,14 @@ public class MainActivity extends AppCompatActivity {
         Global application = (Global)this.getApplication();
 
         application.grabAllGeofenceHolders();
-        application.grabAllGeofences();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //this shit is all here for notification intent
+        application.grabAllGeofences();
+
+
         createNotificationChannel();
 
         // Getting the database
