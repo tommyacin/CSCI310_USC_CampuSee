@@ -40,6 +40,7 @@ public class activity_map extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View v) {
                 // add code here for what will happen when the user selects the student button
                 Intent notificationPageIntent = new Intent(getApplicationContext(), NotificationPage.class);
+                notificationPageIntent.putExtra("fromUserLogin", false);
                 activity_map.this.startActivity(notificationPageIntent);
             }
         });
@@ -49,8 +50,9 @@ public class activity_map extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 // add code here for what will happen when the user selects the student button
-                Intent publisherPageIntent = new Intent(getApplicationContext(), StudentHome.class);
-                activity_map.this.startActivity(publisherPageIntent);
+                Intent studentHomeIntent = new Intent(getApplicationContext(), StudentHome.class);
+                studentHomeIntent.putExtra("fromUserLogin", false);
+                activity_map.this.startActivity(studentHomeIntent);
             }
         });
     }
