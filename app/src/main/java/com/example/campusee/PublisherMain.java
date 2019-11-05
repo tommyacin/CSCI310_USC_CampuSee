@@ -28,8 +28,14 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Intent intent = getIntent();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publisher_main);
+
+        String currentPublisherID = intent.getExtras().getString("currentPublisherID");
+        ((Global) this.getApplication()).setCurrentPublisherID(currentPublisherID);
+
+        Log.d("publisher_main", currentPublisherID);
 
         // Initialize Database - grabbing just the publisher-events
         mPublisherEventReference = FirebaseDatabase.getInstance().getReference()

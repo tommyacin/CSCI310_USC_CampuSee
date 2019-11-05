@@ -37,29 +37,14 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_home);
 
+        String currentUserID = intent.getExtras().getString("currentUserID");
+        ((Global) this.getApplication()).setCurrentUserID(currentUserID);
+
+        Log.d("student_home", currentUserID);
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAllPublishers = new ArrayList<>();
         grabAllPublishers();
-
-        recyclerView= findViewById(R.id.rvPublishers);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new HomepageRecyclerAdapter(this, publisherNames);
-        adapter.setClickListener(this);
-        recyclerView.setAdapter(adapter);
-
-        /*RecyclerView recyclerView = findViewById(R.id.rvEvents);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new EventRecyclerAdapter(this, eventNames);
-        adapter.setClickListener(this);
-        recyclerView.setAdapter(adapter);*/
-
-        /*
-        //this is all here for notif testing
-        User user = new User("foo", "foo", getApplicationContext());
-        double[] loc = {123.32, 123.32};
-        Event notifTester = new Event("Viterbi", "Career Fair", "Come get a job", "5:30", 1, loc, 100);
-        user.sendNotification(notifTester);
-         */
 
         Button studentButton = (Button) findViewById(R.id.notificationToolbarButton);
         studentButton.setOnClickListener(new View.OnClickListener() {
@@ -114,7 +99,10 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
                     mAllPublishers.add(publisher);
                     publisherNames.add(publisher.building);
                 }
+                recyclerView= findViewById(R.id.rvPublishers);
+                recyclerView.setLayoutManager(new LinearLayoutManager(StudentHome.this));
                 adapter = new HomepageRecyclerAdapter(StudentHome.this, publisherNames);
+                adapter.setClickListener(StudentHome.this);
                 recyclerView.setAdapter(adapter);
 
                 // TODO: Update UI

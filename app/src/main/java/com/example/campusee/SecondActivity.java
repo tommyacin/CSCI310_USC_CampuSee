@@ -39,20 +39,22 @@ public class SecondActivity extends AppCompatActivity {
 
                 Log.d("user_signup", "User: " + name + " " + email);
 
-                writeNewUser(name, email, password);
+                String userID = writeNewUser(name, email, password);
 
                 Intent toStudentHome = new Intent(getApplicationContext(), StudentHome.class);
+                toStudentHome.putExtra("currentUserID", userID);
                 SecondActivity.this.startActivity(toStudentHome);
             }
         });
 
     }
 
-    // Write user to database
-    private void writeNewUser(String name, String email, String password) {
+    // Write user to database; returns unique userID
+    private String writeNewUser(String name, String email, String password) {
         User user = new User(name, email, password, getApplicationContext());
         String key = mDatabase.child("users").push().getKey();
         mDatabase.child("users").child(key).setValue(user);
+        return key;
     }
 
 

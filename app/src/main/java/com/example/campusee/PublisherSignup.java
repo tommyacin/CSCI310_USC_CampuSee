@@ -38,20 +38,22 @@ public class PublisherSignup extends AppCompatActivity {
                 String email = email_input.getText().toString();
                 String building = building_input.getText().toString();
 
-                writeNewPublisher(email, "hello", building);
+                String publisherID = writeNewPublisher(email, "hello", building);
 
                 Intent publisherIntent = new Intent(getApplicationContext(), PublisherMain.class);
+                publisherIntent.putExtra("currentPublisherID", publisherID);
                 PublisherSignup.this.startActivity(publisherIntent);
             }
         });
     }
 
-    private void writeNewPublisher(String email, String password, String building) {
+    //write new publisher to database; return unique publisherID
+    private String writeNewPublisher(String email, String password, String building) {
         Publisher publisher = new Publisher(email, password, building);
+        Log.d("write_new_publisher", "building: " + building);
 
         String key = mDatabase.child("publishers").push().getKey();
         mDatabase.child("publishers").child(key).setValue(publisher);
-
-        Log.d("write_new_publisher", "building: " + building);
+        return key;
     }
 }
