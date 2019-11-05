@@ -81,11 +81,12 @@ public class PublisherSignup extends AppCompatActivity {
 
                 if (publisherID == null) {
                     publisherID = writeNewPublisher(name, email, password, building);
-                } else {
-                    Intent publisherIntent = new Intent(getApplicationContext(), PublisherMain.class);
-                    publisherIntent.putExtra("currentPublisherID", publisherID);
-                    PublisherSignup.this.startActivity(publisherIntent);
                 }
+
+                Intent publisherIntent = new Intent(getApplicationContext(), PublisherMain.class);
+                publisherIntent.putExtra("currentPublisherID", publisherID);
+                PublisherSignup.this.startActivity(publisherIntent);
+
             }
 
             @Override

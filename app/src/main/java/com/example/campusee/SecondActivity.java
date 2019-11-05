@@ -17,6 +17,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import android.content.Context;
+
 public class SecondActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private String mUserID;
@@ -64,6 +66,7 @@ public class SecondActivity extends AppCompatActivity {
 
     // Write user to database; returns unique userID
     private void userSignupOrLogin(final String name, final String email, final String password) {
+
         //check user exists
         mUserID = null;
         DatabaseReference usersRef = mDatabase.child("users");
@@ -72,22 +75,20 @@ public class SecondActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        Log.d("isExistingUser", String.valueOf(dataSnapshot.getChildrenCount()));
-                        Publisher publisher = ds.getValue(Publisher.class);
-                        mUserID = ds.getKey();
-                        Log.d("isExistingUser", mUserID);
+                    for(DataSnapshot u: dataSnapshot.getChildren() ){
+                        User user = u.getValue(User.class);
+                        mUserID = u.getKey();
                     }
                 }
 
                 if (mUserID == null) {
-                    mUserID = writeNewPublisher(name, email, password);
-                } else {
-                    Intent toStudentHome = new Intent(getApplicationContext(), StudentHome.class);
-                    toStudentHome.putExtra("currentUserID", mUserID);
-                    toStudentHome.putExtra("fromUserLogin", true);
-                    SecondActivity.this.startActivity(toStudentHome);
+                    mUserID = writeNewUser(name, email, password, getApplicationContext());
                 }
+
+                Intent toStudentHome = new Intent(getApplicationContext(), StudentHome.class);
+                toStudentHome.putExtra("currentUserID", mUserID);
+                toStudentHome.putExtra("fromUserLogin", true);
+                SecondActivity.this.startActivity(toStudentHome);
             }
 
             @Override
@@ -95,7 +96,7 @@ public class SecondActivity extends AppCompatActivity {
         });
     }
 
-    private String writeNewPublisher(String name, String email, String password) {
+    private String writeNewUser(String name, String email, String password, Context context) {
         User user = new User(name, email, password, getApplicationContext());
         String key = mDatabase.child("users").push().getKey();
         Log.d("write_new_user", key);
