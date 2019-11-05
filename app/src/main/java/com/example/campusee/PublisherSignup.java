@@ -106,6 +106,7 @@ public class PublisherSignup extends AppCompatActivity {
         String key = mDatabase.child("publishers").push().getKey();
         Log.d("write_new_publisher", key);
         mDatabase.child("publishers").child(key).setValue(publisher);
+        ((Global) this.getApplication()).setCurrentPublisher(publisher);
         return key;
     }
 }

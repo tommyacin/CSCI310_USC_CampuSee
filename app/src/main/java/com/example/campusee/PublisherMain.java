@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,8 +37,13 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publisher_main);
 
+        //get current publisherID and set it globally
         String currentPublisherID = intent.getExtras().getString("currentPublisherID");
         ((Global) this.getApplication()).setCurrentPublisherID(currentPublisherID);
+
+        //get current publisher and update publisher main page
+        Publisher currentPublisher = ((Global) this.getApplication()).getCurrentPublisher();
+        updatePublisherMainPage(currentPublisher);
 
         Log.d("publisher_main", currentPublisherID);
 
@@ -78,7 +84,13 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
         super.onStart();
     }
 
+    public void updatePublisherMainPage(Publisher curr_pub) {
+        TextView name = (TextView) findViewById(R.id.publisher_main_page_name);
+        TextView building = (TextView) findViewById(R.id.publisher_main_page_building);
 
+        name.setText(curr_pub.name);
+        building.setText(curr_pub.building);
+    }
 
     public void grabAllPublisherEvents(String publisherId) {
         Query publisherEvents = mDatabase.child("publisher-events").child(publisherId);
