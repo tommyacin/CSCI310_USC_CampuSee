@@ -30,8 +30,8 @@
 
         <ImageView
             android:id="@+id/publisherIcon"
-            android:layout_width="83dp"
-            android:layout_height="66dp"
+            android:layout_width="97dp"
+            android:layout_height="82dp"
             android:adjustViewBounds="true"
             android:contentDescription="profileImage"
             app:srcCompat="@drawable/app_icon" />
@@ -45,7 +45,8 @@
                 android:id="@+id/publisherName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="30sp" />
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/publisherBuildingName"
@@ -54,12 +55,6 @@
                 android:textSize="18sp" />
 
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/subscribedButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:srcCompat="@drawable/subscribed_heart_filled" />
 
     </LinearLayout>
 
