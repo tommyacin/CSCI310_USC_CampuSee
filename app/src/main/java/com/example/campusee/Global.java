@@ -15,12 +15,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Global extends Application {
 
     private DatabaseReference mDatabase;
+
+    private HashMap<String, Constants.Building> allBuildings;
 
     private String currentUserID;
     private String currentPublisherID;
@@ -31,6 +34,15 @@ public class Global extends Application {
     private List<String> existingPublishers;
 
     private List<GeofenceHolder> userEvents;
+
+    public void initializeBuildings() {
+        Constants constants = new Constants();
+        allBuildings = constants.allBuildings;
+    }
+
+    public HashMap<String, Constants.Building> getAllBuildings() {
+        return allBuildings;
+    }
 
     public String getCurrentUserID() {return currentUserID;}
 
