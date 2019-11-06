@@ -58,11 +58,11 @@ public class PublishEvent extends AppCompatActivity {
             }
         });
 
-        TextView name_tv = findViewById(R.id.event_nametv);
-        TextView date_tv = findViewById(R.id.date_tv);
-        TextView time_tv = findViewById(R.id.time_tv);
-        TextView radius_tv = findViewById(R.id.radius_tv);
-        TextView description_tv = findViewById(R.id.description_tv);
+        TextView name_tv = findViewById(R.id.publish_event_name);
+        TextView date_tv = findViewById(R.id.publish_date);
+        TextView time_tv = findViewById(R.id.publish_time);
+        TextView radius_tv = findViewById(R.id.publish_radius);
+        TextView description_tv = findViewById(R.id.publish_description);
         ImageView icon_image = findViewById(R.id.icon_image);
 
 
@@ -74,6 +74,10 @@ public class PublishEvent extends AppCompatActivity {
         String iconName = icon_image.getTag().toString();
 
         writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
+        name_tv.setText(getIntent().getStringExtra("EVENT_NAME"));
+        radius_tv.setText(getIntent().getStringExtra("EVENT_RADIUS"));
+        description_tv.setText(getIntent().getStringExtra("EVENT_DESCRIPTION"));
+
     }
 
     private void writeNewEvent(final String publisherId,
