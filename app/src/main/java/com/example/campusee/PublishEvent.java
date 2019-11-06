@@ -155,5 +155,5 @@ public class PublishEvent extends AppCompatActivity {
         mDatabase.child("publishers").child(key).setValue(notification);
 
     }
-    
+
 }
