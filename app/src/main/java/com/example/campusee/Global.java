@@ -29,6 +29,8 @@ public class Global extends Application {
     private List<GeofenceHolder> allEventsForUser;
     private List<Geofence> geofenceForNotifications;
     private List<String> existingPublishers;
+    private List<String> subscribedPublisherKeys;
+    private List<Notification> allUserNotifications;
 
     private List<GeofenceHolder> userEvents;
 
@@ -193,4 +195,66 @@ public class Global extends Application {
             }
         });
     }
+
+    public void grabAllSubscribedPublisherKeys() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        Query geos = mDatabase.child("user-publishers").child(currentUserID);
+        subscribedPublisherKeys = new ArrayList<String>();
+
+        geos.addChildEventListener(new ChildEventListener() {
+
+            // This will get called as many times as there are publishers in the database
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                subscribedPublisherKeys.add(dataSnapshot.getKey());
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) { }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("LoadPublishers error", "publishers:onCancelled:" + databaseError.getMessage());
+            }
+        });
+    }
+
+    public void grabAllUserNotifications() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        Query geos = mDatabase.child("user-notifications").child(currentUserID);
+        allUserNotifications = new ArrayList<Notification>();
+
+        geos.addChildEventListener(new ChildEventListener() {
+
+            // This will get called as many times as there are publishers in the database
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                allUserNotifications.add(dataSnapshot.getValue(Notification.class));
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) { }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("LoadPublishers error", "publishers:onCancelled:" + databaseError.getMessage());
+            }
+        });
+    }
+
+
 }

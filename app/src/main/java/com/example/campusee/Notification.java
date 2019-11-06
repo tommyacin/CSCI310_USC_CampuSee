@@ -5,16 +5,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Notification {
-    String sendTime;
+    String title;
+    String description;
+    String time;
+    String publisherId;
+    String notifId;
     Event eventId;
-    int notifId;
+
+
+
+    String sendTime;
+
     Long tsLong;
 
-    Notification(Event eventId, int notifId) {
+    Notification(String title, String description, String time, String publisherId, String notifId) {
         tsLong = System.currentTimeMillis()/1000;
+
         this.notifId = notifId;
         this.sendTime = tsLong.toString();
-        this.eventId = eventId;
+        this.title = time + ": " + title;
+        this.description = description;
+        this.time = time;
+        this.publisherId = publisherId;
+
     }
 
 
@@ -38,7 +51,12 @@ public class Notification {
         eventId = event;
     }
 
-    public Event getEvent(){
-        return eventId;
+    public String getTitle(){
+        return title;
     }
+
+
+    public String getDescription() {return description;}
+
+    public String getNotifId() {return notifId;}
 }

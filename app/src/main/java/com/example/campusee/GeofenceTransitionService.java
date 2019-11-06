@@ -83,25 +83,8 @@ public class GeofenceTransitionService extends IntentService {
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         notificationManager.notify(1, builder.build());
-//        // Intent to start the main Activity
-//        Intent notificationIntent = MainActivity.makeNotificationIntent(
-//                getApplicationContext(), msg
-//        );
-//
-//        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-//        stackBuilder.addParentStack(MainActivity.class);
-//        stackBuilder.addNextIntent(notificationIntent);
-//        PendingIntent notificationPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-//
-//        // Creating and sending Notification
-//        NotificationManager notificatioMng =
-//                (NotificationManager) getSystemService( Context.NOTIFICATION_SERVICE );
-//        notificatioMng.notify(
-//                GEOFENCE_NOTIFICATION_ID,
-//                createNotification(msg, notificationPendingIntent));
+
     }
-
-
 
     // Handle errors
     private static String getErrorString(int errorCode) {

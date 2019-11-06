@@ -82,7 +82,7 @@ public class activity_map extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        createBuildingMarkers();
+        //createBuildingMarkers();
         Log.i("Helloo", "map loaded");
 
         LatLng LA = new LatLng(34.0224, -118.2851);
