@@ -70,6 +70,7 @@ public class PublishEvent extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
+                PublishEvent.this.finish();
             }
         });
 
@@ -104,10 +105,7 @@ public class PublishEvent extends AppCompatActivity {
 
                         String eventKey = mDatabase.child("events").push().getKey();
 
-                        double latLoc = buildings.get(building).latLoc;
-                        double longLoc = buildings.get(building).longLoc;
-
-                        Event newEvent = new Event(publisherId, building, title, description, time, date, latLoc, longLoc, radius, iconFileName);
+                        Event newEvent = new Event(publisherId, building, title, description, time, date, radius, iconFileName);
 
                         Map<String, Object> eventValues = newEvent.toMap();
 
@@ -117,9 +115,10 @@ public class PublishEvent extends AppCompatActivity {
 
                         mDatabase.updateChildren(childUpdates);
 
-                        /*Intent publishIntent = new Intent(getApplicationContext(), PublisherMain.class);
-                        PublishEvent.this.startActivity(publishIntent);*/
-
+                        /*
+                        Intent publishIntent = new Intent(getApplicationContext(), PublisherMain.class);
+                        PublishEvent.this.startActivity(publishIntent);
+                         */
                     }
                 }
             }
