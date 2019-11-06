@@ -2,10 +2,8 @@ package com.example.campusee;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -64,19 +62,21 @@ public class PublishEvent extends AppCompatActivity {
         TextView radius_tv = findViewById(R.id.publish_radius);
         TextView description_tv = findViewById(R.id.publish_description);
         ImageView icon_image = findViewById(R.id.icon_image);
+        
 
-
-        String name = name_tv.getText().toString();
-        String date = date_tv.getText().toString();
-        String time = time_tv.getText().toString();
-        String radius = radius_tv.getText().toString();
-        String description = description_tv.getText().toString();
-        String iconName = icon_image.getTag().toString();
-
-        writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
+//        writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
         name_tv.setText(getIntent().getStringExtra("EVENT_NAME"));
         radius_tv.setText(getIntent().getStringExtra("EVENT_RADIUS"));
         description_tv.setText(getIntent().getStringExtra("EVENT_DESCRIPTION"));
+        int hour = getIntent().getIntExtra("EVENT_HOUR", 0);
+        int minute = getIntent().getIntExtra("EVENT_MINUTE", 0);
+        int month = getIntent().getIntExtra("EVENT_MONTH", 0);
+        int day = getIntent().getIntExtra("EVENT_DAY", 0);
+        int year = getIntent().getIntExtra("EVENT_YEAR", 0);
+        String time_string = String.valueOf(hour) + ":" + String.valueOf(minute);
+        String date_string = String.valueOf(month) + "/" + String.valueOf(day) + "/" + String.valueOf(year);
+        date_tv.setText(date_string);
+        time_tv.setText(time_string);
 
     }
 
