@@ -146,7 +146,7 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
     }
 
     public void onItemClick(View view, int position) {
-        grabPublisherClickedOn(adapter.getItem(position), position);
+        grabPublisherClickedOn(adapter.getItem(position).name, position);
 
     }
 
@@ -196,11 +196,10 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
                     Publisher publisher = ds.getValue(Publisher.class);
                     Log.d("grabpublishers", "publisher: " + publisher);
                     mAllPublishers.add(publisher);
-                    publisherNames.add(publisher.name);
                 }
                 recyclerView = findViewById(R.id.rvPublishers);
                 recyclerView.setLayoutManager(new LinearLayoutManager(StudentHome.this));
-                adapter = new HomepageRecyclerAdapter(StudentHome.this, publisherNames);
+                adapter = new HomepageRecyclerAdapter(StudentHome.this, mAllPublishers);
                 adapter.setClickListener(StudentHome.this);
                 recyclerView.setAdapter(adapter);
             }
