@@ -55,6 +55,15 @@ public class PublishEvent extends AppCompatActivity {
         name_tv.setText(getIntent().getStringExtra("EVENT_NAME"));
         radius_tv.setText(getIntent().getStringExtra("EVENT_RADIUS"));
         description_tv.setText(getIntent().getStringExtra("EVENT_DESCRIPTION"));
+        int hour = getIntent().getIntExtra("EVENT_HOUR", 0);
+        int minute = getIntent().getIntExtra("EVENT_MINUTE", 0);
+        int month = getIntent().getIntExtra("EVENT_MONTH", 0);
+        int day = getIntent().getIntExtra("EVENT_DAY", 0);
+        int year = getIntent().getIntExtra("EVENT_YEAR", 0);
+        String time_string = String.valueOf(hour) + ":" + String.valueOf(minute);
+        String date_string = String.valueOf(month) + "/" + String.valueOf(day) + "/" + String.valueOf(year);
+        date_tv.setText(date_string);
+        time_tv.setText(time_string);
 
     }
 
