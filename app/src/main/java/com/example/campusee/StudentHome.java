@@ -74,7 +74,7 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_home);
 
-        Intent intent2 = new Intent( this, EventCreatedNotificationService.class);
+        final Intent intent2 = new Intent( this, EventCreatedNotificationService.class);
         startService(intent2);
 
         //PendingIntent.getService(this, 1010, intent2, PendingIntent.FLAG_UPDATE_CURRENT );
@@ -138,8 +138,8 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
             public void onClick(View v) {
                 Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
                 mainActivityIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                stopService(new Intent(getApplicationContext(), EventCreatedNotificationService.class));
-
+                stopService(intent2);
+                stopService(intent3);
                 StudentHome.this.startActivity(mainActivityIntent);
             }
         });
@@ -344,15 +344,16 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
 
     //creating pending intent
     private PendingIntent geoFencePendingIntent = null;
+    public Intent intent3;
     private final int GEOFENCE_REQ_CODE = 0;
     private PendingIntent createGeofencePendingIntent() {
         Log.d("tag", "createGeofencePendingIntent");
         if ( geoFencePendingIntent != null )
             return geoFencePendingIntent;
 
-        Intent intent = new Intent( this, GeofenceTransitionService.class);
+        intent3 = new Intent( this, GeofenceTransitionService.class);
         return PendingIntent.getService(
-                this, GEOFENCE_REQ_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT );
+                this, GEOFENCE_REQ_CODE, intent3, PendingIntent.FLAG_UPDATE_CURRENT );
     }
 
     // Add the created GeofenceRequest to the device's monitoring list
@@ -375,6 +376,8 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
                     });
         }
     }
+
+
 
 
 }
