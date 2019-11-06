@@ -82,15 +82,16 @@ public class IconPage extends AppCompatActivity {
     }
 
     private void sendIntent(){
-        Intent iconIntent = new Intent(getApplicationContext(), PublishEvent.class);
-        iconIntent.putExtra("EVENT_NAME", getIntent().getStringExtra("EVENT_NAME"));
-        iconIntent.putExtra("EVENT_RADIUS", getIntent().getStringExtra("EVENT_RADIUS"));
-        iconIntent.putExtra("EVENT_DESCRIPTION", getIntent().getStringExtra("EVENT_DESCRIPTION"));
-        iconIntent.putExtra("EVENT_HOUR", getIntent().getIntExtra("EVENT_HOUR", 0));
-        iconIntent.putExtra("EVENT_MINUTE", getIntent().getIntExtra("EVENT_MINUTE", 0));
-        iconIntent.putExtra("EVENT_MONTH", getIntent().getIntExtra("EVENT_MONTH", 0));
-        iconIntent.putExtra("EVENT_DAY", getIntent().getIntExtra("EVENT_DAY", 0));
-        iconIntent.putExtra("EVENT_YEAR", getIntent().getIntExtra("EVENT_YEAR", 0));
-        IconPage.this.startActivity(iconIntent);
+        Intent publishEventIntent = new Intent(getApplicationContext(), PublishEvent.class);
+        publishEventIntent.putExtra("EVENT_NAME", getIntent().getStringExtra("EVENT_NAME"));
+        publishEventIntent.putExtra("EVENT_RADIUS", getIntent().getStringExtra("EVENT_RADIUS"));
+        publishEventIntent.putExtra("EVENT_DESCRIPTION", getIntent().getStringExtra("EVENT_DESCRIPTION"));
+        publishEventIntent.putExtra("EVENT_HOUR", getIntent().getIntExtra("EVENT_HOUR", 0));
+        publishEventIntent.putExtra("EVENT_MINUTE", getIntent().getIntExtra("EVENT_MINUTE", 0));
+        publishEventIntent.putExtra("EVENT_MONTH", getIntent().getIntExtra("EVENT_MONTH", 0));
+        publishEventIntent.putExtra("EVENT_DAY", getIntent().getIntExtra("EVENT_DAY", 0));
+        publishEventIntent.putExtra("EVENT_YEAR", getIntent().getIntExtra("EVENT_YEAR", 0));
+        IconPage.this.startActivity(publishEventIntent);
+        IconPage.this.finish();
     }
 }

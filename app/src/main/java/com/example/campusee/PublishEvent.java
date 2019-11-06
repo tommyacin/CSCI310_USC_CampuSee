@@ -25,6 +25,7 @@ public class PublishEvent extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
     private String publisherID;
+    private String eventID;
     private HashMap<String, Constants.Building> buildings;
 
     @Override
@@ -64,7 +65,6 @@ public class PublishEvent extends AppCompatActivity {
         final String radius = radius_tv.getText().toString();
         final String iconName = "HELLO";
 
-
         //writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
 
         Button nextButton = (Button) findViewById(R.id.publish_button);
@@ -72,6 +72,7 @@ public class PublishEvent extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
+                PublishEvent.this.finish();
                 addNotificationToDatabase(name, description, time, publisherID);
             }
         });
@@ -107,10 +108,20 @@ public class PublishEvent extends AppCompatActivity {
 
                         String eventKey = mDatabase.child("events").push().getKey();
 
-                        double latLoc = buildings.get(building).latLoc;
-                        double longLoc = buildings.get(building).longLoc;
+                        Event newEvent = new Event(publisherId, building, title, description, time, date, radius, iconFileName);
 
-                        Event newEvent = new Event(publisherId, building, title, description, time, date, latLoc, longLoc, radius, iconFileName);
+                        //creating geofence here too
+                        String geoKey = mDatabase.child("geofences").push().getKey();
+
+                        double latitude = Constants.allBuildings.get(building).latLoc;
+                        double longitude = Constants.allBuildings.get(building).longLoc;
+
+                        GeofenceHolder newGeofence = new GeofenceHolder(eventKey, latitude, longitude, radius, 1000000);
+
+                        mDatabase.child("geofences").child(geoKey).setValue(newGeofence);
+
+                        //ending geofence creation
+
 
                         Map<String, Object> eventValues = newEvent.toMap();
 
@@ -120,9 +131,10 @@ public class PublishEvent extends AppCompatActivity {
 
                         mDatabase.updateChildren(childUpdates);
 
-                        /*Intent publishIntent = new Intent(getApplicationContext(), PublisherMain.class);
-                        PublishEvent.this.startActivity(publishIntent);*/
-
+                        /*
+                        Intent publishIntent = new Intent(getApplicationContext(), PublisherMain.class);
+                        PublishEvent.this.startActivity(publishIntent);
+                         */
                     }
                 }
             }
@@ -139,8 +151,9 @@ public class PublishEvent extends AppCompatActivity {
 
         String key = mDatabase.child("publishers").push().getKey();
         Notification notification = new Notification(title, description, time, publisherId, key);
-        Log.d("writeNotif", key);
+
         mDatabase.child("publishers").child(key).setValue(notification);
 
     }
+    
 }

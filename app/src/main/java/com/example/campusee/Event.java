@@ -16,14 +16,12 @@ public class Event {
     public int notifId;
     public int radius;
     public String iconFileName;
-    public double latLoc;
-    public double longLoc;
     public Boolean status;
     public String building;
 
     Event() { }
 
-    Event(String publisherId, String building, String title, String description, String time, String date, double latLoc, double longLoc, int radius, String iconFileName) {
+    Event(String publisherId, String building, String title, String description, String time, String date, int radius, String iconFileName) {
         this.publisherId = publisherId;
         this.building = building;
         this.title = title;
@@ -33,7 +31,6 @@ public class Event {
         this.iconFileName = iconFileName;
         this.status = false;
         this.radius = radius;
-
     }
 
     public Map<String, Object> toMap() {
@@ -46,22 +43,12 @@ public class Event {
         result.put("iconFileName", iconFileName);
         result.put("building", building);
         result.put("status", status);
-        result.put("latLoc", latLoc);
-        result.put("longLoc", longLoc);
 
         return result;
     }
 
     public void setStatus(Boolean publish) {
         this.status = publish;  // true = published, false = unpublished
-    }
-
-    public double getLongLoc(){
-        return longLoc;
-    }
-
-    public double getLatLoc() {
-        return latLoc;
     }
 
     public int getRadius(){
