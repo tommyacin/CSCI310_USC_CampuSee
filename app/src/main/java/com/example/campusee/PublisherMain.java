@@ -28,6 +28,7 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
     private DatabaseReference mDatabase;
     private EventRecyclerAdapter adapter;
     private ArrayList<Event> mAllEvents;
+    private ArrayList<String> mAllEventIds;
     RecyclerView recyclerView;
 
     @Override
@@ -47,6 +48,7 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
 
         // data to populate the RecyclerView with
         mAllEvents = new ArrayList<>();
+        mAllEventIds = new ArrayList<>();
 
         grabAllPublisherEvents(currentPublisherID);
         updatePublisherMainPage(currentPublisherID);
@@ -75,7 +77,14 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
     @Override
     public void onItemClick(View view, int position) {
         Intent editEventIntent = new Intent(this, EditEvent.class);
+        Log.d("onItemClick", adapter.getItem(position).title);
+        Log.d("onItemClick", adapter.getItem(position).description);
         editEventIntent.putExtra("EVENT_NAME", adapter.getItem(position).title);
+        editEventIntent.putExtra("EVENT_DES", adapter.getItem(position).description);
+        editEventIntent.putExtra("EVENT_TIME", adapter.getItem(position).time);
+        editEventIntent.putExtra("EVENT_DATE", adapter.getItem(position).date);
+        editEventIntent.putExtra("EVENT_ID", mAllEventIds.get(position));
+        Log.d("onItemClick", mAllEventIds.get(position));
         startActivity(editEventIntent);
     }
 
@@ -122,8 +131,8 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
                 // grab a single publisher
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Event event = ds.getValue(Event.class);
-                    Log.d("PUBLISHER_EVENT", event.title);
                     mAllEvents.add(event);
+                    mAllEventIds.add(ds.getKey());
                 }
 
                 // set up the RecyclerView

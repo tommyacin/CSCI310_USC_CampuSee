@@ -150,6 +150,7 @@ public class PublishEvent extends AppCompatActivity {
     private void addNotificationToDatabase(String title, String description, String time, String publisherId) {
 
         String key = mDatabase.child("notifications").push().getKey();
+
         Notification notification = new Notification(title, description, time, publisherId, key, eventID);
 
         mDatabase.child("notifications").child(key).setValue(notification);
