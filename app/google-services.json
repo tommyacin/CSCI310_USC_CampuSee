@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1058854819189",
+    "firebase_url": "https://usc-campusee-8e0f0.firebaseio.com",
+    "project_id": "usc-campusee-8e0f0",
+    "storage_bucket": "usc-campusee-8e0f0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1058854819189:android:428078bb67c89ea1e5af3c",
+        "android_client_info": {
+          "package_name": "com.example.campusee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1058854819189-v1mnton9mvmhcbs3m515co87kfcrgerv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsb-bbS4Dx4SvwHwZT7pjYpIBSASyqHtM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1058854819189-v1mnton9mvmhcbs3m515co87kfcrgerv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
