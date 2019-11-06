@@ -1,6 +1,8 @@
 package com.example.campusee;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,8 +18,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import android.content.Context;
 
 public class SecondActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
@@ -60,9 +60,28 @@ public class SecondActivity extends AppCompatActivity {
         String name = name_input.getText().toString();
         String email = email_input.getText().toString();
         String password = password_input.getText().toString();
+        Boolean continue_signup = true;
+        if(name == null || name.isEmpty()){
+            name_input.setHint("Please input a name");
+            name_input.setHintTextColor(Color.parseColor("#990000"));
+            continue_signup = false;
+        }
+        if(email == null || email.isEmpty()){
+            email_input.setHint("Please input an email");
+            email_input.setHintTextColor(Color.parseColor("#990000"));
+            continue_signup = false;
+        }
+        if(password == null || password.isEmpty()){
+            password_input.setHint("Please input a password");
+            password_input.setHintTextColor(Color.parseColor("#990000"));
+            continue_signup = false;
+        }
 
-        userSignupOrLogin(name, email, password);
+        if (continue_signup){
+            userSignupOrLogin(name, email, password);
+        }
     }
+
 
     // Write user to database; returns unique userID
     private void userSignupOrLogin(final String name, final String email, final String password) {

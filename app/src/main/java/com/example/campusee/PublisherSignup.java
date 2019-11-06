@@ -1,8 +1,8 @@
 package com.example.campusee;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -11,10 +11,10 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
@@ -60,7 +60,25 @@ public class PublisherSignup extends AppCompatActivity {
         String email = email_input.getText().toString();
         String building = building_input.getText().toString();
 
-        publisherSignupOrLogin(name, email, password, building);
+        Boolean continue_signup = true;
+        if(name == null || name.isEmpty()){
+            name_input.setHint("Please input a name");
+            name_input.setHintTextColor(Color.parseColor("#990000"));
+            continue_signup = false;
+        }
+        if(email == null || email.isEmpty()){
+            email_input.setHint("Please input an email");
+            email_input.setHintTextColor(Color.parseColor("#990000"));
+            continue_signup = false;
+        }
+        if(password == null || password.isEmpty()){
+            password_input.setHint("Please input a password");
+            password_input.setHintTextColor(Color.parseColor("#990000"));
+            continue_signup = false;
+        }
+        if(continue_signup){
+            publisherSignupOrLogin(name, email, password, building);
+        }
     }
 
     private void publisherSignupOrLogin(final String name, final String email, final String password, final String building) {
