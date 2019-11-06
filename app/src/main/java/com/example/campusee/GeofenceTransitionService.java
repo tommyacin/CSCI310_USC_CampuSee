@@ -114,7 +114,7 @@ public class GeofenceTransitionService extends IntentService {
                         Event temp = dataSnapshot.getValue(Event.class);
 
                         String key = mDatabase.child("notifications").push().getKey();
-                        Notification notification = new Notification(temp.title, temp.description, temp.time, temp.publisherId, key);
+                        Notification notification = new Notification(temp.title, temp.description, temp.time, temp.publisherId, key, eventID);
 
                         mDatabase.child("notifications").child(key).setValue(notification);
 

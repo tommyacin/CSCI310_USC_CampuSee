@@ -134,6 +134,7 @@ public class NotificationPage extends AppCompatActivity implements PublisherRecy
             public void onClick(View v) {
                 Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
                 mainActivityIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                stopService(new Intent(getApplicationContext(), EventCreatedNotificationService.class));
                 NotificationPage.this.startActivity(mainActivityIntent);
             }
         });
@@ -158,6 +159,7 @@ public class NotificationPage extends AppCompatActivity implements PublisherRecy
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Notification notif = ds.getValue(Notification.class);
+
                     mAllNotifs.add(notif);
                 }
 

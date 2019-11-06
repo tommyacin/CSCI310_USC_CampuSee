@@ -78,6 +78,8 @@ public class activity_map extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View v) {
                 Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
                 mainActivityIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                stopService(new Intent(getApplicationContext(), EventCreatedNotificationService.class));
+
                 activity_map.this.startActivity(mainActivityIntent);
             }
         });
