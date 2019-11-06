@@ -61,8 +61,9 @@ public class PublishEvent extends AppCompatActivity {
         final String name = name_tv.getText().toString();
         final String description = description_tv.getText().toString();
         final String radius = radius_tv.getText().toString();
-        final String iconName = getIntent().getStringExtra("EVENT_ICON");
-        setImageView(iconName);
+        final String iconName1= getIntent().getStringExtra("EVENT_ICON");
+        setImageView(iconName1);
+        final String iconName = iconName1.toUpperCase();
 
         //writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
 
