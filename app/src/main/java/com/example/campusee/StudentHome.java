@@ -153,7 +153,7 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
                 }
 
                 Intent intent = new Intent(StudentHome.this, publisher_page_of_events.class);
-                intent.putExtra("PUBLISHER_NAME", adapter.getItem(position));
+                //intent.putExtra("PUBLISHER_NAME", adapter.getItem(position));
                 intent.putExtra("currentPublisherID", clickedOnPublisherId);
                 startActivity(intent);
 
