@@ -62,7 +62,7 @@ public class PublishEvent extends AppCompatActivity {
         TextView radius_tv = findViewById(R.id.publish_radius);
         TextView description_tv = findViewById(R.id.publish_description);
         ImageView icon_image = findViewById(R.id.icon_image);
-        
+
 
 //        writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
         name_tv.setText(getIntent().getStringExtra("EVENT_NAME"));
