@@ -12,25 +12,28 @@ public class Event {
     public String description;
     public String title;
     public String time;
+    public String date;
     public int notifId;
-    public double[] location;
     public int radius;
-    //public Bitmap icon;
-    public Boolean status; // true = published, false = unpublished
+    public String iconFileName;
+    public double latLoc;
+    public double longLoc;
+    public Boolean status;
+    public String building;
 
     Event() { }
 
-    Event(String publisherId, String title, String description, String time, int notifId, double[] loc, int radius) {
+    Event(String publisherId, String building, String title, String description, String time, String date, double latLoc, double longLoc, int radius, String iconFileName) {
         this.publisherId = publisherId;
+        this.building = building;
         this.title = title;
         this.description = description;
         this.time = time;
-        this.notifId = notifId;
-        //this.icon = icon;
+        this.date = date;
+        this.iconFileName = iconFileName;
         this.status = false;
         this.radius = radius;
 
-        location = loc;
     }
 
     public Map<String, Object> toMap() {
@@ -39,14 +42,26 @@ public class Event {
         result.put("title", title);
         result.put("description", description);
         result.put("time", time);
-        //result.put("icon", icon);
+        result.put("date", date);
+        result.put("iconFileName", iconFileName);
+        result.put("building", building);
         result.put("status", status);
+        result.put("latLoc", latLoc);
+        result.put("longLoc", longLoc);
 
         return result;
     }
 
-    public double[] getLoc(){
-        return location;
+    public void setStatus(Boolean publish) {
+        this.status = publish;  // true = published, false = unpublished
+    }
+
+    public double getLongLoc(){
+        return longLoc;
+    }
+
+    public double getLatLoc() {
+        return latLoc;
     }
 
     public int getRadius(){

@@ -7,10 +7,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +23,8 @@ import java.util.Map;
 public class PublishEvent extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
+    private String publisherID;
+    private HashMap<String, Constants.Building> buildings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,14 +32,44 @@ public class PublishEvent extends AppCompatActivity {
         setContentView(R.layout.activity_publish_event);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        publisherID = ((Global) this.getApplication()).getCurrentPublisherID();
+        buildings = ((Global) this.getApplication()).getAllBuildings();
+
+
+        TextView name_tv = findViewById(R.id.publish_event_name);
+        TextView date_tv = findViewById(R.id.publish_date);
+        TextView time_tv = findViewById(R.id.publish_time);
+        TextView radius_tv = findViewById(R.id.publish_radius);
+        TextView description_tv = findViewById(R.id.publish_description);
+        ImageView icon_image = findViewById(R.id.icon_image);
+
+        name_tv.setText(getIntent().getStringExtra("EVENT_NAME"));
+        radius_tv.setText(getIntent().getStringExtra("EVENT_RADIUS"));
+        description_tv.setText(getIntent().getStringExtra("EVENT_DESCRIPTION"));
+        int hour = getIntent().getIntExtra("EVENT_HOUR", 0);
+        int minute = getIntent().getIntExtra("EVENT_MINUTE", 0);
+        int month = getIntent().getIntExtra("EVENT_MONTH", 0);
+        int day = getIntent().getIntExtra("EVENT_DAY", 0);
+        int year = getIntent().getIntExtra("EVENT_YEAR", 0);
+        String time_string = String.valueOf(hour) + ":" + String.valueOf(minute);
+        String date_string = String.valueOf(month) + "/" + String.valueOf(day) + "/" + String.valueOf(year);
+        date_tv.setText(date_string);
+        time_tv.setText(time_string);
+
+        final String date = date_tv.getText().toString();
+        final String time = time_tv.getText().toString();
+        final String name = name_tv.getText().toString();
+        final String description = description_tv.getText().toString();
+        final String radius = radius_tv.getText().toString();
+        final String iconName = "HELLO";
+
+        //writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
 
         Button nextButton = (Button) findViewById(R.id.publish_button);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // add code here for what will happen when the user selects the student button
-                Intent publishIntent = new Intent(getApplicationContext(), PublisherMain.class);
-                PublishEvent.this.startActivity(publishIntent);
+                writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
             }
         });
 
@@ -46,25 +83,54 @@ public class PublishEvent extends AppCompatActivity {
             }
         });
 
-        TextView name_tv = findViewById(R.id.event_nametv);
-        TextView date_tv = findViewById(R.id.date_tv);
-        TextView time_tv = findViewById(R.id.time_tv);
-        TextView radius_tv = findViewById(R.id.radius_tv);
-        TextView description_tv = findViewById(R.id.description_tv);
-        ImageView icon_image = findViewById(R.id.icon_image);
     }
 
-    private void writeNewEvent(String publisherId, String title, String description, String time, int ID, double[] loc, int radius) {
-        String eventKey = mDatabase.child("events").push().getKey();
+    private void writeNewEvent(final String publisherId,
+                               final String title,
+                               final String description,
+                               final String time,
+                               final String date,
+                               final int radius,
+                               final String iconFileName) {
+        // Grab publisher's events
+        Query pubQuery = mDatabase.child("publishers").orderByKey().equalTo(publisherId);
+        pubQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        Publisher curr_pub = ds.getValue(Publisher.class);
+                        String building = curr_pub.building;
 
-        Event newEvent = new Event(publisherId, title, description, time, ID, loc, radius);
+                        String eventKey = mDatabase.child("events").push().getKey();
 
-        Map<String, Object> eventValues = newEvent.toMap();
+                        double latLoc = buildings.get(building).latLoc;
+                        double longLoc = buildings.get(building).longLoc;
 
-        Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/events/" + eventKey, eventValues);
-        childUpdates.put("/publisher-events/" + publisherId + "/" + eventKey, eventValues);
+                        Event newEvent = new Event(publisherId, building, title, description, time, date, latLoc, longLoc, radius, iconFileName);
 
-        mDatabase.updateChildren(childUpdates);
+                        Map<String, Object> eventValues = newEvent.toMap();
+
+                        Map<String, Object> childUpdates = new HashMap<>();
+                        childUpdates.put("/events/" + eventKey, eventValues);
+                        childUpdates.put("/publisher-events/" + publisherId + "/" + eventKey, eventValues);
+
+                        mDatabase.updateChildren(childUpdates);
+
+                        /*Intent publishIntent = new Intent(getApplicationContext(), PublisherMain.class);
+                        PublishEvent.this.startActivity(publishIntent);*/
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
     }
 }

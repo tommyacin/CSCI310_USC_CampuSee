@@ -30,7 +30,7 @@ public class publisher_page_of_events extends AppCompatActivity implements Event
     private EventRecyclerAdapter adapter;
     private ArrayList<Event> mAllEvents;
     RecyclerView recyclerView;
-    ArrayList<String> eventNames = new ArrayList<>();
+    ArrayList<String> eventNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,22 +40,20 @@ public class publisher_page_of_events extends AppCompatActivity implements Event
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         Intent intent = getIntent();
-        final String publisher_name = intent.getStringExtra("PUBLISHER_NAME");
-        final String publisher_id = intent.getStringExtra("currentPublisherID");
-        ((Global) this.getApplication()).setCurrentPublisherID(publisher_id);
+        //final String publisher_name = intent.getStringExtra("PUBLISHER_NAME");
+        final String currentPublisherID = intent.getStringExtra("currentPublisherID");
+        ((Global) this.getApplication()).setCurrentPublisherID(currentPublisherID);
 
         Log.d("inPublisherPageOfEvents", "publisher_id_global: " + ((Global) this.getApplication()).getCurrentPublisherID());
         Log.d("inPublisherPageOfEvents", "user_id_global: " + ((Global) this.getApplication()).getCurrentUserID());
 
-
-        TextView nameTV = findViewById(R.id.nameOfPublisher);
-        nameTV.setText(publisher_name);
-        subscribeButton = (Button) findViewById(R.id.subscribe_btn);
-        final String currentUserId = ((Global) this.getApplication()).getCurrentUserID();
-        final String currentPublisherId = ((Global) this.getApplication()).getCurrentPublisherID();
+        updatePublisherProfilePage(currentPublisherID);
+        grabAllPublisherEvents(currentPublisherID);
 
         // check if subscription exists
-        checkSubscription(currentUserId, currentPublisherId);
+        final String currentUserID = ((Global) this.getApplication()).getCurrentUserID();
+        subscribeButton = (Button) findViewById(R.id.subscribe_btn);
+        checkSubscription(currentUserID, currentPublisherID);
 
 
         subscribeButton.setOnClickListener(new View.OnClickListener() {
@@ -63,10 +61,10 @@ public class publisher_page_of_events extends AppCompatActivity implements Event
             public void onClick(View v) {
                 // add code here for what will happen when the user selects the student button
                 if (subscribeButton.getText().equals("Subscribe")){
-                    subscribeToPublisher(currentUserId, currentPublisherId);
+                    subscribeToPublisher(currentUserID, currentPublisherID);
                     subscribeButton.setText("Unsubscribe");
                 } else{
-                    unsubscribeUser(currentUserId, currentPublisherId);
+                    unsubscribeUser(currentUserID, currentPublisherID);
                     subscribeButton.setText("Subscribe");
                 }
             }
@@ -128,7 +126,7 @@ public class publisher_page_of_events extends AppCompatActivity implements Event
         subscriptionRef.child(publisherId).removeValue();
     }
 
-    public void updatePublisherMainPage(String pub_ID) {
+    public void updatePublisherProfilePage(String pub_ID) {
         Query pubQuery = mDatabase.child("publishers").orderByKey().equalTo(pub_ID);
         pubQuery.addValueEventListener(new ValueEventListener() {
             @Override
@@ -137,8 +135,8 @@ public class publisher_page_of_events extends AppCompatActivity implements Event
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         Publisher curr_pub = ds.getValue(Publisher.class);
 
-                        TextView name = (TextView) findViewById(R.id.publisher_main_page_name);
-                        TextView building = (TextView) findViewById(R.id.publisher_main_page_building);
+                        TextView name = (TextView) findViewById(R.id.publisher_profile_page_name);
+                        TextView building = (TextView) findViewById(R.id.publisher_profile_page_building);
                         name.setText(curr_pub.name);
                         building.setText(curr_pub.building);
 
@@ -158,8 +156,9 @@ public class publisher_page_of_events extends AppCompatActivity implements Event
     }
 
     public void grabAllPublisherEvents(String publisherId) {
+        mAllEvents =  new ArrayList<>();
+        eventNames =  new ArrayList<>();
         Query publisherEvents = mDatabase.child("publisher-events").child(publisherId);
-
         publisherEvents.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -172,7 +171,7 @@ public class publisher_page_of_events extends AppCompatActivity implements Event
                 }
 
                 // set up the RecyclerView
-                recyclerView = findViewById(R.id.rvEvents);
+                recyclerView = findViewById(R.id.publisher_profile_page_rv);
                 recyclerView.setLayoutManager(new LinearLayoutManager(publisher_page_of_events.this));
                 adapter = new EventRecyclerAdapter(publisher_page_of_events.this, eventNames);
                 adapter.setClickListener(publisher_page_of_events.this);
@@ -188,6 +187,6 @@ public class publisher_page_of_events extends AppCompatActivity implements Event
 
     @Override
     public void onItemClick(View view, int position) {
-
+        //do nothing
     }
 }

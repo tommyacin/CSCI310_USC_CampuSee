@@ -19,9 +19,9 @@
         app:srcCompat="@drawable/big_icon" />
 
     <EditText
-        android:id="@+id/editText6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/create_event_name"
+        android:layout_width="233dp"
+        android:layout_height="41dp"
         android:ems="10"
         android:hint="Event Name"
         android:inputType="textPersonName"
@@ -31,26 +31,14 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
     <DatePicker
-        android:id="@+id/datePicker1"
+        android:id="@+id/create_datepicker"
         android:layout_width="246dp"
         android:layout_height="87dp"
         android:calendarViewShown="false"
         android:datePickerMode="spinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText5" />
-
-    <EditText
-        android:id="@+id/editText13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:ems="10"
-        android:hint="Geofence Radius in Miles"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText6" />
+        app:layout_constraintTop_toBottomOf="@+id/create_description" />
 
     <Button
         android:id="@+id/next_button"
@@ -62,26 +50,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timePicker1" />
+        app:layout_constraintTop_toBottomOf="@+id/create_timepicker" />
 
     <EditText
-        android:id="@+id/editText5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:id="@+id/create_description"
+        android:layout_width="229dp"
+        android:layout_height="45dp"
         android:ems="10"
         android:hint="Event Description"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText13" />
+        app:layout_constraintTop_toBottomOf="@+id/create_radius" />
 
     <TimePicker
-        android:id="@+id/timePicker1"
+        android:id="@+id/create_timepicker"
         android:layout_width="269dp"
         android:layout_height="66dp"
         android:timePickerMode="spinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/datePicker1" />
+        app:layout_constraintTop_toBottomOf="@+id/create_datepicker" />
+
+    <EditText
+        android:id="@+id/create_radius"
+        android:layout_width="228dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="1dp"
+        android:ems="10"
+        android:hint="Geofence Radius in Miles"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_event_name" />
 </androidx.constraintlayout.widget.ConstraintLayout>

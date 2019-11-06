@@ -62,6 +62,15 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
             }
         });
 
+        Button logoutButton = (Button) findViewById(R.id.logout_button);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
+                mainActivityIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                PublisherMain.this.startActivity(mainActivityIntent);
+            }
+        });
     }
 
     @Override

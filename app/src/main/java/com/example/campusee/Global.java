@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,9 +23,10 @@ public class Global extends Application {
 
     private DatabaseReference mDatabase;
 
+    private HashMap<String, Constants.Building> allBuildings;
+
     private String currentUserID;
     private String currentPublisherID;
-    private Publisher currentPublisher;
 
     private List<GeofenceHolder> allEventsForUser;
     private List<Geofence> geofenceForNotifications;
@@ -34,11 +36,19 @@ public class Global extends Application {
 
     private List<GeofenceHolder> userEvents;
 
+    public void initializeBuildings() {
+        Constants constants = new Constants();
+        allBuildings = constants.allBuildings;
+    }
+
+    public HashMap<String, Constants.Building> getAllBuildings() {
+        return allBuildings;
+    }
+
     public String getCurrentUserID() {return currentUserID;}
 
     public String getCurrentPublisherID() {return currentPublisherID;}
 
-    public Publisher getCurrentPublisher() {return  currentPublisher;}
 
     public List<GeofenceHolder> getAllEventsForUser() {return allEventsForUser;}
 
@@ -52,10 +62,6 @@ public class Global extends Application {
 
     public void setCurrentPublisherID(String currentPublisherID) {
         this.currentPublisherID = currentPublisherID;
-    }
-
-    public void setCurrentPublisher(Publisher currentPublisher) {
-        this.currentPublisher = currentPublisher;
     }
 
     public void grabAllPublishers() {

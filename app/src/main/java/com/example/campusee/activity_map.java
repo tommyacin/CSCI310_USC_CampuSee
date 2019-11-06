@@ -37,24 +37,18 @@ public class activity_map extends FragmentActivity implements OnMapReadyCallback
     private DatabaseReference mDatabase;
     private List<String> existingPublishers;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Global application = (Global)getApplicationContext();
         existingPublishers = application.getExistingPublishers();
 
-        Intent notificationPage = getIntent();
         super.onCreate(savedInstanceState);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         setContentView(R.layout.activity_map);
 
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
 
         Button notificationButton = (Button) findViewById(R.id.notificationToolbarButton);
         notificationButton.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +69,16 @@ public class activity_map extends FragmentActivity implements OnMapReadyCallback
                 Intent studentHomeIntent = new Intent(getApplicationContext(), StudentHome.class);
                 studentHomeIntent.putExtra("fromUserLogin", false);
                 activity_map.this.startActivity(studentHomeIntent);
+            }
+        });
+
+        Button logoutButton = (Button) findViewById(R.id.logout_button);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
+                mainActivityIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                activity_map.this.startActivity(mainActivityIntent);
             }
         });
     }
