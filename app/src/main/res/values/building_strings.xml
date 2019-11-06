@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="buildings_array">
+        <item>RTC</item>
+        <item>ACC</item>
+        <item>THH</item>
+        <item>VKC</item>
+        <item>SAL</item>
+        <item>KAP</item>
+        <item>JFF</item>
+        <item>HOH</item>
+        <item>SGM</item>
+        <item>GFS</item>
+        <item>SLH</item>
+        <item>KDC</item>
+        <item>WPH</item>
+        <item>ASC</item>
+        <item>LVL</item>
+        <item>DML</item>
+        <item>LAW</item>
+        <item>GER</item>
+    </string-array>
+</resources>

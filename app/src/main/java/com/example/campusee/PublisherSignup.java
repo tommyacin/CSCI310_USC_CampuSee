@@ -5,8 +5,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,18 +49,27 @@ public class PublisherSignup extends AppCompatActivity {
                 buttonClick();
             }
         });
+        setUpDropdown();
+    }
+
+    private void setUpDropdown(){
+        Spinner spinner = findViewById(R.id.publisher_signup_building);
+        ArrayAdapter<CharSequence> spinner_adapter = ArrayAdapter.createFromResource(this,
+                R.array.buildings_array, android.R.layout.simple_spinner_item);
+        spinner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinner_adapter);
     }
 
     private void buttonClick() {
-        EditText name_input = (EditText) findViewById(R.id.publisher_signup_name);
-        EditText email_input = (EditText) findViewById(R.id.publisher_signup_email);
-        EditText password_input = (EditText) findViewById(R.id.publisher_signup_password);
-        EditText building_input = (EditText) findViewById(R.id.publisher_signup_building);
+        EditText name_input = findViewById(R.id.publisher_signup_name);
+        EditText email_input = findViewById(R.id.publisher_signup_email);
+        EditText password_input = findViewById(R.id.publisher_signup_password);
+        Spinner building_spinner = findViewById(R.id.publisher_signup_building);
 
         String name = name_input.getText().toString();
         String password = password_input.getText().toString();
         String email = email_input.getText().toString();
-        String building = building_input.getText().toString();
+        String building = building_spinner.getSelectedItem().toString();
 
         Boolean continue_signup = true;
         if(name == null || name.isEmpty()){
