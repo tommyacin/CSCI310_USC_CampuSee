@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
         ((Global) this.getApplication()).initializeBuildings();
 
+
+
         application.grabAllGeofenceHolders();
 
         super.onCreate(savedInstanceState);
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         //this shit is all here for notification intent
         application.grabAllGeofences();
+        application.grabAllPublishers();
 
 
         createNotificationChannel();

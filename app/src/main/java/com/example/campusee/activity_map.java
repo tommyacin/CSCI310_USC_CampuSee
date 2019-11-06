@@ -86,7 +86,7 @@ public class activity_map extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        //createBuildingMarkers();
+        createBuildingMarkers();
         Log.i("Helloo", "map loaded");
 
         LatLng LA = new LatLng(34.0224, -118.2851);
@@ -99,9 +99,10 @@ public class activity_map extends FragmentActivity implements OnMapReadyCallback
         for(int i=0; i<existingPublishers.size(); i++)
         {
             String temp = existingPublishers.get(i);
-
+            double latitude = Constants.allBuildings.get(temp).latLoc;
+            double longitude = Constants.allBuildings.get(temp).longLoc;
             //latlng using map in constants
-            LatLng loc = new LatLng(34.0201738,-118.2886748);
+            LatLng loc = new LatLng(latitude, longitude);
 
             mMap.addMarker(new MarkerOptions().position(loc).title(temp));
         }
