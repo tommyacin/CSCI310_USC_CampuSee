@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
         Global application = (Global)this.getApplication();
 
+        ((Global) this.getApplication()).initializeBuildings();
+
         application.grabAllGeofenceHolders();
 
         super.onCreate(savedInstanceState);
