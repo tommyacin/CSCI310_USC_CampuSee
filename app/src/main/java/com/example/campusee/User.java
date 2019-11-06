@@ -38,22 +38,22 @@ public class User {
     }
 
     //need to implement this
-    public void sendNotification(Event eventId) {
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(myContext, "1234")
-                .setSmallIcon(R.drawable.app_icon)
-                .setContentTitle(eventId.title)
-                .setContentText(eventId.description)
-                .setDefaults(NotificationCompat.DEFAULT_VIBRATE)
-                .setPriority(NotificationCompat.PRIORITY_MAX);
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(myContext);
-        notificationManager.notify(eventId.notifId, builder.build());
-
-        Notification newNotif = new Notification(eventId, eventId.notifId);
-        addNotification(newNotif);
-
-    }
+//    public void sendNotification(Event eventId) {
+//
+//        NotificationCompat.Builder builder = new NotificationCompat.Builder(myContext, "1234")
+//                .setSmallIcon(R.drawable.app_icon)
+//                .setContentTitle(eventId.title)
+//                .setContentText(eventId.description)
+//                .setDefaults(NotificationCompat.DEFAULT_VIBRATE)
+//                .setPriority(NotificationCompat.PRIORITY_MAX);
+//
+//        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(myContext);
+//        notificationManager.notify(eventId.notifId, builder.build());
+//
+//        Notification newNotif = new Notification(eventId, eventId.notifId);
+//        addNotification(newNotif);
+//
+//    }
 
     public void subscribe(Publisher publisherId) {
         subscriptions.add(publisherId);

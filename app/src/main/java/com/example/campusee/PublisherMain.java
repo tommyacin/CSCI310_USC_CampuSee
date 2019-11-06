@@ -29,7 +29,6 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
     private EventRecyclerAdapter adapter;
     private ArrayList<Event> mAllEvents;
     RecyclerView recyclerView;
-    ArrayList<String> eventNames = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,18 +61,22 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
             }
         });
 
+        Button logoutButton = (Button) findViewById(R.id.logout_button);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
+                mainActivityIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                PublisherMain.this.startActivity(mainActivityIntent);
+            }
+        });
     }
 
     @Override
     public void onItemClick(View view, int position) {
-//        Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
-        // go to the next page to edit / delete item
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("KEY", adapter.getItem(position));
-        Intent intent = new Intent(this, EditEvent.class);
-//        intent.putExtras(bundle);
-        intent.putExtra("EVENT_NAME", adapter.getItem(position));
-        startActivity(intent);
+        Intent editEventIntent = new Intent(this, EditEvent.class);
+        editEventIntent.putExtra("EVENT_NAME", adapter.getItem(position).title);
+        startActivity(editEventIntent);
     }
 
     @Override
@@ -121,13 +124,12 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
                     Event event = ds.getValue(Event.class);
                     Log.d("PUBLISHER_EVENT", event.title);
                     mAllEvents.add(event);
-                    eventNames.add(event.title);
                 }
 
                 // set up the RecyclerView
                 recyclerView = findViewById(R.id.rvEvents);
                 recyclerView.setLayoutManager(new LinearLayoutManager(PublisherMain.this));
-                adapter = new EventRecyclerAdapter(PublisherMain.this, eventNames);
+                adapter = new EventRecyclerAdapter(PublisherMain.this, mAllEvents);
                 adapter.setClickListener(PublisherMain.this);
                 recyclerView.setAdapter(adapter);
             }

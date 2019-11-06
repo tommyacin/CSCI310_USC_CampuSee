@@ -74,6 +74,12 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_home);
 
+        Intent intent2 = new Intent( this, EventCreatedNotificationService.class);
+        startService(intent2);
+
+        //PendingIntent.getService(this, 1010, intent2, PendingIntent.FLAG_UPDATE_CURRENT );
+
+
 
         boolean fromUserLogin = intent.getExtras().getBoolean("fromUserLogin");
         if (fromUserLogin) {
@@ -103,7 +109,7 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
             addGeofence(request);
         }
 
-
+        //go to notifications screen
         Button studentButton = (Button) findViewById(R.id.notificationToolbarButton);
         studentButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +120,7 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
             }
         });
 
+        //go to map screen
         Button mapButton = (Button) findViewById(R.id.mapToolbarButton);
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +131,15 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
             }
         });
 
-
+        Button logoutButton = (Button) findViewById(R.id.logout_button);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
+                mainActivityIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                StudentHome.this.startActivity(mainActivityIntent);
+            }
+        });
     }
 
     public void onItemClick(View view, int position) {
@@ -166,11 +181,10 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
         });
     }
 
-    public void grabAllPublishers(/*android.content.Context context*/) {
+    public void grabAllPublishers() {
         Query publishers = mDatabase.child("publishers");
 
         publishers.addValueEventListener(new ValueEventListener() {
-
             // This will get called as many times as there are publishers in the database
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -186,14 +200,10 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
                 adapter = new HomepageRecyclerAdapter(StudentHome.this, publisherNames);
                 adapter.setClickListener(StudentHome.this);
                 recyclerView.setAdapter(adapter);
-
-                // TODO: Update UI
             }
 
             @Override
-            public void onCancelled(DatabaseError dbe) {
-
-            }
+            public void onCancelled(DatabaseError dbe) {}
         });
     }
 

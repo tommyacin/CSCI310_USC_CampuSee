@@ -173,7 +173,7 @@ public class publisher_page_of_events extends AppCompatActivity implements Event
                 // set up the RecyclerView
                 recyclerView = findViewById(R.id.publisher_profile_page_rv);
                 recyclerView.setLayoutManager(new LinearLayoutManager(publisher_page_of_events.this));
-                adapter = new EventRecyclerAdapter(publisher_page_of_events.this, eventNames);
+                adapter = new EventRecyclerAdapter(publisher_page_of_events.this, mAllEvents);
                 adapter.setClickListener(publisher_page_of_events.this);
                 recyclerView.setAdapter(adapter);
             }

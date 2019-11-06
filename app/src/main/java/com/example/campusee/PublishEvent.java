@@ -2,6 +2,7 @@ package com.example.campusee;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,6 +25,7 @@ public class PublishEvent extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
     private String publisherID;
+    private String eventID;
     private HashMap<String, Constants.Building> buildings;
 
     @Override
@@ -36,26 +38,6 @@ public class PublishEvent extends AppCompatActivity {
         buildings = ((Global) this.getApplication()).getAllBuildings();
 
 
-        Button nextButton = (Button) findViewById(R.id.publish_button);
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // add code here for what will happen when the user selects the student button
-                Intent publishIntent = new Intent(getApplicationContext(), PublisherMain.class);
-                PublishEvent.this.startActivity(publishIntent);
-            }
-        });
-
-        Button editButton = (Button) findViewById(R.id.edit_button);
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // add code here for what will happen when the user selects the student button
-                Intent intent = new Intent(getApplicationContext(), CreateEvent.class);
-                PublishEvent.this.startActivity(intent);
-            }
-        });
-
         TextView name_tv = findViewById(R.id.publish_event_name);
         TextView date_tv = findViewById(R.id.publish_date);
         TextView time_tv = findViewById(R.id.publish_time);
@@ -63,8 +45,6 @@ public class PublishEvent extends AppCompatActivity {
         TextView description_tv = findViewById(R.id.publish_description);
         ImageView icon_image = findViewById(R.id.icon_image);
 
-
-//        writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
         name_tv.setText(getIntent().getStringExtra("EVENT_NAME"));
         radius_tv.setText(getIntent().getStringExtra("EVENT_RADIUS"));
         description_tv.setText(getIntent().getStringExtra("EVENT_DESCRIPTION"));
@@ -77,6 +57,35 @@ public class PublishEvent extends AppCompatActivity {
         String date_string = String.valueOf(month) + "/" + String.valueOf(day) + "/" + String.valueOf(year);
         date_tv.setText(date_string);
         time_tv.setText(time_string);
+
+        final String date = date_tv.getText().toString();
+        final String time = time_tv.getText().toString();
+        final String name = name_tv.getText().toString();
+        final String description = description_tv.getText().toString();
+        final String radius = radius_tv.getText().toString();
+        final String iconName = "HELLO";
+
+        //writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
+
+        Button nextButton = (Button) findViewById(R.id.publish_button);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
+                PublishEvent.this.finish();
+                addNotificationToDatabase(name, description, time, publisherID);
+            }
+        });
+
+        Button editButton = (Button) findViewById(R.id.edit_button);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // add code here for what will happen when the user selects the student button
+                Intent intent = new Intent(getApplicationContext(), CreateEvent.class);
+                PublishEvent.this.startActivity(intent);
+            }
+        });
 
     }
 
@@ -99,10 +108,20 @@ public class PublishEvent extends AppCompatActivity {
 
                         String eventKey = mDatabase.child("events").push().getKey();
 
-                        double latLoc = buildings.get(building).latLoc;
-                        double longLoc = buildings.get(building).longLoc;
+                        Event newEvent = new Event(publisherId, building, title, description, time, date, radius, iconFileName);
 
-                        Event newEvent = new Event(publisherId, title, description, time, date, latLoc, longLoc, radius, iconFileName);
+                        //creating geofence here too
+                        String geoKey = mDatabase.child("geofences").push().getKey();
+
+                        double latitude = Constants.allBuildings.get(building).latLoc;
+                        double longitude = Constants.allBuildings.get(building).longLoc;
+
+                        GeofenceHolder newGeofence = new GeofenceHolder(eventKey, latitude, longitude, radius, 1000000);
+
+                        mDatabase.child("geofences").child(geoKey).setValue(newGeofence);
+
+                        //ending geofence creation
+
 
                         Map<String, Object> eventValues = newEvent.toMap();
 
@@ -112,7 +131,10 @@ public class PublishEvent extends AppCompatActivity {
 
                         mDatabase.updateChildren(childUpdates);
 
-                        return;
+                        /*
+                        Intent publishIntent = new Intent(getApplicationContext(), PublisherMain.class);
+                        PublishEvent.this.startActivity(publishIntent);
+                         */
                     }
                 }
             }
@@ -123,7 +145,15 @@ public class PublishEvent extends AppCompatActivity {
             }
         });
 
+    }
 
+    private void addNotificationToDatabase(String title, String description, String time, String publisherId) {
+
+        String key = mDatabase.child("publishers").push().getKey();
+        Notification notification = new Notification(title, description, time, publisherId, key);
+
+        mDatabase.child("publishers").child(key).setValue(notification);
 
     }
+
 }
