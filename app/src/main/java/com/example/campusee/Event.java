@@ -19,11 +19,13 @@ public class Event {
     public double latLoc;
     public double longLoc;
     public Boolean status;
+    public String building;
 
     Event() { }
 
-    Event(String publisherId, String title, String description, String time, String date, double latLoc, double longLoc, int radius, String iconFileName) {
+    Event(String publisherId, String building, String title, String description, String time, String date, double latLoc, double longLoc, int radius, String iconFileName) {
         this.publisherId = publisherId;
+        this.building = building;
         this.title = title;
         this.description = description;
         this.time = time;
@@ -41,8 +43,11 @@ public class Event {
         result.put("description", description);
         result.put("time", time);
         result.put("date", date);
-        //result.put("icon", icon);
+        result.put("iconFileName", iconFileName);
+        result.put("building", building);
         result.put("status", status);
+        result.put("latLoc", latLoc);
+        result.put("longLoc", longLoc);
 
         return result;
     }

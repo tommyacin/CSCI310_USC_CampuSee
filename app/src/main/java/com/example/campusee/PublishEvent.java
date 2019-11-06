@@ -36,35 +36,13 @@ public class PublishEvent extends AppCompatActivity {
         buildings = ((Global) this.getApplication()).getAllBuildings();
 
 
-        Button nextButton = (Button) findViewById(R.id.publish_button);
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // add code here for what will happen when the user selects the student button
-                Intent publishIntent = new Intent(getApplicationContext(), PublisherMain.class);
-                PublishEvent.this.startActivity(publishIntent);
-            }
-        });
-
-        Button editButton = (Button) findViewById(R.id.edit_button);
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // add code here for what will happen when the user selects the student button
-                Intent intent = new Intent(getApplicationContext(), CreateEvent.class);
-                PublishEvent.this.startActivity(intent);
-            }
-        });
-
         TextView name_tv = findViewById(R.id.publish_event_name);
         TextView date_tv = findViewById(R.id.publish_date);
         TextView time_tv = findViewById(R.id.publish_time);
         TextView radius_tv = findViewById(R.id.publish_radius);
         TextView description_tv = findViewById(R.id.publish_description);
         ImageView icon_image = findViewById(R.id.icon_image);
-        
 
-//        writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
         name_tv.setText(getIntent().getStringExtra("EVENT_NAME"));
         radius_tv.setText(getIntent().getStringExtra("EVENT_RADIUS"));
         description_tv.setText(getIntent().getStringExtra("EVENT_DESCRIPTION"));
@@ -77,6 +55,33 @@ public class PublishEvent extends AppCompatActivity {
         String date_string = String.valueOf(month) + "/" + String.valueOf(day) + "/" + String.valueOf(year);
         date_tv.setText(date_string);
         time_tv.setText(time_string);
+
+        final String date = date_tv.getText().toString();
+        final String time = time_tv.getText().toString();
+        final String name = name_tv.getText().toString();
+        final String description = description_tv.getText().toString();
+        final String radius = radius_tv.getText().toString();
+        final String iconName = "HELLO";
+
+        //writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
+
+        Button nextButton = (Button) findViewById(R.id.publish_button);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
+            }
+        });
+
+        Button editButton = (Button) findViewById(R.id.edit_button);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // add code here for what will happen when the user selects the student button
+                Intent intent = new Intent(getApplicationContext(), CreateEvent.class);
+                PublishEvent.this.startActivity(intent);
+            }
+        });
 
     }
 
@@ -102,7 +107,7 @@ public class PublishEvent extends AppCompatActivity {
                         double latLoc = buildings.get(building).latLoc;
                         double longLoc = buildings.get(building).longLoc;
 
-                        Event newEvent = new Event(publisherId, title, description, time, date, latLoc, longLoc, radius, iconFileName);
+                        Event newEvent = new Event(publisherId, building, title, description, time, date, latLoc, longLoc, radius, iconFileName);
 
                         Map<String, Object> eventValues = newEvent.toMap();
 
@@ -112,7 +117,9 @@ public class PublishEvent extends AppCompatActivity {
 
                         mDatabase.updateChildren(childUpdates);
 
-                        return;
+                        /*Intent publishIntent = new Intent(getApplicationContext(), PublisherMain.class);
+                        PublishEvent.this.startActivity(publishIntent);*/
+
                     }
                 }
             }
