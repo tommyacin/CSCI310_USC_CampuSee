@@ -2,10 +2,8 @@ package com.example.campusee;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -64,16 +62,9 @@ public class PublishEvent extends AppCompatActivity {
         TextView radius_tv = findViewById(R.id.publish_radius);
         TextView description_tv = findViewById(R.id.publish_description);
         ImageView icon_image = findViewById(R.id.icon_image);
+        
 
-
-        String name = name_tv.getText().toString();
-        String date = date_tv.getText().toString();
-        String time = time_tv.getText().toString();
-        String radius = radius_tv.getText().toString();
-        String description = description_tv.getText().toString();
-        String iconName = icon_image.getTag().toString();
-
-        writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
+//        writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
         name_tv.setText(getIntent().getStringExtra("EVENT_NAME"));
         radius_tv.setText(getIntent().getStringExtra("EVENT_RADIUS"));
         description_tv.setText(getIntent().getStringExtra("EVENT_DESCRIPTION"));
