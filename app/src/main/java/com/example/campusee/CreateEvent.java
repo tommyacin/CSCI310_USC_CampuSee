@@ -38,9 +38,6 @@ public class CreateEvent extends AppCompatActivity {
         });
         TimePicker picker=(TimePicker)findViewById(R.id.create_timepicker);
         picker.setIs24HourView(false);
-
-        String pubID = ((Global) this.getApplication()).getCurrentPublisherID();
-        writeNewEvent(pubID, "test", "desc", "1:00 PM", 123, null, 10);
     }
 
     private void buttonClick(){
