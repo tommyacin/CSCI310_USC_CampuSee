@@ -1,7 +1,9 @@
+package com.example.campusee;
+
 import java.util.*;
 
 public class Constants {
-    public class Building {
+    public static class Building {
         String name;
         double latLoc;
         double longLoc;
@@ -13,9 +15,16 @@ public class Constants {
         }
     }
 
-    public HashMap<String, Building> allBuildings = new HashMap<>();
+    public static HashMap<String, Building> allBuildings;
 
-    public void setAllBuildings() {
+    public Constants() {
+        allBuildings = new HashMap<>();
+        setAllBuildings();
+    }
+
+
+
+    public static void setAllBuildings() {
         Building building = new Building("RTC", 34.0201738, -118.2886748);
         Building building1 = new Building("ACC", 34.0191839,-118.2877323);
         Building building2 = new Building("THH", 34.0222316,-118.2867506);
