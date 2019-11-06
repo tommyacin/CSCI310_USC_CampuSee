@@ -10,7 +10,9 @@ public class Notification {
     String time;
     String publisherId;
     String notifId;
+    String dbEventId;
     Event eventId;
+
 
     String sendTime;
 
@@ -18,15 +20,16 @@ public class Notification {
 
     Notification(){}
 
-    Notification(String title, String description, String time, String publisherId, String notifId) {
+    Notification(String title, String description, String time, String publisherId, String notifId, String dbEventId) {
         tsLong = System.currentTimeMillis()/1000;
 
         this.notifId = notifId;
         this.sendTime = tsLong.toString();
-        this.title = time + ": " + title;
+        this.title =  title;
         this.description = description;
         this.time = time;
         this.publisherId = publisherId;
+        this.dbEventId = dbEventId;
 
     }
 
@@ -61,4 +64,7 @@ public class Notification {
     public String getNotifId() {return notifId;}
 
     public String getPublisherId(){return publisherId;}
+
+    public String getDbEventId(){return dbEventId;}
 }
+

@@ -138,6 +138,8 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
             public void onClick(View v) {
                 Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
                 mainActivityIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                stopService(new Intent(getApplicationContext(), EventCreatedNotificationService.class));
+
                 StudentHome.this.startActivity(mainActivityIntent);
             }
         });
