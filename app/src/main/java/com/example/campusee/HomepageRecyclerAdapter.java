@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class HomepageRecyclerAdapter extends RecyclerView.Adapter<HomepageRecyclerAdapter.ViewHolder>  {
-    private List<String> mData;
+    private List<Publisher> mData;
     private LayoutInflater mInflater;
     private HomepageRecyclerAdapter.ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    public HomepageRecyclerAdapter(Context context, List<String> data) {
+    public HomepageRecyclerAdapter(Context context, List<Publisher> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -31,8 +31,9 @@ public class HomepageRecyclerAdapter extends RecyclerView.Adapter<HomepageRecycl
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(HomepageRecyclerAdapter.ViewHolder holder, int position) {
-        String publisherName = mData.get(position);
-        holder.myTextView.setText(publisherName);
+        Publisher pub = mData.get(position);
+        holder.pub_name_tv.setText(pub.name);
+        holder.pub_building_tv.setText(pub.building);
     }
 
     // total number of rows
@@ -44,11 +45,13 @@ public class HomepageRecyclerAdapter extends RecyclerView.Adapter<HomepageRecycl
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView myTextView;
+        TextView pub_name_tv;
+        TextView pub_building_tv;
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.publisherName);
+            pub_name_tv = itemView.findViewById(R.id.publisherName);
+            pub_building_tv = itemView.findViewById(R.id.publisherBuildingName);
             itemView.setOnClickListener(this);
         }
 
@@ -59,7 +62,7 @@ public class HomepageRecyclerAdapter extends RecyclerView.Adapter<HomepageRecycl
     }
 
     // convenience method for getting data at click position
-    public String getItem(int id) {
+    public Publisher getItem(int id) {
         return mData.get(id);
     }
 
