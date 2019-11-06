@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdapter.ViewHolder>  {
-    private List<String> mData;
+    private List<Event> mData;
     private LayoutInflater mInflater;
     private EventRecyclerAdapter.ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    public EventRecyclerAdapter(Context context, List<String> data) {
+    public EventRecyclerAdapter(Context context, List<Event> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -32,8 +32,10 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(EventRecyclerAdapter.ViewHolder holder, int position) {
-        String eventName = mData.get(position);
-        holder.myTextView.setText(eventName);
+        Event event = mData.get(position);
+        holder.event_title_tv.setText(event.title);
+        holder.event_building_tv.setText(event.building);
+        holder.event_description_tv.setText(event.description);
     }
 
     // total number of rows
@@ -45,11 +47,15 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView myTextView;
+        TextView event_title_tv;
+        TextView event_building_tv;
+        TextView event_description_tv;
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.EventName);
+            event_title_tv = itemView.findViewById(R.id.event_title);
+            event_building_tv = itemView.findViewById(R.id.event_building);
+            event_description_tv = itemView.findViewById(R.id.event_description);
             itemView.setOnClickListener(this);
         }
 
@@ -60,7 +66,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
     }
 
     // convenience method for getting data at click position
-    public String getItem(int id) {
+    public Event getItem(int id) {
         return mData.get(id);
     }
 

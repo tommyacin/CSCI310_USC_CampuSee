@@ -100,13 +100,12 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
         if (geofences == null) {
             geofences = application.getGeofenceForNotifications();
 
-            if(geofences!= null) {
+            if (geofences != null) {
                 GeofencingRequest request = new GeofencingRequest.Builder()
                         // Notification to trigger when the Geofence is created
                         .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
                         .addGeofences(geofences) // add a Geofence
                         .build();
-
                 addGeofence(request);
             }
         }
