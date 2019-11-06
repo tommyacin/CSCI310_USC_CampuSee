@@ -41,7 +41,7 @@ public class activity_map extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         Global application = (Global)getApplicationContext();
         existingPublishers = application.getExistingPublishers();
-        
+
         super.onCreate(savedInstanceState);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         setContentView(R.layout.activity_map);
