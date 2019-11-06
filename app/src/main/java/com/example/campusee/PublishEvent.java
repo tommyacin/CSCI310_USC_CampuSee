@@ -2,7 +2,6 @@ package com.example.campusee;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,7 +24,7 @@ public class PublishEvent extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
     private String publisherID;
-    private String eventID;
+    private String eventID = "";
     private HashMap<String, Constants.Building> buildings;
 
     @Override
@@ -107,7 +106,8 @@ public class PublishEvent extends AppCompatActivity {
                         String building = curr_pub.building;
 
                         String eventKey = mDatabase.child("events").push().getKey();
-
+                        eventID = eventKey;
+                        
                         Event newEvent = new Event(publisherId, building, title, description, time, date, radius, iconFileName);
 
                         //creating geofence here too
@@ -150,7 +150,8 @@ public class PublishEvent extends AppCompatActivity {
     private void addNotificationToDatabase(String title, String description, String time, String publisherId) {
 
         String key = mDatabase.child("notifications").push().getKey();
-        Notification notification = new Notification(title, description, time, publisherId, key);
+
+        Notification notification = new Notification(title, description, time, publisherId, key, eventID);
 
         mDatabase.child("notifications").child(key).setValue(notification);
 

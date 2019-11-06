@@ -100,13 +100,14 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
         if (geofences == null) {
             geofences = application.getGeofenceForNotifications();
 
-            GeofencingRequest request = new GeofencingRequest.Builder()
-                    // Notification to trigger when the Geofence is created
-                    .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
-                    .addGeofences(geofences) // add a Geofence
-                    .build();
-
-            addGeofence(request);
+            if (geofences != null) {
+                GeofencingRequest request = new GeofencingRequest.Builder()
+                        // Notification to trigger when the Geofence is created
+                        .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
+                        .addGeofences(geofences) // add a Geofence
+                        .build();
+                addGeofence(request);
+            }
         }
 
         //go to notifications screen
@@ -137,6 +138,8 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
             public void onClick(View v) {
                 Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
                 mainActivityIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                stopService(new Intent(getApplicationContext(), EventCreatedNotificationService.class));
+
                 StudentHome.this.startActivity(mainActivityIntent);
             }
         });

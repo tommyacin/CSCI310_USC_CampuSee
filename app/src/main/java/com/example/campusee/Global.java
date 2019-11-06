@@ -69,7 +69,7 @@ public class Global extends Application {
 
         Query geos = mDatabase.child("publishers");
 
-        allEventsForUser = new ArrayList<GeofenceHolder>();
+        existingPublishers = new ArrayList<String>();
 
         geos.addChildEventListener(new ChildEventListener() {
 
@@ -83,7 +83,10 @@ public class Global extends Application {
 
                 String building = (String)map.get("building");
 
-                existingPublishers.add(building);
+                if(Constants.allBuildings.containsKey(building))
+                {
+                    existingPublishers.add(building);
+                }
 
                 //Log.d("grabgeofences", "geofence: " + duration + eventId + latitude + longitude + radius);
             }

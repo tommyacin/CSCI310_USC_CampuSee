@@ -86,18 +86,14 @@ import java.util.ArrayList;
 import android.widget.Button;
 
 public class NotificationPage extends AppCompatActivity implements PublisherRecyclerviewAdapter.ItemClickListener {
-
     private DatabaseReference mDatabase;
     ArrayList<Notification> mAllNotifs;
-    ArrayList<String> notifNames = new ArrayList<>();
     RecyclerView recyclerView;
     PublisherRecyclerviewAdapter adapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        Intent homePage = getIntent();
+        Intent intent = getIntent();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_page);
 
@@ -107,6 +103,7 @@ public class NotificationPage extends AppCompatActivity implements PublisherRecy
         String currentUserID = ((Global) this.getApplication()).getCurrentUserID();
 
         // Grabs all user notifications and displays them in recycler view
+        mAllNotifs = new ArrayList<>();
         grabAllUserNotifications(currentUserID);
 
         Button studentButton = (Button) findViewById(R.id.publishersToolbarButton);
@@ -137,6 +134,7 @@ public class NotificationPage extends AppCompatActivity implements PublisherRecy
             public void onClick(View v) {
                 Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
                 mainActivityIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                stopService(new Intent(getApplicationContext(), EventCreatedNotificationService.class));
                 NotificationPage.this.startActivity(mainActivityIntent);
             }
         });
@@ -156,21 +154,19 @@ public class NotificationPage extends AppCompatActivity implements PublisherRecy
 
     public void grabAllUserNotifications(String userId) {
         Query userNotifs = mDatabase.child("user-notifications").child(userId);
-
         userNotifs.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Notification notif = ds.getValue(Notification.class);
-                    Log.d("USER_NOTIF", notif.eventId.title);
+
                     mAllNotifs.add(notif);
-                    notifNames.add(notif.eventId.title);
                 }
 
                 // set up the RecyclerView
                 recyclerView = findViewById(R.id.rvAnimals);
                 recyclerView.setLayoutManager(new LinearLayoutManager(NotificationPage.this));
-                adapter = new PublisherRecyclerviewAdapter(NotificationPage.this, notifNames);
+                adapter = new PublisherRecyclerviewAdapter(NotificationPage.this, mAllNotifs);
                 adapter.setClickListener(NotificationPage.this);
                 recyclerView.setAdapter(adapter);
             }
@@ -181,10 +177,4 @@ public class NotificationPage extends AppCompatActivity implements PublisherRecy
             }
         });
     }
-
 }
-
-
-
-
-
