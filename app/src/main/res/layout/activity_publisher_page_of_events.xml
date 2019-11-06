@@ -8,7 +8,7 @@
     tools:context=".publisher_page_of_events">
 
     <TextView
-        android:id="@+id/nameOfPublisher"
+        android:id="@+id/publisher_profile_page_name"
         android:layout_width="wrap_content"
         android:layout_height="37dp"
         android:layout_marginTop="32dp"
@@ -31,17 +31,17 @@
         tools:srcCompat="@drawable/big_icon" />
 
     <TextView
-        android:id="@+id/nameOfBuilding"
+        android:id="@+id/publisher_profile_page_building"
         android:layout_width="156dp"
         android:layout_height="29dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
         android:text="Building Name"
         app:layout_constraintStart_toEndOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/nameOfPublisher" />
+        app:layout_constraintTop_toBottomOf="@+id/publisher_profile_page_name" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewOfEvents"
+        android:id="@+id/publisher_profile_page_rv"
         android:layout_width="379dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -51,7 +51,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameOfBuilding" />
+        app:layout_constraintTop_toBottomOf="@+id/publisher_profile_page_building" />
 
     <Button
         android:id="@+id/subscribe_btn"
