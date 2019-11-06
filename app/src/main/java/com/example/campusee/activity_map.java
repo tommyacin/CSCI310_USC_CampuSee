@@ -36,11 +36,13 @@ public class activity_map extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private DatabaseReference mDatabase;
     private List<String> existingPublishers;
+    private List<String> publisherNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Global application = (Global)getApplicationContext();
         existingPublishers = application.getExistingPublishers();
+        publisherNames = application.getPublisherNames();
 
         super.onCreate(savedInstanceState);
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -95,7 +97,7 @@ public class activity_map extends FragmentActivity implements OnMapReadyCallback
             //latlng using map in constants
             LatLng loc = new LatLng(latitude, longitude);
 
-            mMap.addMarker(new MarkerOptions().position(loc).title(temp));
+            mMap.addMarker(new MarkerOptions().position(loc).title(publisherNames.get(i)));
         }
 
     }
