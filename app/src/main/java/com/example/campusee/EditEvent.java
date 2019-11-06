@@ -25,7 +25,7 @@ public class EditEvent extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         Intent intent = getIntent();
         String event_name = intent.getStringExtra("EVENT_NAME");
-        TextView event_name_tv = (TextView)findViewById(R.id.event_name);
+        TextView event_name_tv = (TextView)findViewById(R.id.edit_event_name);
         event_name_tv.setText(event_name);
 
     }

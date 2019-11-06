@@ -26,20 +26,20 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/EventName"
+                android:id="@+id/event_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/publisherBuildingName"
+                android:id="@+id/event_building"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Ronald Tutor Hall"
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/summaryOfNotfication"
+                android:id="@+id/event_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="This is the summary of the event that will describe what is going on hheheheheh"

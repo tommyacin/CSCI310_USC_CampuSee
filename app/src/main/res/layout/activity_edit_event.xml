@@ -11,14 +11,14 @@
         android:id="@+id/view"
         android:layout_width="343dp"
         android:layout_height="212dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="100dp"
         android:background="@color/background_yellow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/event_name"
+        android:id="@+id/edit_event_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="21dp"
@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="@+id/view" />
 
     <TextView
-        android:id="@+id/event_time"
+        android:id="@+id/edit_event_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="23dp"
@@ -42,7 +42,7 @@
         app:layout_constraintTop_toTopOf="@+id/view" />
 
     <TextView
-        android:id="@+id/event_date"
+        android:id="@+id/edit_event_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
@@ -50,10 +50,10 @@
         app:layout_constraintEnd_toEndOf="@+id/view"
         app:layout_constraintHorizontal_bias="0.094"
         app:layout_constraintStart_toStartOf="@+id/view"
-        app:layout_constraintTop_toTopOf="@+id/event_time" />
+        app:layout_constraintTop_toTopOf="@+id/edit_event_time" />
 
     <TextView
-        android:id="@+id/event_description"
+        android:id="@+id/edit_event_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="29dp"
@@ -66,7 +66,7 @@
         app:layout_constraintTop_toTopOf="@+id/view" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/edit_event_icon"
         android:layout_width="77dp"
         android:layout_height="70dp"
         android:layout_marginTop="23dp"
@@ -79,12 +79,12 @@
         android:id="@+id/edit_button"
         android:layout_width="144dp"
         android:layout_height="36dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="92dp"
         android:background="@drawable/btn_rounded"
         android:text="Edit"
         android:textColor="#ffffff"
         app:layout_constraintEnd_toStartOf="@+id/delete_button"
-        app:layout_constraintHorizontal_bias="0.768"
+        app:layout_constraintHorizontal_bias="0.651"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
@@ -105,8 +105,8 @@
         android:id="@+id/republish_button"
         android:layout_width="155dp"
         android:layout_height="42dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="40dp"
         android:background="@drawable/btn_rounded"
         android:text="Republish"
         android:textColor="#ffffff"
@@ -117,8 +117,8 @@
         android:id="@+id/delete_button"
         android:layout_width="153dp"
         android:layout_height="40dp"
-        android:layout_marginTop="140dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginEnd="40dp"
         android:background="@drawable/btn_rounded"
         android:text="Delete"
         android:textColor="#ffffff"
