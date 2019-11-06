@@ -27,7 +27,6 @@ public class Global extends Application {
 
     private String currentUserID;
     private String currentPublisherID;
-    private Publisher currentPublisher;
 
     private List<GeofenceHolder> allEventsForUser;
     private List<Geofence> geofenceForNotifications;
@@ -48,7 +47,6 @@ public class Global extends Application {
 
     public String getCurrentPublisherID() {return currentPublisherID;}
 
-    public Publisher getCurrentPublisher() {return  currentPublisher;}
 
     public List<GeofenceHolder> getAllEventsForUser() {return allEventsForUser;}
 
@@ -62,10 +60,6 @@ public class Global extends Application {
 
     public void setCurrentPublisherID(String currentPublisherID) {
         this.currentPublisherID = currentPublisherID;
-    }
-
-    public void setCurrentPublisher(Publisher currentPublisher) {
-        this.currentPublisher = currentPublisher;
     }
 
     public void grabAllPublishers() {
