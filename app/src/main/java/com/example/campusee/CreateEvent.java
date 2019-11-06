@@ -39,20 +39,6 @@ public class CreateEvent extends AppCompatActivity {
         picker.setIs24HourView(false);
     }
 
-    private void writeNewEvent(String publisherId, String title, String description, String time, int ID, double[] loc, int radius) {
-        String eventKey = mDatabase.child("events").push().getKey();
-
-        Event newEvent = new Event(publisherId, title, description, time, ID, loc, radius);
-
-        Map<String, Object> eventValues = newEvent.toMap();
-
-        Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/events/" + eventKey, eventValues);
-        childUpdates.put("/publisher-events/" + publisherId + "/" + eventKey, eventValues);
-
-        mDatabase.updateChildren(childUpdates);
-    }
-
     private void writeNewGeofence(double longitude, double latitude, long radius, String eventId, long duration){
         String geoKey = mDatabase.child("geofences").push().getKey();
 
