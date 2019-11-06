@@ -12,16 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class PublisherRecyclerviewAdapter extends RecyclerView.Adapter<PublisherRecyclerviewAdapter.ViewHolder> {
-    private List<String> mData;
-    private List<String> mBuilding;
+    private List<Notification> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    public PublisherRecyclerviewAdapter(Context context, List<String> data) {
+    public PublisherRecyclerviewAdapter(Context context, List<Notification> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
-        //this.mBuilding = buildings;
     }
 
     // inflates the row layout from xml when needed
@@ -34,8 +32,9 @@ public class PublisherRecyclerviewAdapter extends RecyclerView.Adapter<Publisher
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String animal = mData.get(position);
-        holder.myTextView.setText(animal);
+        Notification notif = mData.get(position);
+        holder.notif_title_tv.setText(notif.title);
+        holder.notif_description_tv.setText(notif.description);
     }
 
     // total number of rows
@@ -47,11 +46,13 @@ public class PublisherRecyclerviewAdapter extends RecyclerView.Adapter<Publisher
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView myTextView;
+        TextView notif_title_tv;
+        TextView notif_description_tv;
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.tvAnimalName);
+            notif_title_tv = itemView.findViewById(R.id.notif_title);
+            notif_description_tv = itemView.findViewById(R.id.notif_description);
             itemView.setOnClickListener(this);
         }
 
@@ -62,7 +63,7 @@ public class PublisherRecyclerviewAdapter extends RecyclerView.Adapter<Publisher
     }
 
     // convenience method for getting data at click position
-    public String getItem(int id) {
+    public Notification getItem(int id) {
         return mData.get(id);
     }
 
