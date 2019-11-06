@@ -84,6 +84,7 @@ public class CreateEvent extends AppCompatActivity {
             iconIntent.putExtra("EVENT_DAY", day);
             iconIntent.putExtra("EVENT_YEAR", year);
             CreateEvent.this.startActivity(iconIntent);
+            CreateEvent.this.finish();
         }
     }
 
