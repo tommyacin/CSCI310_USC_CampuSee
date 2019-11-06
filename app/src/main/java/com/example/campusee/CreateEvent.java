@@ -102,14 +102,4 @@ public class CreateEvent extends AppCompatActivity {
 
         mDatabase.child("geofences").child(geoKey).setValue(geofence);
     }
-
-    private void addNotificationToDatabase(String title, String description, String time, String publisherId) {
-
-        String key = mDatabase.child("publishers").push().getKey();
-        Notification notification = new Notification(title, description, time, publisherId, key);
-        Log.d("writeNotif", key);
-        mDatabase.child("publishers").child(key).setValue(notification);
-
-    }
-
 }

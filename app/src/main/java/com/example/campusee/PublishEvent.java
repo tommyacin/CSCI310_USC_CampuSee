@@ -2,6 +2,7 @@ package com.example.campusee;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -70,6 +71,7 @@ public class PublishEvent extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
+                addNotificationToDatabase(name, description, time, publisherID);
             }
         });
 
@@ -130,7 +132,14 @@ public class PublishEvent extends AppCompatActivity {
             }
         });
 
+    }
 
+    private void addNotificationToDatabase(String title, String description, String time, String publisherId) {
+
+        String key = mDatabase.child("publishers").push().getKey();
+        Notification notification = new Notification(title, description, time, publisherId, key);
+        Log.d("writeNotif", key);
+        mDatabase.child("publishers").child(key).setValue(notification);
 
     }
 }
