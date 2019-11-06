@@ -12,11 +12,11 @@ public class Notification {
     String notifId;
     Event eventId;
 
-
-
     String sendTime;
 
     Long tsLong;
+
+    Notification(){}
 
     Notification(String title, String description, String time, String publisherId, String notifId) {
         tsLong = System.currentTimeMillis()/1000;
@@ -59,4 +59,6 @@ public class Notification {
     public String getDescription() {return description;}
 
     public String getNotifId() {return notifId;}
+
+    public String getPublisherId(){return publisherId;}
 }

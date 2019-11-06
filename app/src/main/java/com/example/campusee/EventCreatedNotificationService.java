@@ -27,14 +27,15 @@ import java.util.List;
 public class EventCreatedNotificationService extends IntentService {
     private DatabaseReference mDatabase;
 
-    private static final String TAG = "EVENT CREATED SERVICE";
+    private static final String TAG = "EVENTCREATED";
 
     public EventCreatedNotificationService() {
-        super("BackgroundNotifications");
+        super("EventCreatedService");
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        Log.d(TAG, "service has started");
         Global application = (Global)getApplicationContext();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -50,6 +51,7 @@ public class EventCreatedNotificationService extends IntentService {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 final Notification temp = dataSnapshot.getValue(Notification.class);
                 String notifId = temp.getNotifId();
+                final String publisherId = temp.getPublisherId();
 
                 Query notificationQuery = mDatabase.child("user-notifications").child(userKey).orderByChild("notifId").equalTo(notifId);;
 
@@ -57,18 +59,34 @@ public class EventCreatedNotificationService extends IntentService {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (!dataSnapshot.exists()) {
-                            Random rand = new Random();
-                            mDatabase.child("user-notifications").child(userKey).child(temp.getNotifId()).setValue(temp);
 
-                            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "1234")
-                                    .setSmallIcon(R.drawable.app_icon)
-                                    .setContentTitle(temp.getTitle())
-                                    .setContentText(temp.getDescription())
-                                    .setDefaults(NotificationCompat.DEFAULT_VIBRATE)
-                                    .setPriority(NotificationCompat.PRIORITY_MAX);
+                            Query publisherQuery = mDatabase.child("user-publishers").child(userKey);
 
-                            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
-                            notificationManager.notify(rand.nextInt(1000), builder.build());
+                            publisherQuery.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.hasChild(publisherId)) {
+
+                                        Log.d(TAG, "I am subscribed");
+                                        Random rand = new Random();
+                                        mDatabase.child("user-notifications").child(userKey).child(temp.getNotifId()).setValue(temp);
+
+                                        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "1234")
+                                                .setSmallIcon(R.drawable.app_icon)
+                                                .setContentTitle(temp.getTitle())
+                                                .setContentText(temp.getDescription())
+                                                .setDefaults(NotificationCompat.DEFAULT_VIBRATE)
+                                                .setPriority(NotificationCompat.PRIORITY_MAX);
+
+                                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
+                                        notificationManager.notify(rand.nextInt(1000), builder.build());
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {}
+                            });
+
                         }
                     }
 

@@ -74,6 +74,12 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_home);
 
+        Intent intent2 = new Intent( this, EventCreatedNotificationService.class);
+        startService(intent2);
+
+        //PendingIntent.getService(this, 1010, intent2, PendingIntent.FLAG_UPDATE_CURRENT );
+
+
 
         boolean fromUserLogin = intent.getExtras().getBoolean("fromUserLogin");
         if (fromUserLogin) {

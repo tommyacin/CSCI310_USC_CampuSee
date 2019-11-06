@@ -14,14 +14,19 @@ import androidx.core.app.NotificationManagerCompat;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofenceStatusCodes;
 import com.google.android.gms.location.GeofencingEvent;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class GeofenceTransitionService extends IntentService {
 
     private static final String TAG = "googly";
     public static final int GEOFENCE_NOTIFICATION_ID = 0;
+
+    private DatabaseReference mDatabase;
 
     public GeofenceTransitionService() {
         super(TAG);
@@ -50,7 +55,7 @@ public class GeofenceTransitionService extends IntentService {
             // Create a detail message with Geofences received
             String geofenceTransitionDetails = getGeofenceTrasitionDetails(geoFenceTransition, triggeringGeofences );
             // Send notification details as a String
-            sendNotification( geofenceTransitionDetails );
+            sendNotification( geofenceTransitionDetails, triggeringGeofences);
         }
     }
 
@@ -71,8 +76,14 @@ public class GeofenceTransitionService extends IntentService {
     }
 
     // Send a notification
-    private void sendNotification( String msg ) {
+    private void sendNotification( String msg,  List<Geofence> triggeringGeofences) {
         Log.i(TAG, "sendNotification: " + msg );
+        Global application = (Global)getApplicationContext();
+//        mDatabase = FirebaseDatabase.getInstance().getReference();
+//
+//        Notification temp = new Notification(title, description, time, publisherId, key);
+//
+//        mDatabase.child("user-notifications").child(application.getCurrentUserID()).child(temp.getNotifId()).setValue(temp);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "1234")
                 .setSmallIcon(R.drawable.app_icon)
@@ -80,6 +91,8 @@ public class GeofenceTransitionService extends IntentService {
                 .setContentText(msg)
                 .setDefaults(NotificationCompat.DEFAULT_VIBRATE)
                 .setPriority(NotificationCompat.PRIORITY_MAX);
+
+
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         notificationManager.notify(1, builder.build());

@@ -29,6 +29,8 @@
             </intent-filter>
         </activity>
         <service android:name=".GeofenceTransitionService" />
+        <service android:name=".EventCreatedNotificationService" />
+
 
 
         <meta-data

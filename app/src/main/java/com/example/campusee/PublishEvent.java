@@ -64,6 +64,7 @@ public class PublishEvent extends AppCompatActivity {
         final String radius = radius_tv.getText().toString();
         final String iconName = "HELLO";
 
+
         //writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
 
         Button nextButton = (Button) findViewById(R.id.publish_button);

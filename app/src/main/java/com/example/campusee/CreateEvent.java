@@ -35,6 +35,16 @@ public class CreateEvent extends AppCompatActivity {
 
         setContentView(R.layout.activity_create_event);
 
+        // notification testing
+        Global application = (Global)getApplicationContext();
+        final String publisherID = application.getCurrentPublisherID();
+        final String date = "date2";
+        final String time = "time2";
+        final String name = "name2";
+        final String description = "description2";
+        addNotificationToDatabase(name, description, time, publisherID);
+        //end notification testing
+
         Button nextButton = (Button) findViewById(R.id.next_button);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,5 +111,14 @@ public class CreateEvent extends AppCompatActivity {
         GeofenceHolder geofence = new GeofenceHolder(eventId, latitude, longitude, radius, duration);
 
         mDatabase.child("geofences").child(geoKey).setValue(geofence);
+    }
+
+    private void addNotificationToDatabase(String title, String description, String time, String publisherId) {
+
+        String key = mDatabase.child("notifications").push().getKey();
+        Notification notification = new Notification(title, description, time, publisherId, key);
+        Log.d("writeNotif", key);
+        mDatabase.child("notifications").child(key).setValue(notification);
+
     }
 }
