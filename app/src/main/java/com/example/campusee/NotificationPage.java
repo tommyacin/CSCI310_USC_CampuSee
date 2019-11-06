@@ -131,6 +131,15 @@ public class NotificationPage extends AppCompatActivity implements PublisherRecy
             }
         });
 
+        Button logoutButton = (Button) findViewById(R.id.logout_button);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
+                mainActivityIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                NotificationPage.this.startActivity(mainActivityIntent);
+            }
+        });
     }
 
     @Override
