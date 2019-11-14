@@ -112,7 +112,7 @@ public class PublishEvent extends AppCompatActivity {
         }
     }
 
-    private void writeNewEvent(final String publisherId,
+    protected void writeNewEvent(final String publisherId,
                                final String title,
                                final String description,
                                final String time,
