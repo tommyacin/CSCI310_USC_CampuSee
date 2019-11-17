@@ -31,6 +31,7 @@ public class Global extends Application {
     private List<GeofenceHolder> allEventsForUser;
     private List<Geofence> geofenceForNotifications;
     private List<String> existingPublishers;
+    private List<String> publisherNames;
     private List<String> subscribedPublisherKeys;
     private List<Notification> allUserNotifications;
 
@@ -54,6 +55,8 @@ public class Global extends Application {
 
     public List<String> getExistingPublishers() {return existingPublishers;}
 
+    public List<String> getPublisherNames(){return publisherNames;}
+
     public List<Geofence> getGeofenceForNotifications() {return geofenceForNotifications;}
 
     public void setCurrentUserID(String currentUserID) {
@@ -70,6 +73,7 @@ public class Global extends Application {
         Query geos = mDatabase.child("publishers");
 
         existingPublishers = new ArrayList<String>();
+        publisherNames = new ArrayList<String>();
 
         geos.addChildEventListener(new ChildEventListener() {
 
@@ -82,10 +86,12 @@ public class Global extends Application {
 
 
                 String building = (String)map.get("building");
+                String pubName = (String)map.get("name");
 
                 if(Constants.allBuildings.containsKey(building))
                 {
                     existingPublishers.add(building);
+                    publisherNames.add(pubName);
                 }
 
                 //Log.d("grabgeofences", "geofence: " + duration + eventId + latitude + longitude + radius);

@@ -8,12 +8,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -83,8 +81,9 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
         editEventIntent.putExtra("EVENT_DES", adapter.getItem(position).description);
         editEventIntent.putExtra("EVENT_TIME", adapter.getItem(position).time);
         editEventIntent.putExtra("EVENT_DATE", adapter.getItem(position).date);
+        editEventIntent.putExtra("EVENT_ICON", adapter.getItem(position).iconFileName);
         editEventIntent.putExtra("EVENT_ID", mAllEventIds.get(position));
-        Log.d("onItemClick", mAllEventIds.get(position));
+        Log.d("onItemClick", adapter.getItem(position).iconFileName);
         startActivity(editEventIntent);
     }
 

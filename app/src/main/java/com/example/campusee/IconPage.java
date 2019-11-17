@@ -19,35 +19,35 @@ public class IconPage extends AppCompatActivity {
         img1.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendIntent();
+                sendIntent("cs_icon");
             }
         });
         ImageView img2 = findViewById(R.id.icon2);
         img2.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendIntent();
+                sendIntent("science_icon");
             }
         });
         ImageView img3 = findViewById(R.id.icon3);
         img3.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendIntent();
+                sendIntent("team_icon");
             }
         });
         ImageView img4 = findViewById(R.id.icon4);
         img4.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendIntent();
+                sendIntent("presentation_icon");
             }
         });
         ImageView img5 = findViewById(R.id.icon5);
         img5.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendIntent();
+                sendIntent("book_icon");
             }
         });
 
@@ -55,33 +55,33 @@ public class IconPage extends AppCompatActivity {
         img6.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendIntent();
+                sendIntent("news_icon");
             }
         });
         ImageView img7 = findViewById(R.id.icon7);
         img7.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendIntent();
+                sendIntent("suitcase_icon");
             }
         });
         ImageView img8 = findViewById(R.id.icon8);
         img8.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendIntent();
+                sendIntent("job_icon");
             }
         });
         ImageView img9 = findViewById(R.id.icon9);
         img9.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendIntent();
+                sendIntent("food_icon");
             }
         });
     }
 
-    private void sendIntent(){
+    private void sendIntent(String image_number){
         Intent publishEventIntent = new Intent(getApplicationContext(), PublishEvent.class);
         publishEventIntent.putExtra("EVENT_NAME", getIntent().getStringExtra("EVENT_NAME"));
         publishEventIntent.putExtra("EVENT_RADIUS", getIntent().getStringExtra("EVENT_RADIUS"));
@@ -91,6 +91,7 @@ public class IconPage extends AppCompatActivity {
         publishEventIntent.putExtra("EVENT_MONTH", getIntent().getIntExtra("EVENT_MONTH", 0));
         publishEventIntent.putExtra("EVENT_DAY", getIntent().getIntExtra("EVENT_DAY", 0));
         publishEventIntent.putExtra("EVENT_YEAR", getIntent().getIntExtra("EVENT_YEAR", 0));
+        publishEventIntent.putExtra("EVENT_ICON", image_number);
         IconPage.this.startActivity(publishEventIntent);
         IconPage.this.finish();
     }

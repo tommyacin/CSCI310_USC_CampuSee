@@ -42,7 +42,6 @@ public class PublishEvent extends AppCompatActivity {
         TextView time_tv = findViewById(R.id.publish_time);
         TextView radius_tv = findViewById(R.id.publish_radius);
         TextView description_tv = findViewById(R.id.publish_description);
-        ImageView icon_image = findViewById(R.id.icon_image);
 
         name_tv.setText(getIntent().getStringExtra("EVENT_NAME"));
         radius_tv.setText(getIntent().getStringExtra("EVENT_RADIUS"));
@@ -62,7 +61,9 @@ public class PublishEvent extends AppCompatActivity {
         final String name = name_tv.getText().toString();
         final String description = description_tv.getText().toString();
         final String radius = radius_tv.getText().toString();
-        final String iconName = "HELLO";
+        final String iconName1= getIntent().getStringExtra("EVENT_ICON");
+        setImageView(iconName1);
+        final String iconName = iconName1.toUpperCase();
 
         //writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
 
@@ -88,7 +89,30 @@ public class PublishEvent extends AppCompatActivity {
 
     }
 
-    private void writeNewEvent(final String publisherId,
+    private void setImageView(String image_name){
+        ImageView icon_image = findViewById(R.id.icon_image);
+        if(image_name.equals("cs_icon")){
+            icon_image.setImageResource(R.drawable.cs_icon);
+        } else if(image_name.equals("team_icon")){
+            icon_image.setImageResource(R.drawable.team_icon);
+        } else if(image_name.equals("science_icon")){
+            icon_image.setImageResource(R.drawable.science_icon);
+        } else if(image_name.equals("presentation_icon")){
+            icon_image.setImageResource(R.drawable.presentation_icon);
+        } else if(image_name.equals("book_icon")){
+            icon_image.setImageResource(R.drawable.book_icon);
+        } else if(image_name.equals("news_icon")){
+            icon_image.setImageResource(R.drawable.news_icon);
+        } else if(image_name.equals("job_icon")){
+            icon_image.setImageResource(R.drawable.job_icon);
+        } else if(image_name.equals("suitcase_icon")){
+            icon_image.setImageResource(R.drawable.suitcase_icon);
+        } else{
+            icon_image.setImageResource(R.drawable.food_icon);
+        }
+    }
+
+    protected void writeNewEvent(final String publisherId,
                                final String title,
                                final String description,
                                final String time,

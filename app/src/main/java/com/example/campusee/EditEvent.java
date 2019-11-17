@@ -2,23 +2,15 @@ package com.example.campusee;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class EditEvent extends AppCompatActivity {
 
@@ -73,6 +65,29 @@ public class EditEvent extends AppCompatActivity {
                 EditEvent.this.finish();
             }
         });
+    }
+
+    private void setImageView(String image_name){
+        ImageView icon_image = findViewById(R.id.edit_event_icon);
+        if(image_name.equals("cs_icon")){
+            icon_image.setImageResource(R.drawable.cs_icon);
+        } else if(image_name.equals("team_icon")){
+            icon_image.setImageResource(R.drawable.team_icon);
+        } else if(image_name.equals("science_icon")){
+            icon_image.setImageResource(R.drawable.science_icon);
+        } else if(image_name.equals("presentation_icon")){
+            icon_image.setImageResource(R.drawable.presentation_icon);
+        } else if(image_name.equals("book_icon")){
+            icon_image.setImageResource(R.drawable.book_icon);
+        } else if(image_name.equals("news_icon")){
+            icon_image.setImageResource(R.drawable.news_icon);
+        } else if(image_name.equals("job_icon")){
+            icon_image.setImageResource(R.drawable.job_icon);
+        } else if(image_name.equals("suitcase_icon")){
+            icon_image.setImageResource(R.drawable.suitcase_icon);
+        } else{
+            icon_image.setImageResource(R.drawable.food_icon);
+        }
     }
 
     private void removeEvent(String eventId, String publisherId) {
