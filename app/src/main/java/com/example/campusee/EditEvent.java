@@ -38,12 +38,6 @@ public class EditEvent extends AppCompatActivity {
         event_time_tv.setText(event_time);
         String event_date = intent.getStringExtra("EVENT_DATE");
         TextView event_date_tv = (TextView)findViewById(R.id.edit_event_date);
-        event_date_tv.setText(event_date);
-        eventId = intent.getStringExtra("EVENT_ID").toString();
-        String icon_name = intent.getStringExtra("EVENT_ICON");
-//        Log.d("STRING: " ,icon_name);
-        String icon_lower = icon_name.toLowerCase();
-        setImageView(icon_lower);
 
         Button deleteButton = (Button) findViewById(R.id.delete_button);
         deleteButton.setOnClickListener(new View.OnClickListener() {
