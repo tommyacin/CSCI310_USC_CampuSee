@@ -142,8 +142,11 @@ public class NotificationPage extends AppCompatActivity implements PublisherRecy
 
     @Override
     public void onItemClick(View view, int position) {
-        //Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
-
+        Intent eventDetailsIntent = new Intent(this, EventDetails.class);
+        eventDetailsIntent.putExtra("NOTIF_NAME", adapter.getItem(position).title);
+        eventDetailsIntent.putExtra("NOTIF_DES", adapter.getItem(position).description);
+        eventDetailsIntent.putExtra("NOTIF_TIME", adapter.getItem(position).time);
+        startActivity(eventDetailsIntent);
     }
 
     @Override
@@ -177,4 +180,6 @@ public class NotificationPage extends AppCompatActivity implements PublisherRecy
             }
         });
     }
+
+
 }
