@@ -85,7 +85,6 @@ public class SecondActivity extends AppCompatActivity {
 
     // Write user to database; returns unique userID
     private void userSignupOrLogin(final String name, final String email, final String password) {
-
         //check user exists
         mUserID = null;
         DatabaseReference usersRef = mDatabase.child("users");
@@ -95,13 +94,12 @@ public class SecondActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for(DataSnapshot u: dataSnapshot.getChildren() ){
-                        User user = u.getValue(User.class);
                         mUserID = u.getKey();
                     }
                 }
 
                 if (mUserID == null) {
-                    mUserID = writeNewUser(name, email, password, getApplicationContext());
+                    mUserID = writeNewUser(name, email, password);
                 }
 
                 Intent toStudentHome = new Intent(getApplicationContext(), StudentHome.class);
@@ -115,8 +113,8 @@ public class SecondActivity extends AppCompatActivity {
         });
     }
 
-    private String writeNewUser(String name, String email, String password, Context context) {
-        User user = new User(name, email, password, getApplicationContext());
+    private String writeNewUser(String name, String email, String password) {
+        User user = new User(name, email, password);
         String key = mDatabase.child("users").push().getKey();
         Log.d("write_new_user", key);
         mDatabase.child("users").child(key).setValue(user);

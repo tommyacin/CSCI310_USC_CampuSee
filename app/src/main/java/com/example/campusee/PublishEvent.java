@@ -36,7 +36,6 @@ public class PublishEvent extends AppCompatActivity {
         publisherID = ((Global) this.getApplication()).getCurrentPublisherID();
         buildings = ((Global) this.getApplication()).getAllBuildings();
 
-
         TextView name_tv = findViewById(R.id.publish_event_name);
         TextView date_tv = findViewById(R.id.publish_date);
         TextView time_tv = findViewById(R.id.publish_time);
@@ -51,8 +50,8 @@ public class PublishEvent extends AppCompatActivity {
         int month = getIntent().getIntExtra("EVENT_MONTH", 0);
         int day = getIntent().getIntExtra("EVENT_DAY", 0);
         int year = getIntent().getIntExtra("EVENT_YEAR", 0);
-        String time_string = String.valueOf(hour) + ":" + String.valueOf(minute);
-        String date_string = String.valueOf(month) + "/" + String.valueOf(day) + "/" + String.valueOf(year);
+        String time_string = hour + ":" + minute;
+        String date_string = month + "/" + day + "/" + year;
         date_tv.setText(date_string);
         time_tv.setText(time_string);
 
@@ -146,39 +145,24 @@ public class PublishEvent extends AppCompatActivity {
 
                         //ending geofence creation
 
-
                         Map<String, Object> eventValues = newEvent.toMap();
-
                         Map<String, Object> childUpdates = new HashMap<>();
                         childUpdates.put("/events/" + eventKey, eventValues);
                         childUpdates.put("/publisher-events/" + publisherId + "/" + eventKey, eventValues);
-
                         mDatabase.updateChildren(childUpdates);
-
-                        /*
-                        Intent publishIntent = new Intent(getApplicationContext(), PublisherMain.class);
-                        PublishEvent.this.startActivity(publishIntent);
-                         */
                     }
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
-
     }
 
     private void addNotificationToDatabase(String title, String description, String time, String publisherId) {
-
         String key = mDatabase.child("notifications").push().getKey();
-
         Notification notification = new Notification(title, description, time, publisherId, key, eventID);
-
         mDatabase.child("notifications").child(key).setValue(notification);
-
     }
-
 }

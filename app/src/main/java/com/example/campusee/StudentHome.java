@@ -63,7 +63,6 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
     private FusedLocationProviderClient locationClient = null;
     private GeofencingClient geofencingClient;
 
-    ArrayList<String> publisherNames = new ArrayList<>();
     private String clickedOnPublisherId;
 
     @Override
@@ -76,10 +75,6 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
 
         final Intent intent2 = new Intent( this, EventCreatedNotificationService.class);
         startService(intent2);
-
-        //PendingIntent.getService(this, 1010, intent2, PendingIntent.FLAG_UPDATE_CURRENT );
-
-
 
         boolean fromUserLogin = intent.getExtras().getBoolean("fromUserLogin");
         if (fromUserLogin) {
@@ -99,7 +94,6 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
 
         if (geofences == null) {
             geofences = application.getGeofenceForNotifications();
-
             if (geofences != null) {
                 GeofencingRequest request = new GeofencingRequest.Builder()
                         // Notification to trigger when the Geofence is created
@@ -147,20 +141,17 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
 
     public void onItemClick(View view, int position) {
         grabPublisherClickedOn(adapter.getItem(position).name, position);
-
     }
 
     @Override
     public void onStart() {
         super.onStart();
         googleApiClient.connect();
-
     }
 
     public void grabPublisherClickedOn(String publisherName, final int position) {
         Query publishers = mDatabase.child("publishers").orderByChild("name").equalTo(publisherName);
         publishers.addValueEventListener(new ValueEventListener() {
-
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
@@ -174,19 +165,16 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
                 //intent.putExtra("PUBLISHER_NAME", adapter.getItem(position));
                 intent.putExtra("currentPublisherID", clickedOnPublisherId);
                 startActivity(intent);
-
             }
 
             @Override
             public void onCancelled(DatabaseError dbe) {
-
             }
         });
     }
 
     public void grabAllPublishers() {
         Query publishers = mDatabase.child("publishers");
-
         publishers.addValueEventListener(new ValueEventListener() {
             // This will get called as many times as there are publishers in the database
             @Override
@@ -257,13 +245,10 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
         Log.w("tag", "onConnectionFailed()");
     }
 
-
     //location listener
-
     private void createLocationClient() {
         if (locationClient == null)
             locationClient = LocationServices.getFusedLocationProviderClient(this);
-
     }
 
     // Get last known location
@@ -277,7 +262,6 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
                             lastLocation = location;
                             // Got last known location. In some rare situations, this can be null.
                             if (location != null) {
-
                                 Log.i("tag", "LasKnown location. " +
                                         "Long: " + lastLocation.getLongitude() +
                                         " | Lat: " + lastLocation.getLatitude());
@@ -306,10 +290,8 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(UPDATE_INTERVAL)
                 .setFastestInterval(FASTEST_INTERVAL);
-
         if (checkPermission()) {
             locationClient.requestLocationUpdates(locationRequest, mLocationCallback, Looper.myLooper());
-
         }
 
     }
@@ -324,7 +306,6 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
         }
     };
 
-
     // Check for permission to access Location
     private boolean checkPermission() {
         Log.d("tag", "checkPermission()");
@@ -337,7 +318,6 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
     public void onLocationChanged(Location location) {
         Log.d("tag", "onLocationChanged ["+location+"]");
         lastLocation = location;
-
     }
 
 
@@ -358,8 +338,7 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
     // Add the created GeofenceRequest to the device's monitoring list
     private void addGeofence(GeofencingRequest request) {
         Log.d("tag", "addGeofence");
-        if (checkPermission())
-        {
+        if (checkPermission()) {
             geofencingClient.addGeofences(request, createGeofencePendingIntent())
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -375,10 +354,6 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
                     });
         }
     }
-
-
-
-
 }
 
 

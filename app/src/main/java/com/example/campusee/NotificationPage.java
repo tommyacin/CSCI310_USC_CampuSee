@@ -142,7 +142,6 @@ public class NotificationPage extends AppCompatActivity implements PublisherRecy
     @Override
     public void onStart(){
         super.onStart();
-
     }
 
     public void grabAllUserNotifications(String userId) {
@@ -166,7 +165,6 @@ public class NotificationPage extends AppCompatActivity implements PublisherRecy
 
             @Override
             public void onCancelled(DatabaseError dbe) {
-
             }
         });
     }
