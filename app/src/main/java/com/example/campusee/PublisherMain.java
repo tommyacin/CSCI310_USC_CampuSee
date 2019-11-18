@@ -22,7 +22,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class PublisherMain extends AppCompatActivity implements EventRecyclerAdapter.ItemClickListener {
-
     private DatabaseReference mDatabase;
     private EventRecyclerAdapter adapter;
     private ArrayList<Event> mAllEvents;
@@ -144,7 +143,6 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
 
             @Override
             public void onCancelled(DatabaseError dbe) {
-
             }
         });
     }

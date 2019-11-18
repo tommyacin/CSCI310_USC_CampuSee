@@ -42,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
         ((Global) this.getApplication()).initializeBuildings();
 
-
-
         application.grabAllGeofenceHolders();
 
         super.onCreate(savedInstanceState);
@@ -53,19 +51,12 @@ public class MainActivity extends AppCompatActivity {
         application.grabAllGeofences();
         application.grabAllPublishers();
 
-
         createNotificationChannel();
 
         // Getting the database
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        //if statement needs to be configured such that only activates when student is created
-        //probably need to move this to student sign up activity
-        //currently here for testing purposes
-
-
         Button studentButton = (Button) findViewById(R.id.student_button);
-
         studentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
             NotificationChannel channel = new NotificationChannel("1234", name, importance);
             channel.setDescription(description);
             channel.setLockscreenVisibility(1);
-
 
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this

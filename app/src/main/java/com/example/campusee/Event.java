@@ -54,9 +54,4 @@ public class Event {
     public int getRadius(){
         return radius;
     }
-
-    public String getTitle(){
-        return title;
-    }
-
 }

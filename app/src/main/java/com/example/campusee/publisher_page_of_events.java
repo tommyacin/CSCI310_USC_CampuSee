@@ -73,7 +73,6 @@ public class publisher_page_of_events extends AppCompatActivity implements Event
 
     private void checkSubscription(final String userId, final String publisherId) {
         Query subscriptionQuery = mDatabase.child("user-publishers").child(userId).child(publisherId);
-
         subscriptionQuery.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -84,7 +83,6 @@ public class publisher_page_of_events extends AppCompatActivity implements Event
                         } else {
                             subscribeButton.setText("Unsubscribe");
                         }
-
                     }
 
                     @Override
@@ -150,7 +148,6 @@ public class publisher_page_of_events extends AppCompatActivity implements Event
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }
@@ -180,7 +177,6 @@ public class publisher_page_of_events extends AppCompatActivity implements Event
 
             @Override
             public void onCancelled(DatabaseError dbe) {
-
             }
         });
     }

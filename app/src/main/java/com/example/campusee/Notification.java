@@ -13,7 +13,6 @@ public class Notification {
     String dbEventId;
     Event eventId;
 
-
     String sendTime;
 
     Long tsLong;
@@ -30,24 +29,6 @@ public class Notification {
         this.time = time;
         this.publisherId = publisherId;
         this.dbEventId = dbEventId;
-
-    }
-
-
-    public Map<String, Object> toMap() {
-        Map<String, Object> result = new HashMap<>();
-        result.put("sendTime", sendTime);
-        result.put("eventId", eventId);
-
-        return result;
-    }
-
-    public Long getTimestamp(){
-        return tsLong;
-    }
-
-    public void setTimestamp(Long newTime){
-        tsLong = newTime;
     }
 
     public void setEvent(Event event){
@@ -58,13 +39,10 @@ public class Notification {
         return title;
     }
 
-
     public String getDescription() {return description;}
 
     public String getNotifId() {return notifId;}
 
     public String getPublisherId(){return publisherId;}
-
-    public String getDbEventId(){return dbEventId;}
 }
 
