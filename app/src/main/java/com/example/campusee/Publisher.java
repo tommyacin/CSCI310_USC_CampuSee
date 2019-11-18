@@ -9,8 +9,6 @@ public class Publisher {
     public String password;
     public String building;
 
-    Publisher() { }
-
     Publisher(String name, String email, String password, String building) {
         this.name = name;
         this.email = email;
@@ -24,7 +22,6 @@ public class Publisher {
         result.put("email", email);
         result.put("password", password);
         result.put("building", building);
-
         return result;
     }
 }
