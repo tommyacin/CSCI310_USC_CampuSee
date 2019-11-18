@@ -1,9 +1,5 @@
 package com.example.campusee;
 
-import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.Map;
-
 public class Notification {
     String title;
     String description;
@@ -11,13 +7,11 @@ public class Notification {
     String publisherId;
     String notifId;
     String dbEventId;
+
     Event eventId;
 
     String sendTime;
-
     Long tsLong;
-
-    Notification(){}
 
     Notification(String title, String description, String time, String publisherId, String notifId, String dbEventId) {
         tsLong = System.currentTimeMillis()/1000;
@@ -29,6 +23,8 @@ public class Notification {
         this.time = time;
         this.publisherId = publisherId;
         this.dbEventId = dbEventId;
+
+        this.eventId = null;
     }
 
     public void setEvent(Event event){
