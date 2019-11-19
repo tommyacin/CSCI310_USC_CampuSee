@@ -69,14 +69,10 @@ public class Global extends Application {
 
     public void grabAllPublishers() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
         Query geos = mDatabase.child("publishers");
-
-        existingPublishers = new ArrayList<String>();
-        publisherNames = new ArrayList<String>();
-
+        existingPublishers = new ArrayList<>();
+        publisherNames = new ArrayList<>();
         geos.addChildEventListener(new ChildEventListener() {
-
             // This will get called as many times as there are publishers in the database
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -84,12 +80,10 @@ public class Global extends Application {
                 // GeofenceHolder geofence = dataSnapshot.getValue(GeofenceHolder.class);
                 Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
 
-
                 String building = (String)map.get("building");
                 String pubName = (String)map.get("name");
 
-                if(Constants.allBuildings.containsKey(building))
-                {
+                if(Constants.allBuildings.containsKey(building)) {
                     existingPublishers.add(building);
                     publisherNames.add(pubName);
                 }
