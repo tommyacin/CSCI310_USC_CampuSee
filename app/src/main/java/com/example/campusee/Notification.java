@@ -13,6 +13,9 @@ public class Notification {
     String sendTime;
     Long tsLong;
 
+    Notification(){
+
+    }
     Notification(String title, String description, String time, String publisherId, String notifId, String dbEventId) {
         tsLong = System.currentTimeMillis()/1000;
 
