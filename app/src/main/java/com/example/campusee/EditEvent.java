@@ -90,7 +90,7 @@ public class EditEvent extends AppCompatActivity {
         }
     }
 
-    private void removeEvent(String eventId, String publisherId) {
+    protected void removeEvent(String eventId, String publisherId) {
         DatabaseReference eventDatabaseRef = mDatabase.child("events").child(eventId);
         DatabaseReference publisherEventDatabaseRef = mDatabase.child("publisher-events").child(publisherId).child(eventId);
 
@@ -98,7 +98,7 @@ public class EditEvent extends AppCompatActivity {
         publisherEventDatabaseRef.removeValue();
     }
 
-    private void updateEventStatus(final String eventId, final String publisherId, final boolean status) {
+    protected void updateEventStatus(final String eventId, final String publisherId, final boolean status) {
         mDatabase.child("events").child(eventId).child("status").setValue(status);
         mDatabase.child("publisher-events").child(publisherId).child(eventId).child("status").setValue(status);
     }
