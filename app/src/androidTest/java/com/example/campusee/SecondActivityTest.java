@@ -50,9 +50,9 @@ public class SecondActivityTest {
         Intents.init();
     }*/
 
-    @Rule
+    /*@Rule
     public ActivityTestRule<SecondActivity> menuActivityTestRule =
-            new ActivityTestRule<>(SecondActivity.class, true, true);
+            new ActivityTestRule<>(SecondActivity.class, true, true);*/
 
     /*@Test
     public void checkToNextPage(){
