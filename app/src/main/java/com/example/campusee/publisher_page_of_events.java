@@ -28,7 +28,7 @@ public class publisher_page_of_events extends AppCompatActivity implements Event
     DatabaseReference mDatabase;
     Button subscribeButton;
     private EventRecyclerAdapter adapter;
-    private ArrayList<Event> mAllEvents;
+    protected ArrayList<Event> mAllEvents;
     RecyclerView recyclerView;
     ArrayList<String> eventNames;
 
@@ -112,7 +112,7 @@ public class publisher_page_of_events extends AppCompatActivity implements Event
                 });
     }
 
-    private void writeNewUserSubscription(String userId, String publisherId, Publisher publisher) {
+    protected void writeNewUserSubscription(String userId, String publisherId, Publisher publisher) {
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/user-publishers/" + userId + "/" + publisherId, publisher.toMap());
 
