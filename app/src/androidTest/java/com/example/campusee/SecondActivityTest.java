@@ -12,6 +12,8 @@ import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+//import static androidx.test.espresso.intent.Intents.intended;
+//import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
 
@@ -27,6 +29,7 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+//import androidx.test.espresso.intent.Intents;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
@@ -44,12 +47,25 @@ import static androidx.test.espresso.Espresso.onView;
 public class SecondActivityTest {
     /*@Before
     public void before(){
-        //initial setup code
+        Intents.init();
     }*/
 
     @Rule
     public ActivityTestRule<SecondActivity> menuActivityTestRule =
             new ActivityTestRule<>(SecondActivity.class, true, true);
+
+    /*@Test
+    public void checkToNextPage(){
+        Intents.init();
+        onView(withId(R.id.user_signup_name))
+                .perform(typeText("Glory Kanes"), closeSoftKeyboard());//type password and hide keyboard
+        onView(withId(R.id.user_signup_email))
+                .perform(typeText("glorykanes@email.com"), closeSoftKeyboard());
+        onView(withId(R.id.user_signup_password))
+                .perform(typeText("password1"), closeSoftKeyboard());//type password and hide keyboard
+        onView(withId(R.id.user_signup_button)).perform(click()); //perform click
+        intended(hasComponent(StudentHome.class.getName()));
+    }*/
 
     @Test
     public void checkUserSignupButton(){
@@ -86,6 +102,14 @@ public class SecondActivityTest {
                 .perform(typeText("password1"), closeSoftKeyboard());//type password and hide keyboard*/
         onView(withId(R.id.user_signup_button)).perform(click()); //perform click
         onView(withId(R.id.user_signup_email)).check(matches(withHint("Please input an email")));
+    }
+
+    @Test
+    public void checkUserSignupAllFieldsEmpty(){
+        onView(withId(R.id.user_signup_button)).perform(click()); //perform click
+        onView(withId(R.id.user_signup_email)).check(matches(withHint("Please input an email")));
+        onView(withId(R.id.user_signup_name)).check(matches(withHint("Please input a name")));
+        onView(withId(R.id.user_signup_password)).check(matches(withHint("Please input a password")));
     }
 
    /* @After
