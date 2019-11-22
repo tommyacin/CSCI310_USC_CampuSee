@@ -5,13 +5,16 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
+import androidx.test.espresso.intent.rule.IntentsTestRule;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.intent.Intents.intended;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
+
 //import static androidx.test.espresso.intent.Intents.intended;
 //import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -51,21 +54,10 @@ public class SecondActivityTest {
     }*/
 
     @Rule
-    public ActivityTestRule<SecondActivity> menuActivityTestRule =
-            new ActivityTestRule<>(SecondActivity.class, true, true);
+    /*public ActivityTestRule<SecondActivity> menuActivityTestRule =
+            new ActivityTestRule<>(SecondActivity.class, true, true);*/
+    public IntentsTestRule<SecondActivity> mActivity = new IntentsTestRule<SecondActivity>(SecondActivity.class);
 
-    /*@Test
-    public void checkToNextPage(){
-        Intents.init();
-        onView(withId(R.id.user_signup_name))
-                .perform(typeText("Glory Kanes"), closeSoftKeyboard());//type password and hide keyboard
-        onView(withId(R.id.user_signup_email))
-                .perform(typeText("glorykanes@email.com"), closeSoftKeyboard());
-        onView(withId(R.id.user_signup_password))
-                .perform(typeText("password1"), closeSoftKeyboard());//type password and hide keyboard
-        onView(withId(R.id.user_signup_button)).perform(click()); //perform click
-        intended(hasComponent(StudentHome.class.getName()));
-    }*/
 
     @Test
     public void checkUserSignupButton(){
@@ -110,6 +102,18 @@ public class SecondActivityTest {
         onView(withId(R.id.user_signup_email)).check(matches(withHint("Please input an email")));
         onView(withId(R.id.user_signup_name)).check(matches(withHint("Please input a name")));
         onView(withId(R.id.user_signup_password)).check(matches(withHint("Please input a password")));
+    }
+
+    @Test
+    public void checkUserNextAcivity(){
+        onView(withId(R.id.user_signup_name))
+                .perform(typeText("Glory Kanes"), closeSoftKeyboard()); //type email and hide keyboard
+        onView(withId(R.id.user_signup_email))
+                .perform(typeText("glorykanes@email.com"), closeSoftKeyboard());//type password and hide keyboard
+        onView(withId(R.id.user_signup_password))
+                .perform(typeText("password1"), closeSoftKeyboard());//type password and hide keyboard*/
+        onView(withId(R.id.user_signup_button)).perform(click()); //perform click
+        intended(hasComponent(StudentHome.class.getName()));
     }
 
    /* @After
