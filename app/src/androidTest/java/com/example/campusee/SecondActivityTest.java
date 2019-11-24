@@ -57,12 +57,8 @@ public class SecondActivityTest {
     /*public ActivityTestRule<SecondActivity> menuActivityTestRule =
             new ActivityTestRule<>(SecondActivity.class, true, true);*/
     public IntentsTestRule<SecondActivity> mActivity = new IntentsTestRule<SecondActivity>(SecondActivity.class);
+    
 
-
-    @Test
-    public void checkUserSignupButton(){
-        onView(withId(R.id.user_signup_button)).perform(click());
-    }
 
     @Test
     public void checkUserSignupNoPassword(){
@@ -105,7 +101,7 @@ public class SecondActivityTest {
     }
 
     @Test
-    public void checkUserNextAcivity(){
+    public void checkUserSignupNextAcivity(){
         onView(withId(R.id.user_signup_name))
                 .perform(typeText("Glory Kanes"), closeSoftKeyboard()); //type email and hide keyboard
         onView(withId(R.id.user_signup_email))
@@ -115,6 +111,8 @@ public class SecondActivityTest {
         onView(withId(R.id.user_signup_button)).perform(click()); //perform click
         intended(hasComponent(StudentHome.class.getName()));
     }
+
+
 
    /* @After
     public void after(){
