@@ -48,20 +48,28 @@ public class EditEvent extends AppCompatActivity {
             }
         });
 
-        Button republishButton = (Button) findViewById(R.id.republish_button);
-        republishButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateEventStatus(eventId, publisherId, true);
-                EditEvent.this.finish();
-            }
-        });
+//        Button republishButton = (Button) findViewById(R.id.republish_button);
+//        republishButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                updateEventStatus(eventId, publisherId, true);
+//                EditEvent.this.finish();
+//            }
+//        });
 
-        Button unpublishButton = (Button) findViewById(R.id.unpublish_button);
+        final Button unpublishButton = (Button) findViewById(R.id.unpublish_button);
         unpublishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateEventStatus(eventId, publisherId, false);
+                boolean published = true;
+                if (unpublishButton.getText().equals("Unpublish")){
+                    unpublishButton.setText("Republish");
+                    published = false;
+                } else{
+                    unpublishButton.setText("Unpublish");
+                    published = true;
+                }
+//                updateEventStatus(eventId, publisherId, published);
                 EditEvent.this.finish();
             }
         });
