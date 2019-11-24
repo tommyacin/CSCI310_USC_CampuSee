@@ -12,6 +12,8 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.intent.Intents.intended;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -46,6 +48,20 @@ public class PublishEventTest {
         onView(withId(R.id.publish_event_name)).check(matches(withText("Ginger's sick event")));
         onView(withId(R.id.publish_description)).check(matches(withText("this is my event")));
         onView(withId(R.id.publish_radius)).check(matches(withText("4")));
+    }
+
+    @Test
+    public void testPublishButtonNextActivity(){
+        stepThroughMainToPublishEventActivity();
+        onView(withId(R.id.publish_button));
+        intended(hasComponent(PublisherMain.class.getName()));
+    }
+
+    @Test
+    public void testMakeChangesButton(){
+        stepThroughMainToPublishEventActivity();
+        onView(withId(R.id.edit_button));
+        intended(hasComponent(CreateEvent.class.getName()));
     }
 
 }
