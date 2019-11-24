@@ -35,7 +35,7 @@ public class CreateEventTest {
                 .perform(typeText(eventTitle), closeSoftKeyboard());
         onView(withId(R.id.create_radius)).perform(typeText(eventRadius), closeSoftKeyboard());
         onView(withId(R.id.create_description)).perform(typeText(eventDes), closeSoftKeyboard());
-        onView(withId(R.id.next_button)).perform(click()); //perform click
+        onView(withId(R.id.create_next_button)).perform(click()); //perform click
 
         intended(allOf(
                 hasComponent(IconPage.class.getName()),
