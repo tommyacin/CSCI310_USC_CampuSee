@@ -6,8 +6,9 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class NotificationTest {
-    private String title, description, time, publisherId, notifId, dbEventId;
+    private String title, description, time, publisherId, notifId, dbEventId, building, date, icon_file;
     private Event eventId;
+    private int radius;
 
     @Before
     public void setUp() {
@@ -17,6 +18,10 @@ public class NotificationTest {
         publisherId = "1234";
         notifId = "5678";
         dbEventId = "1234";
+        building = "THH";
+        date = "06/06";
+        radius = 250;
+        icon_file = "foo";
     }
 
     @Test
@@ -35,7 +40,7 @@ public class NotificationTest {
         Notification tester = new Notification(title, description, time, publisherId, notifId, dbEventId);
         assertEquals(null, tester.eventId);
 
-        Event new_event = new Event(publisherId, "THH", title, description, time, "06/06", 200, "foo");
+        Event new_event = new Event(publisherId, building, title, description, time, date, radius, icon_file);
         tester.setEvent(new_event);
         assertEquals(new_event, tester.eventId);
     }
