@@ -9,14 +9,19 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class EditEvent extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
     private String publisherId;
     private String eventId;
+    Button unpublishButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,7 @@ public class EditEvent extends AppCompatActivity {
         event_time_tv.setText(event_time);
         String event_date = intent.getStringExtra("EVENT_DATE");
         TextView event_date_tv = (TextView)findViewById(R.id.edit_event_date);
+        eventId = intent.getStringExtra("EVENT_ID");
 
         Button deleteButton = (Button) findViewById(R.id.delete_button);
         deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -48,31 +54,49 @@ public class EditEvent extends AppCompatActivity {
             }
         });
 
-//        Button republishButton = (Button) findViewById(R.id.republish_button);
-//        republishButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                updateEventStatus(eventId, publisherId, true);
-//                EditEvent.this.finish();
-//            }
-//        });
-
-        final Button unpublishButton = (Button) findViewById(R.id.unpublish_button);
+        checkStatus(eventId, publisherId);
+        unpublishButton = (Button) findViewById(R.id.unpublish_button);
         unpublishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean published = true;
                 if (unpublishButton.getText().equals("Unpublish")){
                     unpublishButton.setText("Republish");
-                    published = false;
+                    updateEventStatus(eventId, publisherId, true);
                 } else{
                     unpublishButton.setText("Unpublish");
-                    published = true;
+                    updateEventStatus(eventId, publisherId, false);
                 }
 //                updateEventStatus(eventId, publisherId, published);
                 EditEvent.this.finish();
             }
         });
+    }
+
+    private void checkStatus(final String eventId, final String publisherId) {
+        Query statusQuery = statusQuery = mDatabase.child("publisher-events").child(publisherId).child(eventId);
+
+        statusQuery.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                            Event curr_event = dataSnapshot.getValue(Event.class);
+
+                            if (curr_event.status == false) {
+                                unpublishButton.setText("Unpublish");
+
+                            } else {
+                                unpublishButton.setText("Republish");
+                            }
+
+                            return;
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
     }
 
     private void setImageView(String image_name){

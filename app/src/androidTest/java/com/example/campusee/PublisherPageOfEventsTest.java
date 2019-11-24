@@ -26,6 +26,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 public class PublisherPageOfEventsTest {
     // Need to make sure this user starts off not subscribed
 
+
     @Rule public ActivityTestRule<MainActivity> mainActivityTest =
             new ActivityTestRule<>(MainActivity.class, true, true);
 

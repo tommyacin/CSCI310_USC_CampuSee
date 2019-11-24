@@ -17,6 +17,7 @@
         <activity android:name=".IconPage" />
         <activity android:name=".PublishEvent" />
         <activity android:name=".EditEvent" />
+        <activity android:name=".EventDetails" />
         <activity android:name=".CreateEvent" />
         <activity android:name=".PublisherMain" />
         <activity android:name=".PublisherSignup" />
