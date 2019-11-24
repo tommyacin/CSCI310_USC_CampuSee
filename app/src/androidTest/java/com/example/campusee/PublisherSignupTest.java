@@ -3,6 +3,7 @@ package com.example.campusee;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,13 +20,15 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 @RunWith(AndroidJUnit4.class)
 public class PublisherSignupTest {
-    /*@Before
-    public void before(){
-        Intents.init();
-    }*/
-    
+
+    @Before
+    public void stepThroughMainFlow(){
+        onView(withId(R.id.publisher_button)).perform(click());
+    }
+
+
     @Rule
-    public IntentsTestRule<PublisherSignup> mActivity = new IntentsTestRule<PublisherSignup>(PublisherSignup.class);
+    public IntentsTestRule<MainActivity> mActivity = new IntentsTestRule<MainActivity>(MainActivity.class);
 
 
     @Test
@@ -84,14 +87,5 @@ public class PublisherSignupTest {
         onView(withId(R.id.publisher_signup_button)).perform(click()); //perform click
         intended(hasComponent(PublisherMain.class.getName()));
     }
-
-   /* @After
-    public void after(){
-        //clean up code
-    }
-    @Test
-    public void userSignupOrLoginTest(){
-
-    }*/
 
 }
