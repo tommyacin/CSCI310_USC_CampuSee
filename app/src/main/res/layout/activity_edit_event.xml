@@ -88,20 +88,6 @@
         app:layout_constraintTop_toBottomOf="@+id/delete_button" />
 
     <Button
-        android:id="@+id/republish_button"
-        android:layout_width="155dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="84dp"
-        android:layout_marginEnd="128dp"
-        android:background="@drawable/btn_rounded"
-        android:text="Republish"
-        android:textColor="#ffffff"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/delete_button" />
-
-    <Button
         android:id="@+id/delete_button"
         android:layout_width="153dp"
         android:layout_height="40dp"
