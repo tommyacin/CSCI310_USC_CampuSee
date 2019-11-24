@@ -72,7 +72,13 @@ public class publisher_page_of_events extends AppCompatActivity implements Event
     }
 
     private void checkSubscription(final String userId, final String publisherId) {
-        Query subscriptionQuery = mDatabase.child("user-publishers").child(userId).child(publisherId);
+        Query subscriptionQuery;
+
+        if (publisherId != null && userId != null) {
+            subscriptionQuery = mDatabase.child("user-publishers").child(userId).child(publisherId);
+        } else {
+            return;
+        }
         subscriptionQuery.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -125,7 +131,7 @@ public class publisher_page_of_events extends AppCompatActivity implements Event
     }
 
     public void updatePublisherProfilePage(String pub_ID) {
-        Query pubQuery = mDatabase.child("publishers").orderByKey().equalTo(pub_ID);
+        Query pubQuery = mDatabase.child("publishers").orderByValue().equalTo(pub_ID);
         pubQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -155,7 +161,14 @@ public class publisher_page_of_events extends AppCompatActivity implements Event
     public void grabAllPublisherEvents(String publisherId) {
         mAllEvents =  new ArrayList<>();
         eventNames =  new ArrayList<>();
-        Query publisherEvents = mDatabase.child("publisher-events").child(publisherId);
+        Query publisherEvents;
+
+        if (publisherId != null) {
+            publisherEvents = mDatabase.child("publisher-events").child(publisherId);
+        } else {
+            return;
+        }
+
         publisherEvents.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
