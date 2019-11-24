@@ -75,7 +75,7 @@ public class CreateEventTest {
                 .perform(typeText("150"), closeSoftKeyboard());//type password and hide keyboard
         onView(withId(R.id.create_description))
                 .perform(typeText("Event Desc"), closeSoftKeyboard());//type password and hide keyboard*/
-        onView(withId(R.id.next_button)).perform(click()); //perform click
+        onView(withId(R.id.create_next_button)).perform(click()); //perform click
         onView(withId(R.id.icon1)).perform(click()); //perform click
         onView(withId(R.id.publish_button)).perform(click()); //perform click
 
