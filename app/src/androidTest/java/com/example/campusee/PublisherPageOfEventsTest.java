@@ -24,6 +24,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(AndroidJUnit4.class)
 public class PublisherPageOfEventsTest {
+    // Need to make sure this user starts off not subscribed
 
     @Rule public ActivityTestRule<MainActivity> mainActivityTest =
             new ActivityTestRule<>(MainActivity.class, true, true);
@@ -46,6 +47,13 @@ public class PublisherPageOfEventsTest {
 
         // click subscribe to publisher
         onView(withId(R.id.subscribe_btn)).perform(click()); //perform click
+        onView(withId(R.id.subscribe_btn))
+                .check(matches(withText("Unsubscribe")));
+    }
+
+    @Test
+    public void checkUnsubscribeToPublisher() {
+        setupPath();
         onView(withId(R.id.subscribe_btn))
                 .check(matches(withText("Unsubscribe")));
         onView(withId(R.id.subscribe_btn)).perform(click()); //perform click
