@@ -45,7 +45,7 @@ public class EditEventTest {
         onView(withId(R.id.rvEvents)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
     }
 
-    /*@Test
+    @Test
     public void unpublishEventTest() {
         setupPath();
         onView(withId(R.id.unpublish_button)).perform(click()); //perform click
@@ -63,10 +63,9 @@ public class EditEventTest {
         onView(withId(R.id.unpublish_button))
                 .check(matches(withText("Republish")));
 
+    }
 
-    }*/
-
-    /*@Test
+    @Test
     public void removeEventTest() {
         onView(withId(R.id.publisher_button)).perform(click());
         onView(withId(R.id.publisher_signup_name))
@@ -83,5 +82,5 @@ public class EditEventTest {
         // Verify that items count has changed
         onView(withId(R.id.rvEvents))
                 .check(new RecyclerViewItemCountAssertion(not(3)));
-    }*/
+    }
 }
