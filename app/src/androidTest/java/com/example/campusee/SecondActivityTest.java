@@ -70,7 +70,6 @@ public class SecondActivityTest {
                 .perform(typeText("Glory Kanes"), closeSoftKeyboard()); //type email and hide keyboard
         onView(withId(R.id.user_signup_email))
                 .perform(typeText("glorykanes@email.com"), closeSoftKeyboard());//type password and hide keyboard
-
         onView(withId(R.id.user_signup_button)).perform(click()); //perform click
         onView(withId(R.id.user_signup_password)).check(matches(withHint("Please input a password")));
     }

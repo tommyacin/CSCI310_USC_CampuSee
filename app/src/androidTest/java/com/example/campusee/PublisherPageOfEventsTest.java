@@ -3,12 +3,14 @@ package com.example.campusee;
 import android.content.Context;
 import android.content.Intent;
 
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.action.TypeTextAction;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,14 +22,17 @@ import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.junit.Assert.assertThat;
 
 
 @RunWith(AndroidJUnit4.class)
 public class PublisherPageOfEventsTest {
     // Need to make sure this user starts off not subscribed
 
-    @Rule public ActivityTestRule<MainActivity> mainActivityTest =
+    @Rule
+    public ActivityTestRule<MainActivity> mainActivityTest =
             new ActivityTestRule<>(MainActivity.class, true, true);
+
 
     protected void setupPath() {
         onView(withId(R.id.student_button)).perform(click());
@@ -38,12 +43,12 @@ public class PublisherPageOfEventsTest {
         onView(withId(R.id.user_signup_password))
                 .perform(typeText("password1"), closeSoftKeyboard());//type password and hide keyboard*/
         onView(withId(R.id.user_signup_button)).perform(click()); //perform click
-        onView(withId(R.id.rvPublishers)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
     }
 
     @Test
     public void checkSubscribesToPublisher(){
         setupPath();
+        onView(withId(R.id.rvPublishers)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
         // click subscribe to publisher
         onView(withId(R.id.subscribe_btn)).perform(click()); //perform click
@@ -54,6 +59,8 @@ public class PublisherPageOfEventsTest {
     @Test
     public void checkUnsubscribeToPublisher() {
         setupPath();
+        onView(withId(R.id.rvPublishers)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+
         onView(withId(R.id.subscribe_btn))
                 .check(matches(withText("Unsubscribe")));
         onView(withId(R.id.subscribe_btn)).perform(click()); //perform click
