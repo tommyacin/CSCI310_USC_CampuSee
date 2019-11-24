@@ -40,7 +40,7 @@ public class publisher_page_of_events extends AppCompatActivity implements Event
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         Intent intent = getIntent();
-        //final String publisher_name = intent.getStringExtra("PUBLISHER_NAME");
+        final String publisher_name = intent.getStringExtra("PUBLISHER_NAME");
         final String currentPublisherID = intent.getStringExtra("currentPublisherID");
         ((Global) this.getApplication()).setCurrentPublisherID(currentPublisherID);
 
@@ -54,7 +54,6 @@ public class publisher_page_of_events extends AppCompatActivity implements Event
         final String currentUserID = ((Global) this.getApplication()).getCurrentUserID();
         subscribeButton = (Button) findViewById(R.id.subscribe_btn);
         checkSubscription(currentUserID, currentPublisherID);
-
 
         subscribeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,7 +130,9 @@ public class publisher_page_of_events extends AppCompatActivity implements Event
     }
 
     public void updatePublisherProfilePage(String pub_ID) {
-        Query pubQuery = mDatabase.child("publishers").orderByValue().equalTo(pub_ID);
+        Log.d("we in", pub_ID);
+        Query pubQuery = mDatabase.child("publishers").orderByKey().equalTo(pub_ID);
+
         pubQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
