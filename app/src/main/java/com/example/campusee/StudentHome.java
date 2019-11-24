@@ -161,10 +161,10 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
                     Log.d("grabpublisherClickedOn", "publisherID: " + clickedOnPublisherId);
                 }
 
-                Intent intent = new Intent(StudentHome.this, publisher_page_of_events.class);
+                Intent intent4 = new Intent(StudentHome.this, publisher_page_of_events.class);
                 //intent.putExtra("PUBLISHER_NAME", adapter.getItem(position));
-                intent.putExtra("currentPublisherID", clickedOnPublisherId);
-                startActivity(intent);
+                intent4.putExtra("currentPublisherID", clickedOnPublisherId);
+                startActivity(intent4);
             }
 
             @Override
