@@ -41,6 +41,13 @@ public class NotificationPageTest {
     @Test
     public void checkNotificationMapButton(){
         mainThroughStudentHome();
+        onView(withId(R.id.mapToolbarButton)).perform(click());
+        intended(hasComponent(activity_map.class.getName()));
+    }
+
+    @Test
+    public void checkNotificationNoticationButton(){
+        mainThroughStudentHome();
         onView(withId(R.id.notificationToolbarButton)).perform(click());
         intended(hasComponent(NotificationPage.class.getName()));
     }

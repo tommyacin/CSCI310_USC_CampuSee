@@ -57,12 +57,7 @@ public class SecondActivityTest {
     /*public ActivityTestRule<SecondActivity> menuActivityTestRule =
             new ActivityTestRule<>(SecondActivity.class, true, true);*/
     public IntentsTestRule<SecondActivity> mActivity = new IntentsTestRule<SecondActivity>(SecondActivity.class);
-
-
-    @Test
-    public void checkUserSignupButton(){
-        onView(withId(R.id.user_signup_button)).perform(click());
-    }
+    
 
 
     @Test

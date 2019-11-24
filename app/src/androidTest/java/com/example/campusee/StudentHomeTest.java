@@ -52,17 +52,7 @@ public class StudentHomeTest {
     @Rule
     public IntentsTestRule<MainActivity> mActivity = new IntentsTestRule<MainActivity>(MainActivity.class);
 
-    /*@Before
-    public void before(){
-        onView(withId(R.id.user_signup_name))
-                .perform(typeText("Glory Kanes"), closeSoftKeyboard()); //type email and hide keyboard
-        onView(withId(R.id.user_signup_email))
-                .perform(typeText("glorykanes@email.com"), closeSoftKeyboard());//type password and hide keyboard
-        onView(withId(R.id.user_signup_password))
-                .perform(typeText("password1"), closeSoftKeyboard());//type password and hide keyboard
-        onView(withId(R.id.user_signup_button)).perform(click()); //perform click
 
-    }*/
     public void mainThroughSecondActivity(){
         onView(withId(R.id.student_button)).perform(click());
         onView(withId(R.id.user_signup_name))

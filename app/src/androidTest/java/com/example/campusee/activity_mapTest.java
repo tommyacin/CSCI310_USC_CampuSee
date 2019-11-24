@@ -45,4 +45,11 @@ public class activity_mapTest {
         intended(hasComponent(NotificationPage.class.getName()));
     }
 
+    @Test
+    public void checkMapMapButton(){
+        mainThroughStudentHome();
+        onView(withId(R.id.mapToolbarButton)).perform(click());
+        intended(hasComponent(activity_map.class.getName()));
+    }
+
 }
