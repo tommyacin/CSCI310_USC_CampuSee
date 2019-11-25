@@ -32,11 +32,6 @@ public class PublisherSignupTest {
 
 
     @Test
-    public void checkPublisherSignupButton(){
-        onView(withId(R.id.publisher_signup_building)).perform(click());
-    }
-
-    @Test
     public void checkPublisherSignupNoPassword(){
         onView(withId(R.id.publisher_signup_name))
                 .perform(typeText("Ginger Dudley"), closeSoftKeyboard()); //type email and hide keyboard
