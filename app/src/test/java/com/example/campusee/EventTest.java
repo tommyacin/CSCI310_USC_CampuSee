@@ -50,14 +50,22 @@ public class EventTest {
     }
 
     @Test
-    public void setStatusTest() {
+    public void setStatusFalseTest() {
         Event tester = new Event(publisherId, building, title, description, time, date, radius, iconFileName);
+        tester.setStatus(false);
         assertEquals(tester.status, false);
+    }
 
+    @Test
+    public void setStatusTrueTest() {
+        Event tester = new Event(publisherId, building, title, description, time, date, radius, iconFileName);
         tester.setStatus(true);
         assertEquals(tester.status, true);
+    }
 
-        tester.setStatus(false);
+    @Test
+    public void setStatusInitTest() {
+        Event tester = new Event(publisherId, building, title, description, time, date, radius, iconFileName);
         assertEquals(tester.status, false);
     }
 
