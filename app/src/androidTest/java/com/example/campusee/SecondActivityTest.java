@@ -57,7 +57,7 @@ public class SecondActivityTest {
     /*public ActivityTestRule<SecondActivity> menuActivityTestRule =
             new ActivityTestRule<>(SecondActivity.class, true, true);*/
     public IntentsTestRule<SecondActivity> mActivity = new IntentsTestRule<SecondActivity>(SecondActivity.class);
-    
+
 
 
     @Test
