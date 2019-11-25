@@ -12,11 +12,19 @@ public class GlobalTest {
     }
 
     @Test
-    public void initializeBuildings() {
+    public void initializeBuildingsTest() {
+        Constants constants = new Constants();
+        Global tester = new Global();
+        tester.initializeBuildings();
+        assertEquals(tester.getAllBuildings().size(), constants.allBuildings.size());
     }
 
     @Test
-    public void getAllBuildings() {
+    public void getAllBuildingsTest() {
+        Constants constants = new Constants();
+        Global tester = new Global();
+        tester.initializeBuildings();
+        assertEquals(tester.getAllBuildings().size(), constants.allBuildings.size());
     }
 
     @Test
@@ -50,22 +58,6 @@ public class GlobalTest {
     }
 
     @Test
-    public void getAllEventsForUser() {
-    }
-
-    @Test
-    public void getExistingPublishers() {
-    }
-
-    @Test
-    public void getPublisherNames() {
-    }
-
-    @Test
-    public void getGeofenceForNotifications() {
-    }
-
-    @Test
     public void setCurrentUserIDTest() {
         Global tester = new Global();
         tester.setCurrentUserID("user1");
@@ -89,25 +81,5 @@ public class GlobalTest {
 
         tester.setCurrentPublisherID("pub3");
         assertEquals("pub3", tester.getCurrentPublisherID());
-    }
-
-    @Test
-    public void grabAllPublishers() {
-    }
-
-    @Test
-    public void grabAllGeofenceHolders() {
-    }
-
-    @Test
-    public void grabAllGeofences() {
-    }
-
-    @Test
-    public void grabAllSubscribedPublisherKeys() {
-    }
-
-    @Test
-    public void grabAllUserNotifications() {
     }
 }

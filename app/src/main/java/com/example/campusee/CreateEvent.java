@@ -3,25 +3,16 @@ package com.example.campusee;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class CreateEvent extends AppCompatActivity {
 
@@ -35,7 +26,7 @@ public class CreateEvent extends AppCompatActivity {
 
         setContentView(R.layout.activity_create_event);
 
-        Button nextButton = (Button) findViewById(R.id.next_button);
+        Button nextButton = (Button) findViewById(R.id.create_next_button);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
