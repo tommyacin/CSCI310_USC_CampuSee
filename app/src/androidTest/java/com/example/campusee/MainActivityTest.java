@@ -22,6 +22,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -37,12 +38,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
+import com.google.android.gms.location.Geofence;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.List;
 
 import static androidx.test.espresso.Espresso.onView;
 import static org.junit.Assert.*;
@@ -63,6 +67,16 @@ public class MainActivityTest {
     public void checkPublisherButtonNextActivity(){
         onView(withId(R.id.publisher_button)).perform(click());
         intended(hasComponent(PublisherSignup.class.getName()));
+    }
+
+    @Test
+    public void testCreateGeofence()
+    {
+        Global application = (Global)mActivity.getActivity().getApplicationContext();
+
+        List<Geofence> geofences = application.getGeofenceForNotifications();
+
+        assert(geofences.size() > 0);
     }
 
 }

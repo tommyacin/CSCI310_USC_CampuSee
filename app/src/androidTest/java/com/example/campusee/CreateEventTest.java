@@ -27,17 +27,28 @@ import static org.hamcrest.core.AllOf.allOf;
 public class CreateEventTest {
 
     private DatabaseReference mDatabase;
-    
-    @Rule
-    public IntentsTestRule<CreateEvent> createEventActivityTestRule =
-            new IntentsTestRule<>(CreateEvent.class, true, true);
 
+    @Rule
+    public IntentsTestRule<MainActivity> createEventActivityTestRule =
+            new IntentsTestRule<>(MainActivity.class, true, true);
 
     @Test
     public void createEventTest() {
         String eventTitle = "Test Event";
         String eventDes = "Testing event";
         String eventRadius = "2";
+
+        onView(withId(R.id.publisher_button)).perform(click());
+
+
+        onView(withId(R.id.publisher_signup_name))
+                .perform(typeText("Ginger Dudley"), closeSoftKeyboard()); //type email and hide keyboard
+        onView(withId(R.id.publisher_signup_email))
+                .perform(typeText("ginger@gmail.com"), closeSoftKeyboard());//type password and hide keyboard
+        onView(withId(R.id.publisher_signup_password))
+                .perform(typeText("ginger"), closeSoftKeyboard());//type password and hide keyboard*/
+        onView(withId(R.id.publisher_signup_button)).perform(click()); //perform click
+        onView(withId(R.id.create_button)).perform(click()); //perform click
 
 
         onView(withId(R.id.create_event_name))
@@ -55,7 +66,7 @@ public class CreateEventTest {
     }
 
     @Test
-    public void checkAddNotificationToDatabase(){
+    public void testAddNotificationToDatabase(){
         mDatabase = FirebaseDatabase.getInstance().getReference();
         onView(withId(R.id.publisher_button)).perform(click());
 
@@ -83,8 +94,8 @@ public class CreateEventTest {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if (!snapshot.hasChild("notifications")) {
-                    String print = null;
-                    System.out.println(print);
+
+                    int div = 5/0;
                     // run some code
                 }
             }
@@ -94,7 +105,6 @@ public class CreateEventTest {
 
             }
         });
-
     }
 
 }

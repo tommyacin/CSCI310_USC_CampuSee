@@ -12,6 +12,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -29,6 +30,8 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.test.espresso.contrib.RecyclerViewActions;
+import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
@@ -46,9 +49,76 @@ import static androidx.test.espresso.Espresso.onView;
 
 public class StudentHomeTest {
 
-    /*@Rule
-    public ActivityTestRule<StudentHome> menuActivityTestRule =
-            new ActivityTestRule<>(StudentHome.class, true, true);*/
+    private DatabaseReference mDatabase;
+
+    @Rule
+    public IntentsTestRule<MainActivity> createEventActivityTestRule =
+            new IntentsTestRule<>(MainActivity.class, true, true);
+
+    @Test
+    public void checkPopulateRV(){
+        onView(withId(R.id.student_button)).perform(click());
+
+        onView(withId(R.id.user_signup_name))
+                .perform(typeText("Glory Kanes"), closeSoftKeyboard()); //type email and hide keyboard
+        onView(withId(R.id.user_signup_email))
+                .perform(typeText("glorykanes@email.com"), closeSoftKeyboard());//type password and hide keyboard
+        onView(withId(R.id.user_signup_password))
+                .perform(typeText("password1"), closeSoftKeyboard());//type password and hide keyboard*/
+        onView(withId(R.id.user_signup_button)).perform(click()); //perform click
+
+        onView(withId(R.id.rvPublishers)).check(matches(isDisplayed()));
+
+    }
+
+    @Test
+    public void checkClickPublisher(){
+        onView(withId(R.id.student_button)).perform(click());
+
+        onView(withId(R.id.user_signup_name))
+                .perform(typeText("Glory Kanes"), closeSoftKeyboard()); //type email and hide keyboard
+        onView(withId(R.id.user_signup_email))
+                .perform(typeText("glorykanes@email.com"), closeSoftKeyboard());//type password and hide keyboard
+        onView(withId(R.id.user_signup_password))
+                .perform(typeText("password1"), closeSoftKeyboard());//type password and hide keyboard*/
+        onView(withId(R.id.user_signup_button)).perform(click()); //perform click
+
+        // test works occasionally bc sometimes too fast doesn't have time to load rVpublishers
+        // onView(withId(R.id.rvPublishers)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+    }
+
+    @Test
+    public void testGeofencing(){
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        String key = mDatabase.child("notifications").push().getKey();
+        //Notification notification = new Notification("foo", "foo", "foo", publisherId, key, eventID);
+        //mDatabase.child("notifications").child(key).setValue(notification);
+        onView(withId(R.id.student_button)).perform(click());
+
+        onView(withId(R.id.user_signup_name))
+                .perform(typeText("Glory Kanes"), closeSoftKeyboard()); //type email and hide keyboard
+        onView(withId(R.id.user_signup_email))
+                .perform(typeText("glorykanes@email.com"), closeSoftKeyboard());//type password and hide keyboard
+        onView(withId(R.id.user_signup_password))
+                .perform(typeText("password1"), closeSoftKeyboard());//type password and hide keyboard*/
+        onView(withId(R.id.user_signup_button)).perform(click()); //perform click
+
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (!snapshot.hasChild("geofences")) {
+                    int div = 5/0;
+                    // run some code
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 
     /*@Before
     public void before(){
