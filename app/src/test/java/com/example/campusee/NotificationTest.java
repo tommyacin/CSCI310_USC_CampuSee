@@ -36,10 +36,14 @@ public class NotificationTest {
     }
 
     @Test
-    public void setEventTest() {
+    public void setEventNullTest() {
         Notification tester = new Notification(title, description, time, publisherId, notifId, dbEventId);
         assertEquals(null, tester.eventId);
+    }
 
+    @Test
+    public void setEventTest() {
+        Notification tester = new Notification(title, description, time, publisherId, notifId, dbEventId);
         Event new_event = new Event(publisherId, building, title, description, time, date, radius, icon_file);
         tester.setEvent(new_event);
         assertEquals(new_event, tester.eventId);
