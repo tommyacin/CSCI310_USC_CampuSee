@@ -97,4 +97,15 @@
         app:layout_constraintStart_toEndOf="@+id/publisherHeader2"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/profileButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:background="@color/background_yellow"
+        android:text="Profile"
+        app:layout_constraintEnd_toStartOf="@+id/logout_button"
+        app:layout_constraintStart_toEndOf="@+id/publisherHeader2"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
