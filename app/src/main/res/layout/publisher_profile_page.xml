@@ -10,8 +10,8 @@
         android:id="@+id/PublisherName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="343dp"
-        android:layout_marginEnd="39dp"
+        android:layout_marginTop="284dp"
+        android:layout_marginEnd="36dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Publisher Name"
@@ -19,18 +19,31 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/PublisherBuilding"
+        android:id="@+id/publisherEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="39dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginTop="340dp"
+        android:layout_marginEnd="36dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Publisher Building"
-        app:layout_constraintBottom_toTopOf="@+id/editProfileInfo"
+        android:text="Publisher Email"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PublisherName"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/publisher_signup_building"
+        android:layout_width="207dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="44dp"
+        android:ems="10"
+        android:hint="Building"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/buildingText"
+        app:layout_constraintTop_toBottomOf="@+id/publisherEmail" />
 
     <Button
         android:id="@+id/backToHome"
@@ -43,13 +56,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/editProfileInfo"
+        android:id="@+id/saveProfileInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="159dp"
         android:layout_marginEnd="164dp"
         android:layout_marginBottom="194dp"
-        android:text="Edit"
+        android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -59,8 +72,22 @@
         android:layout_width="78dp"
         android:layout_height="38dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="276dp"
+        android:layout_marginTop="216dp"
         android:text="Name:"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/PublisherName"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backToHome" />
+
+    <TextView
+        android:id="@+id/nameText2"
+        android:layout_width="78dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="276dp"
+        android:text="Email:"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/PublisherName"
@@ -73,20 +100,24 @@
         android:layout_width="102dp"
         android:layout_height="40dp"
         android:layout_marginStart="40dp"
+        android:layout_marginEnd="269dp"
         android:layout_marginBottom="289dp"
         android:text="Building:"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/PublisherBuilding"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView8"
-        android:layout_width="162dp"
-        android:layout_height="359dp"
-        app:srcCompat="@drawable/big_icon"
-        tools:layout_editor_absoluteX="124dp"
-        tools:layout_editor_absoluteY="25dp" />
+        android:layout_width="173dp"
+        android:layout_height="188dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="120dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/big_icon" />
 </androidx.constraintlayout.widget.ConstraintLayout>
