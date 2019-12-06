@@ -2,6 +2,7 @@ package com.example.campusee;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -44,6 +45,8 @@ public class EditEvent extends AppCompatActivity {
         String event_date = intent.getStringExtra("EVENT_DATE");
         TextView event_date_tv = (TextView)findViewById(R.id.edit_event_date);
         eventId = intent.getStringExtra("EVENT_ID");
+        String icon_name = intent.getStringExtra("EVENT_ICON");
+        Log.i("icon name", icon_name);
 
         Button deleteButton = (Button) findViewById(R.id.delete_button);
         deleteButton.setOnClickListener(new View.OnClickListener() {
