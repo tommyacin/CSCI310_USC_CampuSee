@@ -47,6 +47,9 @@ public class EditEvent extends AppCompatActivity {
         String icon_name = intent.getStringExtra("EVENT_ICON");
 //        Log.i("icon name", icon_name);
         setIconImageView(icon_name);
+        int event_radius = intent.getIntExtra("EVENT_RADIUS", 0);
+        TextView event_radius_tv = findViewById(R.id.edit_event_radius);
+        event_radius_tv.setText(String.valueOf(event_radius));
 
         Button deleteButton = (Button) findViewById(R.id.delete_button);
         deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -126,28 +129,6 @@ public class EditEvent extends AppCompatActivity {
                 });
     }
 
-    private void setImageView(String image_name){
-        ImageView icon_image = findViewById(R.id.edit_event_icon);
-        if(image_name.equals("cs_icon")){
-            icon_image.setImageResource(R.drawable.cs_icon);
-        } else if(image_name.equals("team_icon")){
-            icon_image.setImageResource(R.drawable.team_icon);
-        } else if(image_name.equals("science_icon")){
-            icon_image.setImageResource(R.drawable.science_icon);
-        } else if(image_name.equals("presentation_icon")){
-            icon_image.setImageResource(R.drawable.presentation_icon);
-        } else if(image_name.equals("book_icon")){
-            icon_image.setImageResource(R.drawable.book_icon);
-        } else if(image_name.equals("news_icon")){
-            icon_image.setImageResource(R.drawable.news_icon);
-        } else if(image_name.equals("job_icon")){
-            icon_image.setImageResource(R.drawable.job_icon);
-        } else if(image_name.equals("suitcase_icon")){
-            icon_image.setImageResource(R.drawable.suitcase_icon);
-        } else{
-            icon_image.setImageResource(R.drawable.food_icon);
-        }
-    }
 
     private void removeEvent(String eventId, String publisherId) {
         DatabaseReference eventDatabaseRef = mDatabase.child("events").child(eventId);

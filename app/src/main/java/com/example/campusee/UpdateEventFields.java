@@ -2,8 +2,6 @@ package com.example.campusee;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,10 +37,11 @@ public class UpdateEventFields extends AppCompatActivity {
         String event_date = intent.getStringExtra("EVENT_DATE");
         TextView event_date_tv = (TextView)findViewById(R.id.edit_event_date);
         eventId = intent.getStringExtra("EVENT_ID");
+        int event_radius = intent.getIntExtra("EVENT_RADIUS", 0);
 
         // [TO DO]: NEED TO GRAB EVENT BUILDING, RADIUS, ICON
         String event_building = "building";
-        int event_radius = 12;
+        event_radius = 12;
         String event_icon = "CS_ICON";
 
         updateEventFields(
