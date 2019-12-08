@@ -23,3 +23,12 @@ Next, you need to set up an emulator for the appropriate device. We chose the
 
 Once everything is ready, simply click run. Once the application launches,
 you're ready to go!
+
+
+Improvements since 2.4:
+- Users can now naviagte to their profile page and edit their personal information
+- Publishers can also now naviagte to their profile page and edit their personal information
+- Users can now click on a notification to see the full contents of the event
+- Publishers can now edit events that they have already published
+- The map markers now display the Publisher's name rather than their building
+- The modal that pops up when Publishers click on their events has been tweaked to show more relevant information
