@@ -2,7 +2,6 @@ package com.example.campusee;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -46,7 +45,8 @@ public class EditEvent extends AppCompatActivity {
         TextView event_date_tv = (TextView)findViewById(R.id.edit_event_date);
         eventId = intent.getStringExtra("EVENT_ID");
         String icon_name = intent.getStringExtra("EVENT_ICON");
-        Log.i("icon name", icon_name);
+//        Log.i("icon name", icon_name);
+        setIconImageView(icon_name);
 
         Button deleteButton = (Button) findViewById(R.id.delete_button);
         deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +73,30 @@ public class EditEvent extends AppCompatActivity {
                 EditEvent.this.finish();
             }
         });
+    }
+
+    private void setIconImageView(String iconName){
+        iconName = iconName.toLowerCase();
+        ImageView icon_image = findViewById(R.id.edit_event_icon);
+        if(iconName.equals("cs_icon")){
+            icon_image.setImageResource(R.drawable.cs_icon);
+        } else if(iconName.equals("team_icon")){
+            icon_image.setImageResource(R.drawable.team_icon);
+        } else if(iconName.equals("science_icon")){
+            icon_image.setImageResource(R.drawable.science_icon);
+        } else if(iconName.equals("presentation_icon")){
+            icon_image.setImageResource(R.drawable.presentation_icon);
+        } else if(icon_image.equals("book_icon")){
+            icon_image.setImageResource(R.drawable.book_icon);
+        } else if(iconName.equals("news_icon")){
+            icon_image.setImageResource(R.drawable.news_icon);
+        } else if(iconName.equals("job_icon")){
+            icon_image.setImageResource(R.drawable.job_icon);
+        } else if(iconName.equals("suitcase_icon")){
+            icon_image.setImageResource(R.drawable.suitcase_icon);
+        } else{
+            icon_image.setImageResource(R.drawable.food_icon);
+        }
     }
 
     private void checkStatus(final String eventId, final String publisherId) {
