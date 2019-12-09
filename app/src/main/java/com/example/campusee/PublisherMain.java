@@ -27,6 +27,7 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
     private ArrayList<Event> mAllEvents;
     private ArrayList<String> mAllEventIds;
     RecyclerView recyclerView;
+    public String currentPublisherName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,14 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
 
         //get current publisherID and set it globally
         String currentPublisherID = intent.getExtras().getString("currentPublisherID");
+        currentPublisherName = intent.getExtras().getString("currentPublisherName");
+        final String currentPublisherEmail = intent.getExtras().getString("currentPublisherEmail");
+
+
+        TextView name = (TextView) findViewById(R.id.publisher_main_page_name);
+        name.setText(currentPublisherName);
+
+
         ((Global) this.getApplication()).setCurrentPublisherID(currentPublisherID);
 
         Log.d("publisher_main", currentPublisherID);
@@ -69,6 +78,19 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
                 PublisherMain.this.startActivity(mainActivityIntent);
             }
         });
+
+        Button profileButton = (Button) findViewById(R.id.profileButton);
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profileIntent = new Intent(getApplicationContext(), PublisherProfilePage.class);
+                profileIntent.putExtra("currentPublisherName", currentPublisherName);
+                profileIntent.putExtra("currentPublisherEmail", currentPublisherEmail);
+                PublisherMain.this.startActivity(profileIntent);
+            }
+        });
+
+
     }
 
     @Override
@@ -92,6 +114,9 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
     @Override
     public void onStart(){
         super.onStart();
+        TextView name = (TextView) findViewById(R.id.publisher_main_page_name);
+        name.setText(currentPublisherName);
+
     }
 
     public void updatePublisherMainPage(String pub_ID) {
@@ -103,9 +128,8 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         Publisher curr_pub = ds.getValue(Publisher.class);
 
-                        TextView name = (TextView) findViewById(R.id.publisher_main_page_name);
                         TextView building = (TextView) findViewById(R.id.publisher_main_page_building);
-                        name.setText(curr_pub.name);
+
                         building.setText(curr_pub.building);
 
                         Log.d("update_publisher_page", curr_pub.name);

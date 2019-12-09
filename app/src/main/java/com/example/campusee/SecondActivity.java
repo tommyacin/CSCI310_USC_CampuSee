@@ -104,6 +104,9 @@ public class SecondActivity extends AppCompatActivity {
 
                 Intent toStudentHome = new Intent(getApplicationContext(), StudentHome.class);
                 toStudentHome.putExtra("currentUserID", mUserID);
+                toStudentHome.putExtra("currentUserName", name);
+                toStudentHome.putExtra("currentUserEmail", email);
+
                 toStudentHome.putExtra("fromUserLogin", true);
                 SecondActivity.this.startActivity(toStudentHome);
             }

@@ -64,6 +64,7 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
     private GeofencingClient geofencingClient;
 
     private String clickedOnPublisherId;
+    public String currentUserID = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,14 +74,22 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_home);
 
+        final String currentUserName = intent.getExtras().getString("currentUserName");
+        final String currentUserEmail = intent.getExtras().getString("currentUserEmail");
+
         final Intent intent2 = new Intent( this, EventCreatedNotificationService.class);
         startService(intent2);
 
-        boolean fromUserLogin = intent.getExtras().getBoolean("fromUserLogin");
+        final boolean fromUserLogin = intent.getExtras().getBoolean("fromUserLogin");
         if (fromUserLogin) {
-            String currentUserID = intent.getExtras().getString("currentUserID");
+            currentUserID = intent.getExtras().getString("currentUserID");
             ((Global) this.getApplication()).setCurrentUserID(currentUserID);
             Log.d("student_home", currentUserID);
+        }
+        else
+        {
+            currentUserID = intent.getExtras().getString("currentUserID");
+
         }
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -135,6 +144,21 @@ public class StudentHome extends AppCompatActivity implements HomepageRecyclerAd
                 stopService(intent2);
                 //stopService(intent3);
                 StudentHome.this.startActivity(mainActivityIntent);
+            }
+        });
+
+        Button profileButton = (Button) findViewById(R.id.profileButton);
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // add code here for what will happen when the user selects the student button
+                Intent profileIntent = new Intent(getApplicationContext(), StudentProfile.class);
+                profileIntent.putExtra("currentUserName", currentUserName);
+                profileIntent.putExtra("currentUserEmail", currentUserEmail);
+                profileIntent.putExtra("currentUserID", currentUserID);
+                profileIntent.putExtra("fromUserLogin", fromUserLogin);
+
+                StudentHome.this.startActivity(profileIntent);
             }
         });
     }
