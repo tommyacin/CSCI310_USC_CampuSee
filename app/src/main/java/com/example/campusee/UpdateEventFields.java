@@ -72,7 +72,6 @@ public class UpdateEventFields extends AppCompatActivity {
         updateEventIcon(eventId, publisherId, iconFileName);
         updateEventTime(eventId, publisherId, time);
         updateEventTitle(eventId, publisherId, title);
-        updateEventRadius(eventId, publisherId, radius);
 
     }
 
@@ -112,8 +111,4 @@ public class UpdateEventFields extends AppCompatActivity {
         mDatabase.child("publisher-events").child(publisherId).child(eventId).child("description").setValue(description);
     }
 
-    private void updateEventRadius(final String eventId, final String publisherId, final int radius) {
-        mDatabase.child("events").child(eventId).child("radius").setValue(radius);
-        mDatabase.child("publisher-events").child(publisherId).child(eventId).child("radius").setValue(radius);
-    }
 }

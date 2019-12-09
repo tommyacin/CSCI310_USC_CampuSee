@@ -47,7 +47,10 @@ public class CreateEvent extends AppCompatActivity {
         EditText create_name_tv = findViewById(R.id.create_event_name);
         create_name_tv.setText(event_name);
         EditText radius_tv = findViewById(R.id.create_radius);
-        final int event_radius = createIntent.getIntExtra("EVENT_RADIUS", 0);
+        int event_radius = createIntent.getIntExtra("EVENT_RADIUS", 5);
+        if(event_radius == 0){
+            event_radius = 5;
+        }
         radius_tv.setText(String.valueOf(event_radius));
         EditText des_tv = findViewById(R.id.create_description);
         final String event_des = createIntent.getStringExtra("EVENT_DES");

@@ -47,7 +47,7 @@ public class EditEvent extends AppCompatActivity {
         final String icon_name = intent.getStringExtra("EVENT_ICON");
 //        Log.i("icon name", icon_name);
         setIconImageView(icon_name);
-        final int event_radius = intent.getIntExtra("EVENT_RADIUS", 0);
+        final int event_radius = intent.getIntExtra("EVENT_RADIUS", 5);
         TextView event_radius_tv = findViewById(R.id.edit_event_radius);
         event_radius_tv.setText(String.valueOf(event_radius));
 
