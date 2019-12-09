@@ -21,7 +21,9 @@
         <activity android:name=".CreateEvent" />
         <activity android:name=".PublisherMain" />
         <activity android:name=".PublisherSignup" />
+        <activity android:name=".PublisherProfilePage"/>
         <activity android:name=".SecondActivity" />
+        <activity android:name=".StudentProfile"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

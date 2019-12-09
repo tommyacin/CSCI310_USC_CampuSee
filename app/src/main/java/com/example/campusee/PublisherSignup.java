@@ -114,6 +114,9 @@ public class PublisherSignup extends AppCompatActivity {
 
                 Intent publisherIntent = new Intent(getApplicationContext(), PublisherMain.class);
                 publisherIntent.putExtra("currentPublisherID", publisherID);
+                publisherIntent.putExtra("currentPublisherName", name);
+                publisherIntent.putExtra("currentPublisherEmail", email);
+
                 PublisherSignup.this.startActivity(publisherIntent);
             }
 
