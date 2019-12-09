@@ -54,6 +54,7 @@ public class PublishEvent extends AppCompatActivity {
         String date_string = month + "/" + day + "/" + year;
         date_tv.setText(date_string);
         time_tv.setText(time_string);
+        String is_edit = getIntent().getStringExtra("IS_EDIT");
 
         final String date = date_tv.getText().toString();
         final String time = time_tv.getText().toString();
@@ -67,14 +68,26 @@ public class PublishEvent extends AppCompatActivity {
         //writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
 
         Button nextButton = (Button) findViewById(R.id.publish_button);
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
-                addNotificationToDatabase(name, description, time, publisherID);
-                PublishEvent.this.finish();
-            }
-        });
+        if(is_edit != null && is_edit.equals("true")){
+            String id = getIntent().getStringExtra("EVENT_ID");
+            nextButton.setText("Save Edit");
+            nextButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PublishEvent.this.finish();
+                }
+            });
+        } else{
+            nextButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
+                    addNotificationToDatabase(name, description, time, publisherID);
+                    PublishEvent.this.finish();
+                }
+            });
+        }
+
 
         Button editButton = (Button) findViewById(R.id.edit_button);
         editButton.setOnClickListener(new View.OnClickListener() {

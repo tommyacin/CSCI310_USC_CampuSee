@@ -92,6 +92,10 @@ public class IconPage extends AppCompatActivity {
         publishEventIntent.putExtra("EVENT_DAY", getIntent().getIntExtra("EVENT_DAY", 0));
         publishEventIntent.putExtra("EVENT_YEAR", getIntent().getIntExtra("EVENT_YEAR", 0));
         publishEventIntent.putExtra("EVENT_ICON", image_number);
+        publishEventIntent.putExtra("IS_EDIT", getIntent().getStringExtra("IS_EDIT"));
+        if (getIntent().getStringExtra("IS_EDIT").equals("true")){
+            publishEventIntent.putExtra("EVENT_ID", getIntent().getStringExtra("EVENT_ID"));
+        }
         IconPage.this.startActivity(publishEventIntent);
         IconPage.this.finish();
     }
