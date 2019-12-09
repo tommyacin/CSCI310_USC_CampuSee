@@ -54,6 +54,7 @@ public class PublishEvent extends AppCompatActivity {
         String date_string = month + "/" + day + "/" + year;
         date_tv.setText(date_string);
         time_tv.setText(time_string);
+        String is_edit = getIntent().getStringExtra("IS_EDIT");
 
         final String date = date_tv.getText().toString();
         final String time = time_tv.getText().toString();
@@ -67,14 +68,29 @@ public class PublishEvent extends AppCompatActivity {
         //writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
 
         Button nextButton = (Button) findViewById(R.id.publish_button);
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
-                addNotificationToDatabase(name, description, time, publisherID);
-                PublishEvent.this.finish();
-            }
-        });
+        if(is_edit != null && is_edit.equals("true")){
+            final String id = getIntent().getStringExtra("EVENT_ID");
+            final String publisher_id = getIntent().getStringExtra("PUBLISHER_ID");
+            final String building = getIntent().getStringExtra("EVENT_BUILDING");
+            nextButton.setText("Save Edit");
+            nextButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateEventFields(id, publisher_id, building, name, description, time, date, radius, iconName);
+                    PublishEvent.this.finish();
+                }
+            });
+        } else{
+            nextButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    writeNewEvent(publisherID, name, description, time, date, Integer.parseInt(radius), iconName);
+                    addNotificationToDatabase(name, description, time, publisherID);
+                    PublishEvent.this.finish();
+                }
+            });
+        }
+
 
         Button editButton = (Button) findViewById(R.id.edit_button);
         editButton.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +99,15 @@ public class PublishEvent extends AppCompatActivity {
                 // add code here for what will happen when the user selects the student button
                 Intent intent = new Intent(getApplicationContext(), CreateEvent.class);
                 PublishEvent.this.startActivity(intent);
+            }
+        });
+
+        Button saveForLater = findViewById(R.id.publish_save_button);
+        saveForLater.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // add code here for what will happen when the user selects the student button
+                PublishEvent.this.finish();
             }
         });
 
@@ -165,4 +190,59 @@ public class PublishEvent extends AppCompatActivity {
         Notification notification = new Notification(title, description, time, publisherId, key, eventID);
         mDatabase.child("notifications").child(key).setValue(notification);
     }
+
+    protected void updateEventFields(final String eventId, final String publisherId,
+                                     final String building,
+                                     final String title,
+                                     final String description,
+                                     final String time,
+                                     final String date,
+                                     final String radius,
+                                     final String iconFileName) {
+
+        updateEventBuilding(eventId, publisherId, building);
+        updateEventDate(eventId, publisherId, date);
+        updateEventDescription(eventId, publisherId, description);
+        updateEventIcon(eventId, publisherId, iconFileName);
+        updateEventTime(eventId, publisherId, time);
+        updateEventTitle(eventId, publisherId, title);
+
+    }
+
+    // UPDATE HELPER FUNCTIONS
+    private void updateEventStatus(final String eventId, final String publisherId, final String building) {
+        mDatabase.child("events").child(eventId).child("status").setValue(false);
+        mDatabase.child("publisher-events").child(publisherId).child(eventId).child("status").setValue(false);
+    }
+
+    private void updateEventTitle(final String eventId, final String publisherId, final String title) {
+        mDatabase.child("events").child(eventId).child("title").setValue(title);
+        mDatabase.child("publisher-events").child(publisherId).child(eventId).child("title").setValue(title);
+    }
+
+    private void updateEventBuilding(final String eventId, final String publisherId, final String building) {
+        mDatabase.child("events").child(eventId).child("building").setValue(building);
+        mDatabase.child("publisher-events").child(publisherId).child(eventId).child("building").setValue(building);
+    }
+
+    private void updateEventTime(final String eventId, final String publisherId, final String time) {
+        mDatabase.child("events").child(eventId).child("time").setValue(time);
+        mDatabase.child("publisher-events").child(publisherId).child(eventId).child("time").setValue(time);
+    }
+
+    private void updateEventDate(final String eventId, final String publisherId, final String date) {
+        mDatabase.child("events").child(eventId).child("date").setValue(date);
+        mDatabase.child("publisher-events").child(publisherId).child(eventId).child("date").setValue(date);
+    }
+
+    private void updateEventIcon(final String eventId, final String publisherId, final String iconFileName) {
+        mDatabase.child("events").child(eventId).child("iconFileName").setValue(iconFileName);
+        mDatabase.child("publisher-events").child(publisherId).child(eventId).child("iconFileName").setValue(iconFileName);
+    }
+
+    private void updateEventDescription(final String eventId, final String publisherId, final String description) {
+        mDatabase.child("events").child(eventId).child("description").setValue(description);
+        mDatabase.child("publisher-events").child(publisherId).child(eventId).child("description").setValue(description);
+    }
+
 }

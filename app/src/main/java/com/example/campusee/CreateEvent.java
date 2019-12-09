@@ -26,18 +26,39 @@ public class CreateEvent extends AppCompatActivity {
 
         setContentView(R.layout.activity_create_event);
 
+        Intent intent = getIntent();
+        final String editing_event = intent.getStringExtra("IS_EDIT");
         Button nextButton = (Button) findViewById(R.id.create_next_button);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buttonClick();
+                buttonClick(editing_event);
             }
         });
         TimePicker picker=(TimePicker)findViewById(R.id.create_timepicker);
         picker.setIs24HourView(false);
+        if (editing_event != null && editing_event.equals("true")){
+            setTextFields(intent);
+        }
     }
 
-    private void buttonClick(){
+    private void setTextFields(Intent createIntent){
+        final String event_name = createIntent.getStringExtra("EVENT_NAME");
+        EditText create_name_tv = findViewById(R.id.create_event_name);
+        create_name_tv.setText(event_name);
+        EditText radius_tv = findViewById(R.id.create_radius);
+        int event_radius = createIntent.getIntExtra("EVENT_RADIUS", 5);
+        if(event_radius == 0){
+            event_radius = 5;
+        }
+        radius_tv.setText(String.valueOf(event_radius));
+        EditText des_tv = findViewById(R.id.create_description);
+        final String event_des = createIntent.getStringExtra("EVENT_DES");
+        des_tv.setText(event_des);
+
+    }
+
+    private void buttonClick(String edit_event){
         EditText event_name_input = (EditText) findViewById(R.id.create_event_name);
         EditText event_radius_input = (EditText) findViewById(R.id.create_radius);
         EditText event_description_input = (EditText) findViewById(R.id.create_description);
@@ -80,6 +101,14 @@ public class CreateEvent extends AppCompatActivity {
             iconIntent.putExtra("EVENT_MONTH", month);
             iconIntent.putExtra("EVENT_DAY", day);
             iconIntent.putExtra("EVENT_YEAR", year);
+            iconIntent.putExtra("IS_EDIT", edit_event);
+            iconIntent.putExtra("EVENT_BUILDING", getIntent().getStringExtra("EVENT_BUILDING"));
+            iconIntent.putExtra("PUBLISHER_ID", getIntent().getStringExtra("PUBLISHER_ID"));
+            if(edit_event != null){
+                if(edit_event.equals("true")){
+                    iconIntent.putExtra("EVENT_ID", getIntent().getStringExtra("EVENT_ID"));
+                }
+            }
             CreateEvent.this.startActivity(iconIntent);
             CreateEvent.this.finish();
         }

@@ -32,22 +32,22 @@ public class EditEvent extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         Intent intent = getIntent();
-        String event_name = intent.getStringExtra("EVENT_NAME");
+        final String event_name = intent.getStringExtra("EVENT_NAME");
         TextView event_name_tv = (TextView)findViewById(R.id.edit_event_name);
         event_name_tv.setText(event_name);
-        String event_des = intent.getStringExtra("EVENT_DES");
+        final String event_des = intent.getStringExtra("EVENT_DES");
         TextView event_des_tv = (TextView)findViewById(R.id.edit_event_description);
         event_des_tv.setText(event_des);
-        String event_time = intent.getStringExtra("EVENT_TIME");
+        final String event_time = intent.getStringExtra("EVENT_TIME");
         TextView event_time_tv = (TextView)findViewById(R.id.edit_event_time);
         event_time_tv.setText(event_time);
-        String event_date = intent.getStringExtra("EVENT_DATE");
+        final String event_date = intent.getStringExtra("EVENT_DATE");
         TextView event_date_tv = (TextView)findViewById(R.id.edit_event_date);
         eventId = intent.getStringExtra("EVENT_ID");
-        String icon_name = intent.getStringExtra("EVENT_ICON");
+        final String icon_name = intent.getStringExtra("EVENT_ICON");
 //        Log.i("icon name", icon_name);
         setIconImageView(icon_name);
-        int event_radius = intent.getIntExtra("EVENT_RADIUS", 0);
+        final int event_radius = intent.getIntExtra("EVENT_RADIUS", 5);
         TextView event_radius_tv = findViewById(R.id.edit_event_radius);
         event_radius_tv.setText(String.valueOf(event_radius));
 
@@ -57,6 +57,14 @@ public class EditEvent extends AppCompatActivity {
             public void onClick(View v) {
                 removeEvent(eventId, publisherId);
                 EditEvent.this.finish();
+            }
+        });
+
+        Button editButton = (Button) findViewById(R.id.edit_page_edit_button);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setCreateIntent(event_name, event_des, event_time, event_radius, eventId, icon_name, event_date);
             }
         });
 
@@ -76,6 +84,22 @@ public class EditEvent extends AppCompatActivity {
                 EditEvent.this.finish();
             }
         });
+    }
+
+    private void setCreateIntent(String event_name, String event_des, String event_time, int event_radius,
+                                 String event_id, String event_icon, String event_date){
+        Intent createIntent = new Intent(this, CreateEvent.class);
+        createIntent.putExtra("EVENT_NAME", event_name);
+        createIntent.putExtra("EVENT_DES", event_des);
+        createIntent.putExtra("EVENT_TIME", event_time);
+        createIntent.putExtra("EVENT_DATE", event_date);
+        createIntent.putExtra("EVENT_ICON", event_icon);
+        createIntent.putExtra("EVENT_RADIUS", event_radius);
+        createIntent.putExtra("EVENT_ID", event_id);
+        createIntent.putExtra("IS_EDIT", "true");
+        createIntent.putExtra("EVENT_BUILDING", getIntent().getStringExtra("EVENT_BUILDING"));
+        createIntent.putExtra("PUBLISHER_ID", getIntent().getStringExtra("PUBLISHER_ID"));
+        startActivity(createIntent);
     }
 
     private void setIconImageView(String iconName){
