@@ -82,6 +82,7 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
         editEventIntent.putExtra("EVENT_DATE", adapter.getItem(position).date);
         editEventIntent.putExtra("EVENT_ICON", adapter.getItem(position).iconFileName);
         editEventIntent.putExtra("EVENT_RADIUS", adapter.getItem(position).radius);
+        editEventIntent.putExtra("EVENT_BUILDING", adapter.getItem(position).building);
         Log.i("please work event radius", String.valueOf(adapter.getItem(position).radius));
         editEventIntent.putExtra("EVENT_ID", mAllEventIds.get(position));
         Log.d("onItemClick", adapter.getItem(position).iconFileName);

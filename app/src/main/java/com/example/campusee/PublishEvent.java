@@ -165,4 +165,64 @@ public class PublishEvent extends AppCompatActivity {
         Notification notification = new Notification(title, description, time, publisherId, key, eventID);
         mDatabase.child("notifications").child(key).setValue(notification);
     }
+
+    protected void updateEventFields(final String eventId, final String publisherId,
+                                     final String building,
+                                     final String title,
+                                     final String description,
+                                     final String time,
+                                     final String date,
+                                     final int radius,
+                                     final String iconFileName) {
+
+        updateEventBuilding(eventId, publisherId, building);
+        updateEventDate(eventId, publisherId, date);
+        updateEventDescription(eventId, publisherId, description);
+        updateEventIcon(eventId, publisherId, iconFileName);
+        updateEventTime(eventId, publisherId, time);
+        updateEventTitle(eventId, publisherId, title);
+        updateEventRadius(eventId, publisherId, radius);
+
+    }
+
+    // UPDATE HELPER FUNCTIONS
+    private void updateEventStatus(final String eventId, final String publisherId, final String building) {
+        mDatabase.child("events").child(eventId).child("status").setValue(false);
+        mDatabase.child("publisher-events").child(publisherId).child(eventId).child("status").setValue(false);
+    }
+
+    private void updateEventTitle(final String eventId, final String publisherId, final String title) {
+        mDatabase.child("events").child(eventId).child("title").setValue(title);
+        mDatabase.child("publisher-events").child(publisherId).child(eventId).child("title").setValue(title);
+    }
+
+    private void updateEventBuilding(final String eventId, final String publisherId, final String building) {
+        mDatabase.child("events").child(eventId).child("building").setValue(building);
+        mDatabase.child("publisher-events").child(publisherId).child(eventId).child("building").setValue(building);
+    }
+
+    private void updateEventTime(final String eventId, final String publisherId, final String time) {
+        mDatabase.child("events").child(eventId).child("time").setValue(time);
+        mDatabase.child("publisher-events").child(publisherId).child(eventId).child("time").setValue(time);
+    }
+
+    private void updateEventDate(final String eventId, final String publisherId, final String date) {
+        mDatabase.child("events").child(eventId).child("date").setValue(date);
+        mDatabase.child("publisher-events").child(publisherId).child(eventId).child("date").setValue(date);
+    }
+
+    private void updateEventIcon(final String eventId, final String publisherId, final String iconFileName) {
+        mDatabase.child("events").child(eventId).child("iconFileName").setValue(iconFileName);
+        mDatabase.child("publisher-events").child(publisherId).child(eventId).child("iconFileName").setValue(iconFileName);
+    }
+
+    private void updateEventDescription(final String eventId, final String publisherId, final String description) {
+        mDatabase.child("events").child(eventId).child("description").setValue(description);
+        mDatabase.child("publisher-events").child(publisherId).child(eventId).child("description").setValue(description);
+    }
+
+    private void updateEventRadius(final String eventId, final String publisherId, final int radius) {
+        mDatabase.child("events").child(eventId).child("radius").setValue(radius);
+        mDatabase.child("publisher-events").child(publisherId).child(eventId).child("radius").setValue(radius);
+    }
 }

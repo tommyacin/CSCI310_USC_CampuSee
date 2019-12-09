@@ -35,6 +35,18 @@ public class CreateEvent extends AppCompatActivity {
         });
         TimePicker picker=(TimePicker)findViewById(R.id.create_timepicker);
         picker.setIs24HourView(false);
+        Intent intent = getIntent();
+        String editing_event = intent.getStringExtra("IS_EDIT");
+        if (editing_event != null && editing_event.equals("true")){
+            setTextFields(intent);
+        }
+    }
+
+    private void setTextFields(Intent createIntent){
+        final String event_name = createIntent.getStringExtra("EVENT_NAME");
+        EditText create_tv = findViewById(R.id.create_event_name);
+        create_tv.setText(event_name);
+
     }
 
     private void buttonClick(){
