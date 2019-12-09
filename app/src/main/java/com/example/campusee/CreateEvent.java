@@ -102,8 +102,12 @@ public class CreateEvent extends AppCompatActivity {
             iconIntent.putExtra("EVENT_DAY", day);
             iconIntent.putExtra("EVENT_YEAR", year);
             iconIntent.putExtra("IS_EDIT", edit_event);
-            if(edit_event.equals("true")){
-                iconIntent.putExtra("EVENT_ID", getIntent().getStringExtra("EVENT_ID"));
+            iconIntent.putExtra("EVENT_BUILDING", getIntent().getStringExtra("EVENT_BUILDING"));
+            iconIntent.putExtra("PUBLISHER_ID", getIntent().getStringExtra("PUBLISHER_ID"));
+            if(edit_event != null){
+                if(edit_event.equals("true")){
+                    iconIntent.putExtra("EVENT_ID", getIntent().getStringExtra("EVENT_ID"));
+                }
             }
             CreateEvent.this.startActivity(iconIntent);
             CreateEvent.this.finish();

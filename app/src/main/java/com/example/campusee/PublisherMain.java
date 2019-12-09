@@ -106,7 +106,7 @@ public class PublisherMain extends AppCompatActivity implements EventRecyclerAda
         editEventIntent.putExtra("EVENT_RADIUS", adapter.getItem(position).radius);
         editEventIntent.putExtra("EVENT_BUILDING", adapter.getItem(position).building);
         editEventIntent.putExtra("EVENT_ID", mAllEventIds.get(position));
-        editEventIntent.putExtra("PUBLISHER_ID", adapter.getItem(position).publisherId)
+        editEventIntent.putExtra("PUBLISHER_ID", adapter.getItem(position).publisherId);
         Log.d("onItemClick", adapter.getItem(position).iconFileName);
         startActivity(editEventIntent);
     }

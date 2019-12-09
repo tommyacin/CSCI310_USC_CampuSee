@@ -69,11 +69,14 @@ public class PublishEvent extends AppCompatActivity {
 
         Button nextButton = (Button) findViewById(R.id.publish_button);
         if(is_edit != null && is_edit.equals("true")){
-            String id = getIntent().getStringExtra("EVENT_ID");
+            final String id = getIntent().getStringExtra("EVENT_ID");
+            final String publisher_id = getIntent().getStringExtra("PUBLISHER_ID");
+            final String building = getIntent().getStringExtra("EVENT_BUILDING");
             nextButton.setText("Save Edit");
             nextButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    updateEventFields(id, publisher_id, building, name, description, time, date, radius, iconName);
                     PublishEvent.this.finish();
                 }
             });
@@ -96,6 +99,15 @@ public class PublishEvent extends AppCompatActivity {
                 // add code here for what will happen when the user selects the student button
                 Intent intent = new Intent(getApplicationContext(), CreateEvent.class);
                 PublishEvent.this.startActivity(intent);
+            }
+        });
+
+        Button saveForLater = findViewById(R.id.publish_save_button);
+        saveForLater.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // add code here for what will happen when the user selects the student button
+                PublishEvent.this.finish();
             }
         });
 
@@ -185,7 +197,7 @@ public class PublishEvent extends AppCompatActivity {
                                      final String description,
                                      final String time,
                                      final String date,
-                                     final int radius,
+                                     final String radius,
                                      final String iconFileName) {
 
         updateEventBuilding(eventId, publisherId, building);

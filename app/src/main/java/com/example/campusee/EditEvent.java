@@ -97,6 +97,8 @@ public class EditEvent extends AppCompatActivity {
         createIntent.putExtra("EVENT_RADIUS", event_radius);
         createIntent.putExtra("EVENT_ID", event_id);
         createIntent.putExtra("IS_EDIT", "true");
+        createIntent.putExtra("EVENT_BUILDING", getIntent().getStringExtra("EVENT_BUILDING"));
+        createIntent.putExtra("PUBLISHER_ID", getIntent().getStringExtra("PUBLISHER_ID"));
         startActivity(createIntent);
     }
 
